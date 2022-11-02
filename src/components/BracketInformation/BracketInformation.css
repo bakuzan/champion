@@ -1,0 +1,61 @@
+.BracketInformation {
+  grid-area: sidebar;
+  position: relative;
+  display: flex;
+  height: 100vh;
+  background-color: var(--bracket-information-background-colour);
+  color: var(--bracket-information-colour);
+}
+
+.BracketInformation--Collapsed {
+  position: absolute;
+  left: 0;
+  transform: translateX(-100%);
+}
+
+/* Top-level Layout */
+.BracketInformation_Options {
+  display: flex;
+  flex-direction: column;
+  width: var(--bracket-information-options-width);
+  height: 100%;
+  background-color: var(--bracket-information-options-background-colour);
+}
+
+.BracketInformation_View {
+  width: -webkit-fill-available;
+  padding: 4px;
+}
+
+/* Option button stylings */
+.BracketOption {
+  background: transparent;
+  color: inherit;
+  border: none;
+  cursor: pointer;
+  height: var(--bracket-information-options-width);
+  width: var(--bracket-information-options-width);
+}
+
+.BracketOption:hover,
+.BracketInformation--Collapsed .BracketInformation_Toggle {
+  background-color: var(--bracket-information-option-hover-background-colour);
+  color: var(--bracket-information-option-hover-colour);
+}
+
+.BracketOption.BracketOption--Active {
+  background-color: var(--bracket-information-option-active-colour);
+  color: inherit;
+}
+
+/* BracketInformation toggle option */
+.BracketInformation_Toggle {
+  position: absolute;
+  bottom: 0px;
+}
+
+.BracketInformation--Collapsed .BracketInformation_Toggle {
+  right: 0;
+  transform: translateX(50px);
+  box-shadow: 0px 0px 5px 0px #1f1f1f;
+}

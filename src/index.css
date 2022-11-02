@@ -1,4 +1,26 @@
+:root {
+  --anti-flash-white: #f2f3f4;
+  --steel-grey: #676b78;
+
+  --bracket-information-background-colour: var(--steel-grey);
+  --bracket-information-colour: #fff;
+  --bracket-information-options-width: 50px;
+
+  --bracket-information-options-background-colour: #66023c;
+  --bracket-information-option-hover-background-colour: var(--anti-flash-white);
+  --bracket-information-option-hover-colour: #000;
+  --bracket-information-option-active-colour: var(--steel-grey);
+
+  --bracket-background-colour: var(--anti-flash-white);
+}
+
 body {
   font-size: 16px;
-  font-family: "Lucida Console", 'Courier New', Courier, monospace;
+  font-family: 'Lucida Console', 'Consolas', monospace;
+  height: 100vh;
+  margin: 0;
+}
+
+#root {
+  height: 100%;
 }

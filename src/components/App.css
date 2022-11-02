@@ -1,0 +1,15 @@
+.App {
+  display: grid;
+  grid-template-areas: 'sidebar core core core core';
+  height: -webkit-fill-available;
+}
+
+.App--BracketFill {
+  grid-template-areas: unset;
+  display: flex;
+}
+
+.App--BracketFill .Bracket {
+  display: flex;
+  flex: 1;
+}

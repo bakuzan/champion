@@ -1,0 +1,5 @@
+.Bracket {
+  grid-area: core;
+  background-color: var(--bracket-background-colour);
+  padding: 20px;
+}

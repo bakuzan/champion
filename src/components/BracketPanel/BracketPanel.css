@@ -1,0 +1,28 @@
+.Control {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 200px;
+  margin-bottom: 8px;
+}
+
+.ButtonGroup {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* Participants Panel */
+.ParticipantsList {
+  list-style-type: none;
+  padding: 0 4px;
+}
+
+.Participant {
+  display: flex;
+  align-items: center;
+}
+
+.Participant_Text {
+  margin-bottom: 16px;
+}
