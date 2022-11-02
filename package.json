@@ -2,7 +2,7 @@
   "name": "champion",
   "productName": "champion",
   "version": "1.0.0",
-  "description": "Tournement maker",
+  "description": "Tournament maker",
   "main": ".webpack/main",
   "scripts": {
     "start": "electron-forge start",
