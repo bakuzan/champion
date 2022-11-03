@@ -1,6 +1,19 @@
 import React from 'react';
 
+import { AppContext } from 'context/index';
+import { BracketInformation } from 'types/BracketInformation';
+
 export default function InformationPanel() {
+  const context = React.useContext(AppContext);
+  const { information, dispatch } = context;
+
+  function updateInformation(values: Partial<BracketInformation>) {
+    dispatch({
+      type: 'UPDATE_INFORMATION',
+      data: { ...information, ...values }
+    });
+  }
+
   return (
     <div className="InformationPanel">
       <h2>Information</h2>
@@ -9,8 +22,12 @@ export default function InformationPanel() {
         <input
           id="bracketName"
           type="text"
-          name="bracketName"
+          name="name"
           placeholder="Bracket Name"
+          value={information.name}
+          onChange={(event) =>
+            updateInformation({ name: event.currentTarget.value })
+          }
         />
       </div>
       <div className="Control">
@@ -23,8 +40,12 @@ export default function InformationPanel() {
         <label htmlFor="bracketDescription">Bracket Description</label>
         <textarea
           id="bracketDescription"
-          name="bracketDescription"
+          name="description"
           placeholder="Bracket Description"
+          value={information.description}
+          onChange={(event) =>
+            updateInformation({ description: event.currentTarget.value })
+          }
         />
       </div>
       <div className="ButtonGroup">

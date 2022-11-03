@@ -17,6 +17,8 @@ export const rendererConfig: Configuration = {
   resolve: {
     alias: {
       components: path.resolve(__dirname, './src/components'),
+      context: path.resolve(__dirname, './src/context'),
+      types: path.resolve(__dirname, './src/types'),
       utils: path.resolve(__dirname, './src/utils')
     },
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css']

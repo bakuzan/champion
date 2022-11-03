@@ -1,14 +1,18 @@
 import React from 'react';
+
+import { AppContext } from 'context/index';
+
+import { BracketParticipant } from 'types/BracketParticipant';
 import generateUniqueId from 'utils/generateUniqueId';
 
 interface ParticipantProps {
-  index: number;
-  key: string;
+  data: BracketParticipant;
+  onChange: (data: BracketParticipant) => void;
   onRemove: (key: string) => void;
 }
 
 function Participant(props: ParticipantProps) {
-  const num = props.index + 1;
+  const num = props.data.order + 1;
 
   return (
     <div className="Participant">
@@ -19,15 +23,19 @@ function Participant(props: ParticipantProps) {
         <input
           id="participant"
           type="text"
-          name="participant"
+          name="text"
           placeholder="Participant"
+          value={props.data.text}
+          onChange={(event) =>
+            props.onChange({ ...props.data, text: event.currentTarget.value })
+          }
         />
       </div>
       <div className="Participant_Remove">
         <button
           type="button"
           title="Remove participant"
-          onClick={() => props.onRemove(props.key)}
+          onClick={() => props.onRemove(props.data.key)}
         >
           X
         </button>
@@ -37,21 +45,20 @@ function Participant(props: ParticipantProps) {
 }
 
 export default function ParticipantsPanel() {
-  const [addedParticipants, setAddedParticipants] = React.useState([]);
-  const participants = [...addedParticipants];
+  const context = React.useContext(AppContext);
+  const { participants, dispatch } = context;
 
   return (
     <div className="ParticipantsPanel">
       <h2>Participants</h2>
 
       <ul className="ParticipantsList">
-        {participants.map((p, i) => (
+        {participants.map((p) => (
           <Participant
-            index={i}
-            {...p}
-            onRemove={(key) =>
-              setAddedParticipants((p) => p.filter((x) => x.key !== key))
-            }
+            key={p.key}
+            data={p}
+            onChange={(data) => dispatch({ type: 'UPDATE_PARTICIPANT', data })}
+            onRemove={(key) => dispatch({ type: 'REMOVE_PARTICIPANT', key })}
           />
         ))}
       </ul>
@@ -61,10 +68,14 @@ export default function ParticipantsPanel() {
           type="button"
           className="AddParticipants"
           onClick={() =>
-            setAddedParticipants((p) => [
-              ...p,
-              { key: generateUniqueId(), text: '' }
-            ])
+            dispatch({
+              type: 'ADD_PARTICIPANT',
+              data: {
+                key: generateUniqueId(),
+                text: '',
+                order: participants.length
+              }
+            })
           }
         >
           Add Participant
