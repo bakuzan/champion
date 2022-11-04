@@ -1,6 +1,7 @@
 :root {
   --anti-flash-white: #f2f3f4;
   --steel-grey: #676b78;
+  --dark-slate: #282c35;
 
   --bracket-information-background-colour: var(--steel-grey);
   --bracket-information-colour: #fff;
@@ -10,6 +11,9 @@
   --bracket-information-option-hover-background-colour: var(--anti-flash-white);
   --bracket-information-option-hover-colour: #000;
   --bracket-information-option-active-colour: var(--steel-grey);
+
+  --participant-background-colour: var(--dark-slate);
+  /* --participant-colour: */
 
   --bracket-background-colour: var(--anti-flash-white);
 }

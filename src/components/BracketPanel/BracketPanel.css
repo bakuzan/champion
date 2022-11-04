@@ -18,11 +18,31 @@
   padding: 0 4px;
 }
 
+/* Participant Item */
 .Participant {
   display: flex;
   align-items: center;
+  background-color: var(--participant-background-colour);
+  color: var(--participant-colour);
+  padding: 4px;
+  margin-bottom: 4px;
 }
 
-.Participant_Text {
+.Participant_Handle,
+.Participant_Number {
+  width: 15px;
+}
+
+.Participant_Controls {
+  display: flex;
+  flex-direction: column;
+  width: -webkit-fill-available;
+}
+
+.Participant_Control {
   margin-bottom: 16px;
+}
+
+.Participant_Remove {
+  width: 25px;
 }

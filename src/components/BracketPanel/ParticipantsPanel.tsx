@@ -7,29 +7,49 @@ import generateUniqueId from 'utils/generateUniqueId';
 
 interface ParticipantProps {
   data: BracketParticipant;
+  index: number;
   onChange: (data: BracketParticipant) => void;
   onRemove: (key: string) => void;
 }
 
 function Participant(props: ParticipantProps) {
-  const num = props.data.order + 1;
+  const num = props.index + 1;
 
   return (
-    <div className="Participant">
+    <li className="Participant">
       <div className="Participant_Handle">H</div>
       <div className="Participant_Number">{num}</div>
-      <div className="Participant_Text Control">
-        <label htmlFor="participant">Participant</label>
-        <input
-          id="participant"
-          type="text"
-          name="text"
-          placeholder="Participant"
-          value={props.data.text}
-          onChange={(event) =>
-            props.onChange({ ...props.data, text: event.currentTarget.value })
-          }
-        />
+      <div className="Participant_Controls">
+        <div className="Participant_Control Control">
+          <label htmlFor="participant">Participant</label>
+          <input
+            id="participant"
+            type="text"
+            name="text"
+            placeholder="Participant"
+            value={props.data.text}
+            onChange={(event) =>
+              props.onChange({ ...props.data, text: event.currentTarget.value })
+            }
+          />
+        </div>
+        <div className="Participant_Control Control">
+          <label htmlFor="participant">Image Url</label>
+          <input
+            id="image"
+            type="url"
+            name="imageUrl"
+            placeholder="Image Url"
+            value={props.data.imageUrl ?? ''}
+            onChange={(event) => {
+              const imageUrl = event.currentTarget.value;
+              props.onChange({
+                ...props.data,
+                imageUrl: imageUrl && imageUrl.trim() ? imageUrl.trim() : null
+              });
+            }}
+          />
+        </div>
       </div>
       <div className="Participant_Remove">
         <button
@@ -40,7 +60,7 @@ function Participant(props: ParticipantProps) {
           X
         </button>
       </div>
-    </div>
+    </li>
   );
 }
 
@@ -53,10 +73,11 @@ export default function ParticipantsPanel() {
       <h2>Participants</h2>
 
       <ul className="ParticipantsList">
-        {participants.map((p) => (
+        {participants.map((p, i) => (
           <Participant
             key={p.key}
             data={p}
+            index={i}
             onChange={(data) => dispatch({ type: 'UPDATE_PARTICIPANT', data })}
             onRemove={(key) => dispatch({ type: 'REMOVE_PARTICIPANT', key })}
           />
@@ -73,7 +94,7 @@ export default function ParticipantsPanel() {
               data: {
                 key: generateUniqueId(),
                 text: '',
-                order: participants.length
+                imageUrl: null
               }
             })
           }

@@ -20,6 +20,28 @@ interface AppState {
 
 function reducer(state: AppState, action: AppAction) {
   switch (action.type) {
+    case 'UPDATE_INFORMATION':
+      return {
+        ...state,
+        information: { ...state.information, ...action.data }
+      };
+    case 'ADD_PARTICIPANT':
+      return {
+        ...state,
+        participants: [...state.participants, action.data]
+      };
+    case 'UPDATE_PARTICIPANT':
+      return {
+        ...state,
+        participants: state.participants.map((x) =>
+          x.key !== action.data.key ? x : action.data
+        )
+      };
+    case 'REMOVE_PARTICIPANT':
+      return {
+        ...state,
+        participants: state.participants.filter((x) => x.key !== action.key)
+      };
     default:
       return { ...state };
   }
@@ -33,7 +55,7 @@ const DEFAULT_STATE: AppState = {
 function App() {
   const [isCollapsed, setIsCollapsed] = React.useState(false);
   const [data, dispatch] = React.useReducer(reducer, DEFAULT_STATE);
-
+  console.log('<App> :: ', data);
   return (
     <AppContext.Provider
       value={{
