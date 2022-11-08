@@ -1,5 +1,27 @@
+/* Bracket */
 .Bracket {
   grid-area: core;
   background-color: var(--bracket-background-colour);
   padding: 20px;
+}
+
+/* Round */
+.Round {
+}
+
+.Round_Name {
+}
+
+/* Matchup */
+.Matchup {
+}
+
+/* Matchup Slot */
+.Matchup_Slot {
+}
+
+.Matchup_Slot--Top {
+}
+
+.Matchup_Slot--Bot {
 }

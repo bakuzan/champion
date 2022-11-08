@@ -1,14 +1,10 @@
 import { BracketParticipant } from 'types/BracketParticipant';
-
-const emptyParticipant: BracketParticipant = {
-  key: 'placeholder',
-  text: 'TBC'
-};
+import generateUniqueId from 'utils/generateUniqueId';
 
 export default function generateTBCParticipants(
   count: number
 ): BracketParticipant[] {
   return Array(count)
     .fill(null)
-    .map(() => ({ ...emptyParticipant }));
+    .map(() => ({ key: generateUniqueId(), text: 'TBC' }));
 }
