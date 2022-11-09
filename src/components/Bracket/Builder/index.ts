@@ -6,6 +6,19 @@ import populateRound from './populateRound';
 import generateRounds from './generateRounds';
 import generateTBCParticipants from './generateTBCParticipants';
 
+function splitAndPadMissingParticipants(
+  participants: BracketParticipant[],
+  padCount: number
+) {
+  const participantsHalf = participants.length / 2;
+
+  return [
+    ...participants.slice(0, participantsHalf),
+    ...generateTBCParticipants(padCount),
+    ...participants.slice(participantsHalf)
+  ];
+}
+
 export function buildRounds(participants: BracketParticipant[]) {
   const rounds: BracketRound[] = [];
   const participantCount = participants.length;
@@ -15,9 +28,14 @@ export function buildRounds(participants: BracketParticipant[]) {
 
   // Create qualifer round if the number of participants doesn't fit.
   if (remainder !== 0) {
-    const qualifiers = participants.slice(remainderParticipants);
+    const paddingParticipants = (participantCount - remainder) * 2;
+    const qualifiers = splitAndPadMissingParticipants(
+      participants.slice(remainderParticipants),
+      paddingParticipants
+    );
+
     const orderedQualifiers = orderBySeed(qualifiers);
-    rounds.push(populateRound(orderedQualifiers, 'Qualifers'));
+    rounds.push(populateRound(orderedQualifiers, 'Qualifiers'));
   }
 
   // Create round for participants (potentially after a qualifer)
@@ -25,11 +43,11 @@ export function buildRounds(participants: BracketParticipant[]) {
   const participantsAfterQualifiers = participants.slice(0, postQualifierCount);
   participantsAfterQualifiers.push(...generateTBCParticipants(remainder));
 
-  const orderedPostQualifers = orderBySeed(participantsAfterQualifiers);
-  rounds.push(populateRound(orderedPostQualifers));
+  const orderedPostQualifiers = orderBySeed(participantsAfterQualifiers);
+  rounds.push(populateRound(orderedPostQualifiers));
 
   // Create future rounds based on participant count
-  rounds.push(...generateRounds(orderedPostQualifers.length / 2));
+  rounds.push(...generateRounds(orderedPostQualifiers.length / 2));
 
   return rounds;
 }

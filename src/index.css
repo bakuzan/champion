@@ -16,6 +16,8 @@
   /* --participant-colour: */
 
   --bracket-background-colour: var(--anti-flash-white);
+  --matchup-border-colour: var(--dark-slate);
+  --matchup-slot-colour: var(--dark-slate);
 }
 
 body {

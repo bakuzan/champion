@@ -1,7 +1,7 @@
 .App {
   display: grid;
   grid-template-areas: 'sidebar core core core core';
-  height: -webkit-fill-available;
+  height: 100vh; /* -webkit-fill-available; */
 }
 
 .App--BracketFill {

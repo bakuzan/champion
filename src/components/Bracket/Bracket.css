@@ -1,27 +1,117 @@
 /* Bracket */
 .Bracket {
   grid-area: core;
-  background-color: var(--bracket-background-colour);
+  background-color: var(--bracket--background--colour);
+  position: relative;
+  display: flex;
   padding: 20px;
+  height: 100vh;
+  overflow: scroll; /* TODO, remove and make area pan/zoom */
+  box-sizing: content-box;
 }
 
 /* Round */
 .Round {
+  height: 100%;
 }
 
 .Round_Name {
+  position: absolute;
+  top: 0;
+}
+
+.Bracket--16 .Round--8,
+.Bracket--32 .Round--16,
+.Bracket--64 .Round--32 {
+  margin-top: 25px;
+}
+
+.Bracket--16 .Round--4,
+.Bracket--32 .Round--8,
+.Bracket--64 .Round--16 {
+  margin-top: 75px;
+}
+
+.Bracket--16 .Round--2,
+.Bracket--32 .Round--4,
+.Bracket--64 .Round--8 {
+  margin-top: 175px;
 }
 
 /* Matchup */
 .Matchup {
+  position: relative;
+  width: 200px;
+  height: 100px;
+  border: 2px solid var(--matchup-border-colour, #000);
+  border-left-width: 0;
+  box-sizing: border-box;
+  margin-bottom: 100px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+.Matchup:last-of-type {
+  margin-bottom: 0 !important;
+}
+
+.Matchup--Hidden {
+  visibility: hidden;
+}
+
+.Bracket--64 .Round--64 .Matchup,
+.Bracket--32 .Round--32 .Matchup,
+.Bracket--16 .Round--16 .Matchup {
+  height: 50px;
+  margin-bottom: 50px;
+}
+
+.Bracket--64 .Round--16 .Matchup,
+.Bracket--32 .Round--8 .Matchup,
+.Bracket--16 .Round--4 .Matchup,
+.Bracket--8 .Round--4 .Matchup,
+.Bracket--4 .Round--2 .Matchup {
+  height: 200px;
+  margin-bottom: 200px;
+}
+
+.Bracket--64 .Round--8 .Matchup,
+.Bracket--32 .Round--4 .Matchup,
+.Bracket--16 .Round--2 .Matchup,
+.Bracket--8 .Round--2 .Matchup {
+  height: 400px;
+  margin-bottom: 400px;
+}
+
+.Round--2 .Matchup:after {
+  display: block;
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 200px;
+  height: 0;
+  border-bottom: 2px solid var(--matchup-border-colour, #000);
 }
 
 /* Matchup Slot */
 .Matchup_Slot {
+  color: var(--matchup-slot-colour);
+  position: absolute;
+  left: 0;
+  height: 28px;
+  line-height: 28px;
+  font-size: 18px;
+  width: 100%;
+  padding: 0 0 0 2px;
 }
 
 .Matchup_Slot--Top {
+  top: -32px;
 }
 
 .Matchup_Slot--Bot {
+  bottom: 2px;
 }
