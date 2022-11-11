@@ -26,19 +26,19 @@ export function buildRounds(participants: BracketParticipant[]) {
   const remainder = Math.round(2 ** exponent) % 2 ** Math.floor(exponent);
   const remainderParticipants = -remainder * 2;
 
-  // Create qualifer round if the number of participants doesn't fit.
+  // Create qualifier round if the number of participants doesn't fit.
   if (remainder !== 0) {
-    const paddingParticipants = (participantCount - remainder) * 2;
+    const paddingParticipantsCount = (participantCount - remainder) * 2;
     const qualifiers = splitAndPadMissingParticipants(
       participants.slice(remainderParticipants),
-      paddingParticipants
+      paddingParticipantsCount
     );
 
-    const orderedQualifiers = orderBySeed(qualifiers);
+    const orderedQualifiers = orderBySeed(qualifiers); // TODO Consider .reverse()
     rounds.push(populateRound(orderedQualifiers, 'Qualifiers'));
   }
 
-  // Create round for participants (potentially after a qualifer)
+  // Create round for participants (potentially after a qualifier)
   const postQualifierCount = participants.length + remainderParticipants;
   const participantsAfterQualifiers = participants.slice(0, postQualifierCount);
   participantsAfterQualifiers.push(...generateTBCParticipants(remainder));
@@ -47,7 +47,9 @@ export function buildRounds(participants: BracketParticipant[]) {
   rounds.push(populateRound(orderedPostQualifiers));
 
   // Create future rounds based on participant count
-  rounds.push(...generateRounds(orderedPostQualifiers.length / 2));
+  if (orderedPostQualifiers.length > 2) {
+    rounds.push(...generateRounds(orderedPostQualifiers.length / 2));
+  }
 
   return rounds;
 }

@@ -27,9 +27,13 @@ function Participant(props: ParticipantProps) {
             type="text"
             name="text"
             placeholder="Participant"
+            required
             value={props.data.text}
             onChange={(event) =>
-              props.onChange({ ...props.data, text: event.currentTarget.value })
+              props.onChange({
+                ...props.data,
+                text: event.currentTarget.value
+              })
             }
           />
         </div>

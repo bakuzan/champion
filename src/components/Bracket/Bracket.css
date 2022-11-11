@@ -1,3 +1,10 @@
+/* Zoom Pan Pinch Override */
+.react-transform-wrapper {
+  height: 100%;
+  width: 100%;
+  cursor: move;
+}
+
 /* Bracket */
 .Bracket {
   grid-area: core;
@@ -6,8 +13,7 @@
   display: flex;
   padding: 20px;
   height: 100vh;
-  overflow: scroll; /* TODO, remove and make area pan/zoom */
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 
 /* Round */
@@ -17,7 +23,8 @@
 
 .Round_Name {
   position: absolute;
-  top: 0;
+  top: -75px;
+  font-size: 1.2rem;
 }
 
 .Bracket--16 .Round--8,
@@ -55,6 +62,12 @@
 
 .Matchup:last-of-type {
   margin-bottom: 0 !important;
+}
+
+.Matchup:hover {
+  border: 2px solid var(--matchup-border-hover-colour);
+  border-top-color: var(--matchup-border-fade-colour);
+  box-shadow: 0px 1px 2px var(--matchup-border-hover-colour);
 }
 
 .Matchup--Hidden {
@@ -114,4 +127,26 @@
 
 .Matchup_Slot--Bot {
   bottom: 2px;
+}
+
+.Matchup:hover .Matchup_Slot--Top {
+  border: 2px solid var(--matchup-border-hover-colour);
+  border-bottom: 0;
+  box-sizing: content-box;
+  left: -3px;
+  top: -32px;
+  height: 30px;
+  background: var(--bracket--background--colour);
+}
+
+/* ZoomTools */
+.ZoomTools {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+}
+
+.Zoom {
+}
+.ZoomLevel {
 }

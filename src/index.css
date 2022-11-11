@@ -2,6 +2,7 @@
   --anti-flash-white: #f2f3f4;
   --steel-grey: #676b78;
   --dark-slate: #282c35;
+  --gold: #ffd700;
 
   --bracket-information-background-colour: var(--steel-grey);
   --bracket-information-colour: #fff;
@@ -16,7 +17,10 @@
   /* --participant-colour: */
 
   --bracket-background-colour: var(--anti-flash-white);
+
   --matchup-border-colour: var(--dark-slate);
+  --matchup-border-fade-colour: var(--steel-grey);
+  --matchup-border-hover-colour: var(--gold);
   --matchup-slot-colour: var(--dark-slate);
 }
 

@@ -24,6 +24,7 @@ export default function InformationPanel() {
           type="text"
           name="name"
           placeholder="Bracket Name"
+          required
           value={information.name}
           onChange={(event) =>
             updateInformation({ name: event.currentTarget.value })
