@@ -17,6 +17,8 @@ function App() {
 }
 
 function render() {
+  window.Champion.ping(); // TODO : Remove, Just a check for working with main/renderer
+
   const root = createRoot(document.getElementById('root'));
   root.render(<App />);
 }

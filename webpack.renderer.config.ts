@@ -19,7 +19,8 @@ export const rendererConfig: Configuration = {
       components: path.resolve(__dirname, './src/components'),
       context: path.resolve(__dirname, './src/context'),
       types: path.resolve(__dirname, './src/types'),
-      utils: path.resolve(__dirname, './src/utils')
+      utils: path.resolve(__dirname, './src/utils'),
+      views: path.resolve(__dirname, './src/views')
     },
     extensions: ['.js', '.ts', '.jsx', '.tsx', '.css']
   }
