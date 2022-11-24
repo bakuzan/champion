@@ -7,7 +7,7 @@ export default function ZoomTools({
   resetTransform,
   ...props
 }: ReactZoomPanPinchRef) {
-  const zoomPercentage = props.state.scale * 100;
+  const zoomPercentage = Math.round(props.state.scale * 100);
   console.log('<ZoomTools> ', props);
 
   return (

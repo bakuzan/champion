@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import BracketOption from './BracketOption';
 import { BracketInformationOptions } from './BracketInformationOptions';
@@ -19,6 +20,7 @@ function BracketInformation({
   onToggleCollapse
 }: BracketInformationProps) {
   const [activeOption, setActiveOption] = React.useState(DEFAULT_ACTIVE_OPTION);
+  const navigate = useNavigate();
 
   return (
     <div
@@ -28,6 +30,14 @@ function BracketInformation({
       )}
     >
       <div className="BracketInformation_Options">
+        <BracketOption
+          title="Home"
+          activeOption={activeOption}
+          optionValue={BracketInformationOptions.Home}
+          onClick={() => navigate('/')}
+        >
+          H
+        </BracketOption>
         <BracketOption
           title="Information"
           activeOption={activeOption}

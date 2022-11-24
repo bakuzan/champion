@@ -5,6 +5,7 @@
   height: 100vh;
   background-color: var(--bracket-information-background-colour);
   color: var(--bracket-information-colour);
+  z-index: 1;
 }
 
 .BracketInformation--Collapsed {

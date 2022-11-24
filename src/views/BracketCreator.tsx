@@ -1,7 +1,7 @@
 import * as React from 'react';
 
-import BracketInformationComponent from './BracketInformation';
-import Bracket from './Bracket';
+import BracketInformationComponent from 'components/BracketInformation';
+import Bracket from 'components/Bracket';
 
 import { AppContext } from 'context/index';
 
@@ -11,7 +11,7 @@ import { BracketParticipant } from 'types/BracketParticipant';
 
 import classNames from 'utils/classNames';
 
-import './App.css';
+import './BracketCreator.css';
 
 interface AppState {
   information: BracketInformation;
@@ -103,10 +103,10 @@ const DEFAULT_STATE: AppState = {
   ] // DEV DATA
 };
 
-function App() {
+function BracketCreator() {
   const [isCollapsed, setIsCollapsed] = React.useState(false);
   const [data, dispatch] = React.useReducer(reducer, DEFAULT_STATE);
-  console.log('<App> :: ', data);
+  console.log('<BracketCreator> :: ', data);
   return (
     <AppContext.Provider
       value={{
@@ -115,7 +115,12 @@ function App() {
         dispatch
       }}
     >
-      <main className={classNames('App', isCollapsed && 'App--BracketFill')}>
+      <main
+        className={classNames(
+          'BracketCreator',
+          isCollapsed && 'BracketCreator--BracketFill'
+        )}
+      >
         <BracketInformationComponent
           isCollapsed={isCollapsed}
           onToggleCollapse={() => setIsCollapsed((p) => !p)}
@@ -126,4 +131,4 @@ function App() {
   );
 }
 
-export default App;
+export default BracketCreator;

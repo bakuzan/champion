@@ -1,15 +1,15 @@
-.App {
+.BracketCreator {
   display: grid;
   grid-template-areas: 'sidebar core core core core';
   height: 100vh; /* -webkit-fill-available; */
 }
 
-.App--BracketFill {
+.BracketCreator--BracketFill {
   grid-template-areas: unset;
   display: flex;
 }
 
-.App--BracketFill .Bracket {
+.BracketCreator--BracketFill .Bracket {
   display: flex;
   flex: 1;
 }
