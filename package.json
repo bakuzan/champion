@@ -9,7 +9,15 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
+    "lint": "eslint --fix --ext .ts,.tsx .",
+    "pretty": "prettier --write",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "{,src}/**/*.{ts,tsx}": [
+      "npm run pretty",
+      "npm run lint"
+    ]
   },
   "keywords": [],
   "author": {
@@ -33,7 +41,10 @@
     "eslint": "^8.0.1",
     "eslint-plugin-import": "^2.25.0",
     "fork-ts-checker-webpack-plugin": "^7.2.13",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.0.3",
     "node-loader": "^2.0.0",
+    "prettier": "^2.8.0",
     "style-loader": "^3.0.0",
     "ts-loader": "^9.2.2",
     "ts-node": "^10.0.0",
