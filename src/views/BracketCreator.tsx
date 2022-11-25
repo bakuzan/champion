@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import BracketInformationComponent from 'components/BracketInformation';
 import Bracket from 'components/Bracket';
@@ -106,13 +107,34 @@ const DEFAULT_STATE: AppState = {
 function BracketCreator() {
   const [isCollapsed, setIsCollapsed] = React.useState(false);
   const [data, dispatch] = React.useReducer(reducer, DEFAULT_STATE);
+  const navigate = useNavigate();
+  // const params = useParams();
+
+  // TODO fetch data here using params.templateId
+
+  // const loading = false;
+
+  // if (loading) {
+  //   return <div>placeholder for loader...</div>;
+  // }
+
+  function save() {
+    const templateId = window.Champion.saveBracketTemplate({
+      ...data.information,
+      participants: data.participants
+    });
+
+    navigate(`/template/${templateId}`);
+  }
+
   console.log('<BracketCreator> :: ', data);
   return (
     <AppContext.Provider
       value={{
         information: data.information,
         participants: data.participants,
-        dispatch
+        dispatch,
+        save
       }}
     >
       <main

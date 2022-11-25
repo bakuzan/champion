@@ -16,6 +16,7 @@ export const rendererConfig: Configuration = {
   plugins,
   resolve: {
     alias: {
+      api: path.resolve(__dirname, './src/api'),
       components: path.resolve(__dirname, './src/components'),
       context: path.resolve(__dirname, './src/context'),
       types: path.resolve(__dirname, './src/types'),

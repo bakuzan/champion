@@ -50,7 +50,9 @@ export default function InformationPanel() {
         />
       </div>
       <div className="ButtonGroup">
-        <button type="button">Save Bracket</button>
+        <button type="button" onClick={() => context.save()}>
+          Save Bracket
+        </button>
       </div>
     </div>
   );

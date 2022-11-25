@@ -27,7 +27,8 @@ function BracketOption({
   const isSelected = activeOption === optionValue;
   const classes = classNames(
     'BracketOption',
-    isSelected && 'BracketOption--Active'
+    isSelected && 'BracketOption--Active',
+    className
   );
 
   return (

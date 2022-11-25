@@ -6,7 +6,7 @@ export default function HomePage() {
 
   return (
     <main className="App">
-      <button type="button" onClick={() => navigate('/template/new')}>
+      <button type="button" onClick={() => navigate('/template-new')}>
         Create new bracket
       </button>
       <div>

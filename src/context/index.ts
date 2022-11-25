@@ -8,6 +8,7 @@ export interface AppContextProps {
   information: BracketInformation;
   participants: BracketParticipant[];
   dispatch: React.Dispatch<AppAction>;
+  save: () => void;
 }
 
 export const AppContext = React.createContext<AppContextProps>(null);
