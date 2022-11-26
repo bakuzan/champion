@@ -4,12 +4,13 @@ import { AppContext } from 'context/index';
 
 import { BracketParticipant } from 'types/BracketParticipant';
 import generateUniqueId from 'utils/generateUniqueId';
+import getUID from 'utils/getBracketParticipantUID';
 
 interface ParticipantProps {
   data: BracketParticipant;
   index: number;
   onChange: (data: BracketParticipant) => void;
-  onRemove: (key: string) => void;
+  onRemove: (uid: number | string) => void;
 }
 
 function Participant(props: ParticipantProps) {
@@ -59,7 +60,7 @@ function Participant(props: ParticipantProps) {
         <button
           type="button"
           title="Remove participant"
-          onClick={() => props.onRemove(props.data.key)}
+          onClick={() => props.onRemove(getUID(props.data))}
         >
           X
         </button>
@@ -79,11 +80,11 @@ export default function ParticipantsPanel() {
       <ul className="ParticipantsList">
         {participants.map((p, i) => (
           <Participant
-            key={p.key}
+            key={getUID(p)}
             data={p}
             index={i}
             onChange={(data) => dispatch({ type: 'UPDATE_PARTICIPANT', data })}
-            onRemove={(key) => dispatch({ type: 'REMOVE_PARTICIPANT', key })}
+            onRemove={(uid) => dispatch({ type: 'REMOVE_PARTICIPANT', uid })}
           />
         ))}
       </ul>

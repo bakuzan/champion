@@ -1,8 +1,6 @@
 import { BracketParticipant } from 'types/BracketParticipant';
+import { BracketInformation } from 'types/BracketInformation';
 
-export interface BracketTemplate {
-  id?: number;
-  name: string;
-  description: string;
+export interface BracketTemplate extends BracketInformation {
   participants: BracketParticipant[];
 }

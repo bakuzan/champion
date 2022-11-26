@@ -17,6 +17,7 @@
       "api/*": ["./src/api/*"],
       "components/*": ["./src/components/*"],
       "context/*": ["./src/context/*"],
+      "hooks/*": ["./src/hooks/*"],
       "types/*": ["./src/types/*"],
       "utils/*": ["./src/utils/*"],
       "views/*": ["./src/views/*"]

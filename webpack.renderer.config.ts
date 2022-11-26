@@ -19,6 +19,7 @@ export const rendererConfig: Configuration = {
       api: path.resolve(__dirname, './src/api'),
       components: path.resolve(__dirname, './src/components'),
       context: path.resolve(__dirname, './src/context'),
+      hooks: path.resolve(__dirname, './src/hooks'),
       types: path.resolve(__dirname, './src/types'),
       utils: path.resolve(__dirname, './src/utils'),
       views: path.resolve(__dirname, './src/views')

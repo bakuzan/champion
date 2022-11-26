@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import BracketInformationComponent from 'components/BracketInformation';
 import Bracket from 'components/Bracket';
+import LoadingDisplay from 'components/LoadingDisplay';
 
 import { AppContext } from 'context/index';
 
@@ -11,16 +12,27 @@ import { BracketInformation } from 'types/BracketInformation';
 import { BracketParticipant } from 'types/BracketParticipant';
 
 import classNames from 'utils/classNames';
+import getUID from 'utils/getBracketParticipantUID';
 
 import './BracketCreator.css';
 
 interface AppState {
+  loading: boolean;
   information: BracketInformation;
   participants: BracketParticipant[];
 }
 
 function reducer(state: AppState, action: AppAction) {
   switch (action.type) {
+    case 'LOAD_DATA': {
+      const { participants, ...information } = action.data;
+      return {
+        ...state,
+        loading: false,
+        information,
+        participants
+      };
+    }
     case 'UPDATE_INFORMATION':
       return {
         ...state,
@@ -35,13 +47,13 @@ function reducer(state: AppState, action: AppAction) {
       return {
         ...state,
         participants: state.participants.map((x) =>
-          x.key !== action.data.key ? x : action.data
+          getUID(x) !== getUID(action.data) ? x : action.data
         )
       };
     case 'REMOVE_PARTICIPANT':
       return {
         ...state,
-        participants: state.participants.filter((x) => x.key !== action.key)
+        participants: state.participants.filter((x) => getUID(x) !== action.uid)
       };
     default:
       return { ...state };
@@ -49,6 +61,7 @@ function reducer(state: AppState, action: AppAction) {
 }
 
 const DEFAULT_STATE: AppState = {
+  loading: true,
   information: { name: '', description: '' },
   participants: [
     {
@@ -107,16 +120,22 @@ const DEFAULT_STATE: AppState = {
 function BracketCreator() {
   const [isCollapsed, setIsCollapsed] = React.useState(false);
   const [data, dispatch] = React.useReducer(reducer, DEFAULT_STATE);
+
   const navigate = useNavigate();
-  // const params = useParams();
+  const { templateId } = useParams();
 
-  // TODO fetch data here using params.templateId
+  React.useEffect(() => {
+    if (!templateId) {
+      return;
+    }
 
-  // const loading = false;
+    const data = window.Champion.getBracketTemplate(templateId);
+    dispatch({ type: 'LOAD_DATA', data });
+  }, [templateId]);
 
-  // if (loading) {
-  //   return <div>placeholder for loader...</div>;
-  // }
+  if (data.loading) {
+    return <LoadingDisplay />;
+  }
 
   function save() {
     const templateId = window.Champion.saveBracketTemplate({

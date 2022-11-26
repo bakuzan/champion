@@ -12,7 +12,7 @@ export default function populateRound(
   const matchups: BracketMatchup[] = [];
   const pairs = chunk(participants, 2);
 
-  for (let pair of pairs) {
+  for (const pair of pairs) {
     matchups.push({
       participantOne: pair[0],
       participantTwo: pair[1]

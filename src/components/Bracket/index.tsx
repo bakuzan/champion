@@ -7,7 +7,9 @@ import { BracketRound } from 'types/BracketRound';
 import { AppContext } from 'context/index';
 import { buildRounds } from './Builder';
 import ZoomTools from './ZoomTools';
+
 import classNames from 'utils/classNames';
+import getUID from 'utils/getBracketParticipantUID';
 
 import './Bracket.css';
 
@@ -17,7 +19,10 @@ const isQualifierRound = (r: BracketRound) => r.name === 'Qualifiers';
 function Bracket() {
   const context = React.useContext(AppContext);
   const { participants } = context;
-  // Need to fetch the "rounds" that participants slot into
+
+  // TODO
+  // Currently handles the theoretical case, during creating the bracket.
+  // Need to add the part that handles a tournament in progress.
 
   const bracketRounds = buildRounds(participants);
   const bracketSize = Math.pow(2, bracketRounds.length);
@@ -54,7 +59,7 @@ function Bracket() {
                     {br.matchups.map((mu) => {
                       const pOne = mu.participantOne;
                       const pTwo = mu.participantTwo;
-                      const matchKey = `${pOne.key}_${pTwo.key}`;
+                      const matchKey = `${getUID(pOne)}_${getUID(pTwo)}`;
                       const hasNoParticipants =
                         isPlaceholder(pOne) && isPlaceholder(pTwo);
 

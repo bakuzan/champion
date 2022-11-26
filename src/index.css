@@ -4,6 +4,8 @@
   --dark-slate: #282c35;
   --gold: #ffd700;
 
+  --theme-background-colour: #66023c;
+
   --bracket-information-background-colour: var(--steel-grey);
   --bracket-information-colour: #fff;
   --bracket-information-options-width: 50px;
