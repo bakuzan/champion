@@ -125,50 +125,48 @@ function BracketCreator() {
   const { templateId } = useParams();
 
   React.useEffect(() => {
-    if (!templateId) {
-      return;
-    }
-
-    const data = window.Champion.getBracketTemplate(templateId);
-    dispatch({ type: 'LOAD_DATA', data });
+    dispatch({
+      type: 'LOAD_DATA',
+      data: templateId // If id: Fetch data, else: set empty
+        ? window.Champion.getBracketTemplate(templateId)
+        : { ...DEFAULT_STATE.information, participants: [] }
+    });
   }, [templateId]);
 
-  if (data.loading) {
-    return <LoadingDisplay />;
-  }
-
   function save() {
-    const templateId = window.Champion.saveBracketTemplate({
+    const savedTemplateId = window.Champion.saveBracketTemplate({
       ...data.information,
       participants: data.participants
     });
 
-    navigate(`/template/${templateId}`);
+    navigate(`/template/${savedTemplateId}`);
   }
 
   console.log('<BracketCreator> :: ', data);
   return (
-    <AppContext.Provider
-      value={{
-        information: data.information,
-        participants: data.participants,
-        dispatch,
-        save
-      }}
-    >
-      <main
-        className={classNames(
-          'BracketCreator',
-          isCollapsed && 'BracketCreator--BracketFill'
-        )}
+    <LoadingDisplay isLoading={data.loading}>
+      <AppContext.Provider
+        value={{
+          information: data.information,
+          participants: data.participants,
+          dispatch,
+          save
+        }}
       >
-        <BracketInformationComponent
-          isCollapsed={isCollapsed}
-          onToggleCollapse={() => setIsCollapsed((p) => !p)}
-        />
-        <Bracket />
-      </main>
-    </AppContext.Provider>
+        <main
+          className={classNames(
+            'BracketCreator',
+            isCollapsed && 'BracketCreator--BracketFill'
+          )}
+        >
+          <BracketInformationComponent
+            isCollapsed={isCollapsed}
+            onToggleCollapse={() => setIsCollapsed((p) => !p)}
+          />
+          <Bracket />
+        </main>
+      </AppContext.Provider>
+    </LoadingDisplay>
   );
 }
 
