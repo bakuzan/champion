@@ -122,7 +122,7 @@ function BracketCreator() {
   const [data, dispatch] = React.useReducer(reducer, DEFAULT_STATE);
 
   const navigate = useNavigate();
-  const { templateId } = useParams();
+  const { templateId } = useParams<{ templateId: string }>();
 
   React.useEffect(() => {
     dispatch({

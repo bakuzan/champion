@@ -5,6 +5,10 @@
   cursor: move;
 }
 
+.react-transform-component.react-transform-component {
+  flex-wrap: nowrap;
+}
+
 /* Bracket */
 .Bracket {
   grid-area: core;
@@ -144,9 +148,12 @@
   position: absolute;
   bottom: 5px;
   right: 5px;
+  display: flex;
+  align-items: center;
 }
 
 .Zoom {
 }
 .ZoomLevel {
+  margin: 0 5px;
 }

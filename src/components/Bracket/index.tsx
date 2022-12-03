@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 import { BracketParticipant } from 'types/BracketParticipant';
@@ -15,6 +15,52 @@ import './Bracket.css';
 
 const isPlaceholder = (p: BracketParticipant) => p.text === 'TBC';
 const isQualifierRound = (r: BracketRound) => r.name === 'Qualifiers';
+
+// function generateBracket(participants: BracketParticipant[]) {
+//   // only works for power of 2 number of players
+
+//   const participantCount = participants.length;
+//   const roundsNumber = Math.log2(participantCount);
+//   const rounds:BracketRound[] = [];
+
+//   for (let i = 0; i < roundsNumber; i++) {
+//       const round:BracketRound = {name: '', matchups:[]};
+//       const prevRound = i > 0 ? rounds[i - 1] : null;
+
+//       if (prevRound == null) {
+//           // if first round - result is known
+//           round.matchups = [{ participantOne: participants[0], participantTwo: participants[1] }];
+//       }
+//       else {
+//           round.matchups = Array(prevRound.matchups.length*2);
+//           // find median. For round 2 there are 4 players and median is 2.5 (between 2 and 3)
+//           // for round 3 there are 8 players and median is 4.5 (between 4 and 5)
+//           const median = (round.matchups.length*2 + 1)/2f;
+//           let next = 0;
+
+//           for (let match of prevRound.matchups) {
+//               // you can play here by switching PlayerA and PlayerB or reordering stuff
+//               round.matchups[next] = {
+//                   participantOne: match.participantOne,
+//                   participantTwo: participants[(median + Math.abs(match.part - median))]
+//               };
+
+//               next++;
+
+//               round.matchups[next] = new Match() {
+//                   PlayerA = match.PlayerB,
+//                   PlayerB = (median + Math.abs(match.PlayerB - median))
+//               };
+
+//               next++;
+//           }
+//       }
+
+//       rounds[i] = round;
+//   }
+
+//   return rounds.reverse();
+// }
 
 function Bracket() {
   const context = React.useContext(AppContext);

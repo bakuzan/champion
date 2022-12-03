@@ -22,6 +22,12 @@ function splitAndPadMissingParticipants(
 export function buildRounds(participants: BracketParticipant[]) {
   const rounds: BracketRound[] = [];
   const participantCount = participants.length;
+
+  // If you have nothing, do nothing.
+  if (participantCount < 2) {
+    return [];
+  }
+
   const exponent = Math.log2(participantCount);
   const remainder = Math.round(2 ** exponent) % 2 ** Math.floor(exponent);
   const remainderParticipants = -remainder * 2;
@@ -34,7 +40,7 @@ export function buildRounds(participants: BracketParticipant[]) {
       paddingParticipantsCount
     );
 
-    const orderedQualifiers = orderBySeed(qualifiers); // TODO Consider .reverse()
+    const orderedQualifiers = orderBySeed(qualifiers); // TODO .reverse();
     rounds.push(populateRound(orderedQualifiers, 'Qualifiers'));
   }
 
