@@ -88,6 +88,6 @@ typings/
 # Electron-Forge
 out/
 
-
-*.debug
+# Databases
+*.db
 *.sqlite
