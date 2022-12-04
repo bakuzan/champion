@@ -1,4 +1,4 @@
-function generateSeed(n: number): number[] {
+export function generateSeed(n: number): number[] {
   if (n === 0) {
     return [];
   }

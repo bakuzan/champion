@@ -1,6 +1,7 @@
 import { BracketRound } from 'types/BracketRound';
+
 import generateTBCParticipants from './generateTBCParticipants';
-import populateRound from './populateRound';
+import { populateRound } from './populateRound';
 
 export default function generateRounds(participantCount: number) {
   const rounds: BracketRound[] = [];

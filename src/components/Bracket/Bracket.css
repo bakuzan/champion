@@ -31,10 +31,19 @@
   font-size: 1.2rem;
 }
 
+.Bracket--4 .Round--2,
+.Bracket--8 .Round--4 {
+  margin-top: 50px;
+}
+
 .Bracket--16 .Round--8,
 .Bracket--32 .Round--16,
 .Bracket--64 .Round--32 {
   margin-top: 25px;
+}
+
+.Bracket--8 .Round--2 {
+  margin-top: 150px;
 }
 
 .Bracket--16 .Round--4,
@@ -47,6 +56,10 @@
 .Bracket--32 .Round--4,
 .Bracket--64 .Round--8 {
   margin-top: 175px;
+}
+
+.Bracket--32 .Round--2 {
+  margin-top: 375px;
 }
 
 /* Matchup */
@@ -100,6 +113,10 @@
 .Bracket--8 .Round--2 .Matchup {
   height: 400px;
   margin-bottom: 400px;
+}
+
+.Bracket--32 .Round--2 .Matchup {
+  height: 800px;
 }
 
 .Round--2 .Matchup:after {

@@ -114,7 +114,7 @@ const DEFAULT_STATE: AppState = {
       text: 'Tenth',
       imageUrl: null
     }
-  ] // DEV DATA
+  ].slice(0, 7) // DEV DATA
 };
 
 function BracketCreator() {
@@ -129,7 +129,10 @@ function BracketCreator() {
       type: 'LOAD_DATA',
       data: templateId // If id: Fetch data, else: set empty
         ? window.Champion.getBracketTemplate(templateId)
-        : { ...DEFAULT_STATE.information, participants: [] }
+        : {
+            ...DEFAULT_STATE.information,
+            participants: [...DEFAULT_STATE.participants]
+          }
     });
   }, [templateId]);
 
