@@ -10,14 +10,20 @@ import { rendererConfig } from './webpack.renderer.config';
 
 const config: ForgeConfig = {
   packagerConfig: {
-    icon: './src/assets/icon'
+    icon: './src/assets/trophy'
   },
   rebuildConfig: {},
   makers: [
-    new MakerSquirrel({}),
+    new MakerSquirrel({
+      setupIcon: './src/assets/trophy.ico'
+    }),
     new MakerZIP({}, ['darwin']),
     new MakerRpm({}),
-    new MakerDeb({})
+    new MakerDeb({
+      options: {
+        icon: './src/assets/trophy.ico'
+      }
+    })
   ],
   plugins: [
     new WebpackPlugin({
