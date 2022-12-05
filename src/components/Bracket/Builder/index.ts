@@ -46,13 +46,7 @@ export function buildRounds(participants: BracketParticipant[]) {
       ...orderedQualifiers,
       ...paddingParticipants
     ].slice(0, qualifierParticipantCount);
-    // console.log({
-    //   remainderParticipants,
-    //   qualifierParticipantCount,
-    //   participants,
-    //   orderedQualifiers,
-    //   qualifierParticipants
-    // });
+
     rounds.unshift(populateQualifiers(firstFullRound, qualifierParticipants));
   }
 

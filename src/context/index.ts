@@ -7,6 +7,7 @@ import { BracketParticipant } from 'types/BracketParticipant';
 export interface AppContextProps {
   information: BracketInformation;
   participants: BracketParticipant[];
+  errorMessages: Map<string, string>;
   dispatch: React.Dispatch<AppAction>;
   save: () => void;
 }

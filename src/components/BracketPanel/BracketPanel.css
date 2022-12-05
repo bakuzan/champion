@@ -1,7 +1,6 @@
 .Control {
   display: flex;
   flex-direction: column;
-  flex: 1;
   min-width: 200px;
   margin-bottom: 8px;
 }

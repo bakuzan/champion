@@ -1,10 +1,12 @@
 import db from './database';
 
+import { BracketInformation } from 'types/BracketInformation';
 import { BracketParticipant } from 'types/BracketParticipant';
 import { BracketTemplate } from 'types/BracketTemplate';
 
 import filterFalsey from 'utils/filterFalsey';
-import { BracketInformation } from 'types/BracketInformation';
+
+import { validateSaveBracketTemplateRequest } from './validate';
 
 const addParticipantSeedOrder = (p: BracketParticipant, i: number) => ({
   ...p,
@@ -45,6 +47,11 @@ export function getBracketTemplate(bracketTemplateId: string | number) {
 
 export function saveBracketTemplate(payload: BracketTemplate) {
   let bracketTemplateId: number = null;
+
+  const response = validateSaveBracketTemplateRequest(payload);
+  if (!response.success) {
+    return response;
+  }
 
   const insertNewBracketParticipant = db.prepare(`
     INSERT INTO BracketParticipant(text,imageUrl,seedOrder,bracketTemplateId) 
@@ -121,5 +128,6 @@ export function saveBracketTemplate(payload: BracketTemplate) {
     createBracketTemplate(payload);
   }
 
-  return bracketTemplateId;
+  response.bracketTemplateId = bracketTemplateId;
+  return response;
 }

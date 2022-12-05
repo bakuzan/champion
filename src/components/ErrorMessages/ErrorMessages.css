@@ -1,0 +1,13 @@
+.Messages {
+  list-style-type: disclosure-closed;
+  padding-inline-start: 25px;
+  margin: 20px 0;
+}
+
+.Messages__Text {
+  white-space: pre;
+}
+
+.Messages__Text::marker {
+  color: var(--danger-colour, #f00);
+}

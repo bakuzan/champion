@@ -20,6 +20,7 @@ interface AppState {
   loading: boolean;
   information: BracketInformation;
   participants: BracketParticipant[];
+  errorMessages: Map<string, string>;
 }
 
 function reducer(state: AppState, action: AppAction) {
@@ -55,6 +56,11 @@ function reducer(state: AppState, action: AppAction) {
         ...state,
         participants: state.participants.filter((x) => getUID(x) !== action.uid)
       };
+    case 'SET_ERROR':
+      return {
+        ...state,
+        errorMessages: action.data
+      };
     default:
       return { ...state };
   }
@@ -62,6 +68,7 @@ function reducer(state: AppState, action: AppAction) {
 
 const DEFAULT_STATE: AppState = {
   loading: true,
+  errorMessages: new Map<string, string>(),
   information: { name: '', description: '' },
   participants: [
     {
@@ -137,12 +144,16 @@ function BracketCreator() {
   }, [templateId]);
 
   function save() {
-    const savedTemplateId = window.Champion.saveBracketTemplate({
+    const response = window.Champion.saveBracketTemplate({
       ...data.information,
       participants: data.participants
     });
 
-    navigate(`/template/${savedTemplateId}`);
+    if (response.success) {
+      navigate(`/template/${response.bracketTemplateId}`);
+    } else {
+      dispatch({ type: 'SET_ERROR', data: response.errorMessages });
+    }
   }
 
   console.log('<BracketCreator> :: ', data);
@@ -152,6 +163,7 @@ function BracketCreator() {
         value={{
           information: data.information,
           participants: data.participants,
+          errorMessages: data.errorMessages,
           dispatch,
           save
         }}

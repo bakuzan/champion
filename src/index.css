@@ -5,6 +5,7 @@
   --gold: #ffd700;
 
   --theme-background-colour: #66023c;
+  --danger-colour: #f52626;
 
   --bracket-information-background-colour: var(--steel-grey);
   --bracket-information-colour: #fff;
@@ -16,7 +17,6 @@
   --bracket-information-option-active-colour: var(--steel-grey);
 
   --participant-background-colour: var(--dark-slate);
-  /* --participant-colour: */
 
   --bracket-background-colour: var(--anti-flash-white);
 

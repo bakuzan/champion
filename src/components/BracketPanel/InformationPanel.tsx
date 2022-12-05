@@ -1,11 +1,13 @@
 import * as React from 'react';
 
-import { AppContext } from 'context/index';
 import { BracketInformation } from 'types/BracketInformation';
+
+import { AppContext } from 'context/index';
+import ErrorMessages from 'components/ErrorMessages';
 
 export default function InformationPanel() {
   const context = React.useContext(AppContext);
-  const { information, dispatch } = context;
+  const { errorMessages, information, dispatch } = context;
 
   function updateInformation(values: Partial<BracketInformation>) {
     dispatch({
@@ -54,6 +56,7 @@ export default function InformationPanel() {
           Save Bracket
         </button>
       </div>
+      <ErrorMessages messages={errorMessages} />
     </div>
   );
 }

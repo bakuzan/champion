@@ -38,13 +38,7 @@ export function populateQualifiers(
   const nextRoundSeed = generateSeed(round.matchups.length * 2);
   const seedIndexes = getSeedIndexes(nextRoundSeed);
   const matchups = Array(pairedParticipants.length).fill(null);
-  // console.log({
-  //   round,
-  //   participants,
-  //   pairedParticipants,
-  //   nextRoundSeed,
-  //   seedIndexes
-  // });
+
   for (let i = 0; i < pairedParticipants.length; i++) {
     const parts = pairedParticipants[i];
     const seedIndex = seedIndexes[i];
