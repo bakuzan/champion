@@ -13,9 +13,16 @@
 }
 
 /* Participants Panel */
+.ParticipantsPanel {
+  height: calc(100% - 1.25em);
+}
+
 .ParticipantsList {
   list-style-type: none;
   padding: 0 4px;
+  max-height: calc(100% - 88px);
+  overflow: auto;
+  overflow-x: hidden;
 }
 
 /* Participant Item */

@@ -26,7 +26,7 @@
 .BracketInformation_View {
   width: -webkit-fill-available;
   padding: 4px;
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 /* Option button stylings */

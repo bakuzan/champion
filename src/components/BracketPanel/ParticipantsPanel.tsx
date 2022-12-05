@@ -77,18 +77,6 @@ export default function ParticipantsPanel() {
     <div className="ParticipantsPanel">
       <h2>Participants</h2>
 
-      <ul className="ParticipantsList">
-        {participants.map((p, i) => (
-          <Participant
-            key={getUID(p)}
-            data={p}
-            index={i}
-            onChange={(data) => dispatch({ type: 'UPDATE_PARTICIPANT', data })}
-            onRemove={(uid) => dispatch({ type: 'REMOVE_PARTICIPANT', uid })}
-          />
-        ))}
-      </ul>
-
       <div className="ButtonGroup">
         <button
           type="button"
@@ -107,6 +95,18 @@ export default function ParticipantsPanel() {
           Add Participant
         </button>
       </div>
+
+      <ul className="ParticipantsList">
+        {participants.map((p, i) => (
+          <Participant
+            key={getUID(p)}
+            data={p}
+            index={i}
+            onChange={(data) => dispatch({ type: 'UPDATE_PARTICIPANT', data })}
+            onRemove={(uid) => dispatch({ type: 'REMOVE_PARTICIPANT', uid })}
+          />
+        ))}
+      </ul>
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { BracketRound } from 'types/BracketRound';
 import { BracketParticipant } from 'types/BracketParticipant';
 
-import orderBySeed from './orderBySeed';
+import { orderBySeed, orderByFirstAndLast } from './ordering';
 import { populateRound, populateQualifiers } from './populateRound';
 import generateRounds from './generateRounds';
 import generateTBCParticipants from './generateTBCParticipants';
@@ -35,24 +35,24 @@ export function buildRounds(participants: BracketParticipant[]) {
   // Create qualifier round if the number of participants doesn't fit.
   if (remainder !== 0) {
     const firstFullRound = rounds[0];
-    const qualifierParticipantsCount = (participantCount - remainder) * 2;
-    const orderedQualifiers = orderBySeed(
+    const qualifierParticipantCount = (participantCount - remainder) * 2;
+    const orderedQualifiers = orderByFirstAndLast(
       participants.slice(remainderParticipants)
-    ).reverse();
+    );
     const paddingParticipants = generateTBCParticipants(
-      qualifierParticipantsCount
+      qualifierParticipantCount
     );
     const qualifierParticipants = [
       ...orderedQualifiers,
       ...paddingParticipants
-    ].slice(0, qualifierParticipantsCount);
-    console.log({
-      remainderParticipants,
-      qualifierParticipantsCount,
-      participants,
-      orderedQualifiers,
-      qualifierParticipants
-    });
+    ].slice(0, qualifierParticipantCount);
+    // console.log({
+    //   remainderParticipants,
+    //   qualifierParticipantCount,
+    //   participants,
+    //   orderedQualifiers,
+    //   qualifierParticipants
+    // });
     rounds.unshift(populateQualifiers(firstFullRound, qualifierParticipants));
   }
 

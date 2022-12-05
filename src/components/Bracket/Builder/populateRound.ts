@@ -2,7 +2,7 @@ import { BracketMatchup } from 'types/BracketMatchup';
 import { BracketParticipant } from 'types/BracketParticipant';
 import { BracketRound } from 'types/BracketRound';
 
-import { generateSeed } from './orderBySeed';
+import { generateSeed } from './ordering';
 import chunk from 'utils/chunk';
 import getRoundName from 'utils/getRoundName';
 
@@ -38,13 +38,13 @@ export function populateQualifiers(
   const nextRoundSeed = generateSeed(round.matchups.length * 2);
   const seedIndexes = getSeedIndexes(nextRoundSeed);
   const matchups = Array(pairedParticipants.length).fill(null);
-  console.log({
-    round,
-    participants,
-    pairedParticipants,
-    nextRoundSeed,
-    seedIndexes
-  });
+  // console.log({
+  //   round,
+  //   participants,
+  //   pairedParticipants,
+  //   nextRoundSeed,
+  //   seedIndexes
+  // });
   for (let i = 0; i < pairedParticipants.length; i++) {
     const parts = pairedParticipants[i];
     const seedIndex = seedIndexes[i];

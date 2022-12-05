@@ -11,6 +11,18 @@ export function generateSeed(n: number): number[] {
       );
 }
 
-export default function orderBySeed<T>(list: T[]) {
+export function orderBySeed<T>(list: T[]) {
   return generateSeed(list.length).map((i) => list[i]);
+}
+
+export function orderByFirstAndLast<T>(sourceList: T[]) {
+  const list = [...sourceList];
+  const results = [];
+
+  while (list.length) {
+    results.push(list.shift());
+    results.push(list.pop());
+  }
+
+  return results.reverse();
 }
