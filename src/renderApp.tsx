@@ -9,8 +9,16 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/template-new" element={<BracketCreator />} />
-        <Route path="/template/:templateId" element={<BracketCreator />} />
+        <Route
+          key="Bracket_Create"
+          path="/template-new"
+          element={<BracketCreator />}
+        />
+        <Route
+          key="Bracket_Update"
+          path="/template/:templateId"
+          element={<BracketCreator />}
+        />
 
         <Route path="/" element={<HomePage />} />
       </Routes>

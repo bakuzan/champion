@@ -7,6 +7,7 @@ import { BracketTemplate } from 'types/BracketTemplate';
 // Create the api to expose to the renderer
 contextBridge.exposeInMainWorld('Champion', {
   ping: () => console.log(`Main is connected.`),
+  getBracketTemplates: () => api.getBracketTemplates(),
   getBracketTemplate: (templateId: string | number) =>
     api.getBracketTemplate(templateId),
   saveBracketTemplate: (payload: BracketTemplate) =>

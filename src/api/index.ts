@@ -15,6 +15,14 @@ const addParticipantSeedOrder = (p: BracketParticipant, i: number) => ({
 
 // API functions
 
+export function getBracketTemplates() {
+  const bracketTemplates: BracketInformation[] = db
+    .prepare(`SELECT * FROM BracketTemplate ORDER BY name`)
+    .all();
+
+  return bracketTemplates;
+}
+
 export function getBracketTemplate(bracketTemplateId: string | number) {
   const templateId = Number(bracketTemplateId);
   if (isNaN(templateId)) {
@@ -46,8 +54,8 @@ export function getBracketTemplate(bracketTemplateId: string | number) {
 }
 
 export function saveBracketTemplate(payload: BracketTemplate) {
-  let bracketTemplateId: number = null;
-
+  let bracketTemplateId: number = payload.id ?? null;
+  console.log('API: saveBracketTemplate :: ', payload);
   const response = validateSaveBracketTemplateRequest(payload);
   if (!response.success) {
     return response;
@@ -70,26 +78,27 @@ export function saveBracketTemplate(payload: BracketTemplate) {
            , imageUrl = @imageUrl
            , seedOrder = @seedOrder 
        WHERE id = @id`);
-    const deleteMissingBracketParticipants = db.prepare(`
-      DELETE FROM BracketParticipant
-       WHERE bracketTemplateId = @bracketTemplateId
-         AND id NOT IN (?)`);
 
     const updateBracketTemplate = db.transaction((input: BracketTemplate) => {
-      const resultTemplate = updateExistingBracketTemplate.run(input);
-      bracketTemplateId = resultTemplate.lastInsertRowid as number;
-      const participants = input.participants.map(addParticipantSeedOrder);
+      updateExistingBracketTemplate.run(input);
 
+      const participants = input.participants.map(addParticipantSeedOrder);
       const currentParticipantIds = participants
         .map((p) => p.id)
-        .filter(filterFalsey)
-        .join(',');
+        .filter(filterFalsey);
 
-      // Delete participants that are not in the request.
-      deleteMissingBracketParticipants.run({
-        bracketTemplateId,
+      // Delete existing participants that are not in the request.
+      const deleteMissingBracketParticipants = db.prepare(`
+        DELETE FROM BracketParticipant
+         WHERE bracketTemplateId = @bracketTemplateId
+           AND id NOT IN (${currentParticipantIds.map(() => '?').join(',')})`);
+
+      deleteMissingBracketParticipants.run(
+        {
+          bracketTemplateId
+        },
         currentParticipantIds
-      });
+      );
 
       // Update existing/Create new
       for (const part of participants) {

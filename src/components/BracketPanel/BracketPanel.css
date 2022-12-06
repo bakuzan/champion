@@ -26,6 +26,7 @@
 
 /* Participant Item */
 .Participant {
+  position: relative;
   display: flex;
   align-items: center;
   background-color: var(--participant-background-colour);
@@ -34,9 +35,18 @@
   margin-bottom: 4px;
 }
 
-.Participant_Handle,
+.Participant_Handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 10px;
+  width: 10px;
+  border: 1px dashed;
+  cursor: move;
+}
+
 .Participant_Number {
-  width: 15px;
+  width: 20px;
 }
 
 .Participant_Controls {
@@ -50,5 +60,14 @@
 }
 
 .Participant_Remove {
+  align-self: baseline;
   width: 25px;
+  margin-left: 2px;
+}
+
+.Participant_RemoveButton {
+  background: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

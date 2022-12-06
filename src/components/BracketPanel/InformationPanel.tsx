@@ -27,7 +27,7 @@ export default function InformationPanel() {
           name="name"
           placeholder="Bracket Name"
           required
-          value={information.name}
+          value={information.name ?? ''}
           onChange={(event) =>
             updateInformation({ name: event.currentTarget.value })
           }
@@ -45,14 +45,18 @@ export default function InformationPanel() {
           id="bracketDescription"
           name="description"
           placeholder="Bracket Description"
-          value={information.description}
+          value={information.description ?? ''}
           onChange={(event) =>
             updateInformation({ description: event.currentTarget.value })
           }
         />
       </div>
       <div className="ButtonGroup">
-        <button type="button" onClick={() => context.save()}>
+        <button
+          type="button"
+          className="PrimaryButton"
+          onClick={() => context.save()}
+        >
           Save Bracket
         </button>
       </div>

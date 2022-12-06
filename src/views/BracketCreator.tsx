@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import BracketInformationComponent from 'components/BracketInformation';
 import Bracket from 'components/Bracket';
@@ -31,7 +31,8 @@ function reducer(state: AppState, action: AppAction) {
         ...state,
         loading: false,
         information,
-        participants
+        participants,
+        errorMessages: new Map<string, string>([])
       };
     }
     case 'UPDATE_INFORMATION':
@@ -129,6 +130,7 @@ function BracketCreator() {
   const [data, dispatch] = React.useReducer(reducer, DEFAULT_STATE);
 
   const navigate = useNavigate();
+  const { key: locationKey } = useLocation(); // will be different for each navigate!
   const { templateId } = useParams<{ templateId: string }>();
 
   React.useEffect(() => {
@@ -141,7 +143,7 @@ function BracketCreator() {
             participants: [...DEFAULT_STATE.participants]
           }
     });
-  }, [templateId]);
+  }, [templateId, locationKey]);
 
   function save() {
     const response = window.Champion.saveBracketTemplate({
@@ -156,7 +158,7 @@ function BracketCreator() {
     }
   }
 
-  console.log('<BracketCreator> :: ', data);
+  console.log('<BracketCreator> :: ', { data, templateId });
   return (
     <LoadingDisplay isLoading={data.loading}>
       <AppContext.Provider

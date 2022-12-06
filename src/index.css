@@ -5,6 +5,8 @@
   --gold: #ffd700;
 
   --theme-background-colour: #66023c;
+  --theme-background-colour-constrast: #960359;
+  --theme-colour-colour: #fff;
   --danger-colour: #f52626;
 
   --bracket-information-background-colour: var(--steel-grey);
@@ -36,4 +38,20 @@ body {
 
 #root {
   height: 100%;
+}
+
+/* Button styling */
+button:not([disabled]) {
+  cursor: pointer;
+}
+
+.PrimaryButton {
+  background-color: var(--theme-background-colour);
+  color: var(--theme-colour-colour);
+  border: none;
+}
+
+.PrimaryButton:focus,
+.PrimaryButton:hover {
+  background-color: var(--theme-background-colour-constrast);
 }
