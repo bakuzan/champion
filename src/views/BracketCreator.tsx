@@ -165,6 +165,14 @@ function BracketCreator() {
     }
   }
 
+  function startTournament() {
+    window.alert('Not Yet Implemented');
+    // TODO
+    // Create tournament request
+    // If success : Redirect to tournament page
+    // Else       : dispatch errorMessages
+  }
+
   console.log('<BracketCreator> :: ', { data, templateId });
   return (
     <LoadingDisplay isLoading={data.loading}>
@@ -175,7 +183,8 @@ function BracketCreator() {
           participants: data.participants,
           errorMessages: data.errorMessages,
           dispatch,
-          save
+          save,
+          startTournament
         }}
       >
         <main

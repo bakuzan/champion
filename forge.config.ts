@@ -1,3 +1,4 @@
+import path from 'path';
 import type { ForgeConfig } from '@electron-forge/shared-types';
 import { MakerSquirrel } from '@electron-forge/maker-squirrel';
 import { MakerZIP } from '@electron-forge/maker-zip';
@@ -8,20 +9,22 @@ import { WebpackPlugin } from '@electron-forge/plugin-webpack';
 import { mainConfig } from './webpack.main.config';
 import { rendererConfig } from './webpack.renderer.config';
 
+const appIcon = path.resolve(__dirname, './src/assets/trophy.ico');
+
 const config: ForgeConfig = {
   packagerConfig: {
-    icon: './src/assets/trophy'
+    icon: appIcon
   },
   rebuildConfig: {},
   makers: [
     new MakerSquirrel({
-      setupIcon: './src/assets/trophy.ico'
+      setupIcon: appIcon
     }),
     new MakerZIP({}, ['darwin']),
     new MakerRpm({}),
     new MakerDeb({
       options: {
-        icon: './src/assets/trophy.ico'
+        icon: appIcon
       }
     })
   ],

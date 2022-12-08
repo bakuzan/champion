@@ -11,6 +11,7 @@ export interface AppContextProps {
   errorMessages: Map<string, string>;
   dispatch: React.Dispatch<AppAction>;
   save: () => void;
+  startTournament: () => void;
 }
 
 export const AppContext = React.createContext<AppContextProps>(null);

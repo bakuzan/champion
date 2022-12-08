@@ -11,6 +11,13 @@
   align-items: center;
 }
 
+/* Information Panel */
+.InformationPanel {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 /* Participants Panel */
 .ParticipantsPanel {
   height: calc(100% - 1.25em);

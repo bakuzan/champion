@@ -8,6 +8,7 @@ import ErrorMessages from 'components/ErrorMessages';
 export default function InformationPanel() {
   const context = React.useContext(AppContext);
   const { errorMessages, dirty, information, dispatch } = context;
+  const isSavedTemplate = !!information.id;
 
   function updateInformation(values: Partial<BracketInformation>) {
     dispatch({
@@ -61,7 +62,19 @@ export default function InformationPanel() {
           Save Bracket
         </button>
       </div>
-      <ErrorMessages messages={errorMessages} />
+      <ErrorMessages style={{ flex: 1 }} messages={errorMessages} />
+      {isSavedTemplate && (
+        <div className="ButtonGroup">
+          <button
+            type="button"
+            className="PrimaryButton"
+            disabled={dirty}
+            onClick={() => context.startTournament()}
+          >
+            Start Tournament
+          </button>
+        </div>
+      )}
     </div>
   );
 }

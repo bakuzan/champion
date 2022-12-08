@@ -2,16 +2,20 @@ import * as React from 'react';
 
 import './ErrorMessages.css';
 
-interface ErrorMessagesProps {
+interface ErrorMessagesProps
+  extends Pick<React.HTMLAttributes<HTMLDivElement>, 'style'> {
   messages: Map<string, string>;
 }
 
-export default function ErrorMessages({ messages }: ErrorMessagesProps) {
+export default function ErrorMessages({
+  messages,
+  ...props
+}: ErrorMessagesProps) {
   const errors = Array.from(messages.values());
   const hasErrors = errors.length > 0;
 
   return (
-    <div className="ErrorMessages">
+    <div className="ErrorMessages" style={props.style}>
       {hasErrors && (
         <>
           <h3>Errors</h3>
