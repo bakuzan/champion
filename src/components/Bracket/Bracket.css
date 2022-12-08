@@ -159,18 +159,3 @@
   height: 30px;
   background: var(--bracket--background--colour);
 }
-
-/* ZoomTools */
-.ZoomTools {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  display: flex;
-  align-items: center;
-}
-
-.Zoom {
-}
-.ZoomLevel {
-  margin: 0 5px;
-}

@@ -1,0 +1,68 @@
+/* App Page */
+.App {
+  padding: 10px;
+}
+
+.App__Landing {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+}
+
+@media (max-width: 768px) {
+  .App__Landing {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* BracketListSection */
+.BracketListSection__Header {
+  background-color: var(--landing-page-header-background-colour);
+  color: var(--landing-page-header-colour);
+}
+.BracketListSection__Title {
+  padding: 5px;
+}
+
+.BracketListSection__Items {
+  list-style-type: none;
+  padding-inline-start: 10px;
+}
+
+.BracketLink {
+  background: none;
+  border: none;
+  border: 1px dashed transparent;
+}
+.BracketLink:hover {
+  box-shadow: 0 0 2px 0 var(--theme-background-colour);
+}
+
+.BracketLink__Text {
+  display: flex;
+  width: fit-content;
+  text-align: left;
+  border-bottom: 1px solid transparent;
+  font-size: 1.2rem;
+}
+
+.BracketLink:hover .BracketLink__Text {
+  border-bottom-color: var(--theme-background-colour);
+}
+
+.BracketLink__Text::after {
+  content: '\00BB';
+  color: var(--theme-background-colour);
+  transition: ease-in 0.33s;
+  opacity: 0;
+}
+.BracketLink:hover .BracketLink__Text::after {
+  margin-left: 10px;
+  opacity: 1;
+}
+
+.BracketDescription {
+  margin: 5px 0;
+  text-align: left;
+  white-space: pre;
+}

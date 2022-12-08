@@ -9,6 +9,9 @@
   --theme-colour-colour: #fff;
   --danger-colour: #f52626;
 
+  --landing-page-header-background-colour: var(--steel-grey);
+  --landing-page-header-colour: #fff;
+
   --bracket-information-background-colour: var(--steel-grey);
   --bracket-information-colour: #fff;
   --bracket-information-options-width: 50px;
@@ -21,6 +24,9 @@
   --participant-background-colour: var(--dark-slate);
 
   --bracket-background-colour: var(--anti-flash-white);
+
+  --zoom-tools-background-colour: var(--steel-grey);
+  --zoom-tools-colour: #fff;
 
   --matchup-border-colour: var(--dark-slate);
   --matchup-border-fade-colour: var(--steel-grey);
@@ -41,6 +47,20 @@ body {
 }
 
 /* Button styling */
+button {
+  font-size: inherit;
+  padding: 5px;
+}
+button:disabled,
+button:disabled:focus,
+button:disabled:hover,
+button[disabled],
+button[disabled]:focus,
+button[disabled]:hover {
+  background: #ccc;
+  color: #000;
+}
+
 button:not([disabled]) {
   cursor: pointer;
 }

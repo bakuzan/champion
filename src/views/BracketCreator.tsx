@@ -17,6 +17,7 @@ import getUID from 'utils/getBracketParticipantUID';
 import './BracketCreator.css';
 
 interface AppState {
+  dirty: boolean;
   loading: boolean;
   information: BracketInformation;
   participants: BracketParticipant[];
@@ -29,6 +30,7 @@ function reducer(state: AppState, action: AppAction) {
       const { participants, ...information } = action.data;
       return {
         ...state,
+        dirty: false,
         loading: false,
         information,
         participants,
@@ -38,16 +40,19 @@ function reducer(state: AppState, action: AppAction) {
     case 'UPDATE_INFORMATION':
       return {
         ...state,
+        dirty: true,
         information: { ...state.information, ...action.data }
       };
     case 'ADD_PARTICIPANT':
       return {
         ...state,
+        dirty: true,
         participants: [...state.participants, action.data]
       };
     case 'UPDATE_PARTICIPANT':
       return {
         ...state,
+        dirty: true,
         participants: state.participants.map((x) =>
           getUID(x) !== getUID(action.data) ? x : action.data
         )
@@ -55,6 +60,7 @@ function reducer(state: AppState, action: AppAction) {
     case 'REMOVE_PARTICIPANT':
       return {
         ...state,
+        dirty: true,
         participants: state.participants.filter((x) => getUID(x) !== action.uid)
       };
     case 'SET_ERROR':
@@ -68,6 +74,7 @@ function reducer(state: AppState, action: AppAction) {
 }
 
 const DEFAULT_STATE: AppState = {
+  dirty: false,
   loading: true,
   errorMessages: new Map<string, string>(),
   information: { name: '', description: '' },
@@ -163,6 +170,7 @@ function BracketCreator() {
     <LoadingDisplay isLoading={data.loading}>
       <AppContext.Provider
         value={{
+          dirty: data.dirty,
           information: data.information,
           participants: data.participants,
           errorMessages: data.errorMessages,

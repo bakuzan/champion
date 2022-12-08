@@ -1,0 +1,34 @@
+/* ZoomTools */
+.ZoomTools {
+  background-color: var(--zoom-tools-background-colour);
+  color: var(--zoom-tools-colour);
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+
+.ZoomLevel {
+  margin: 0 5px;
+  user-select: none;
+}
+
+.Zoom {
+  --size: 32px;
+  background: none;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--theme-background-colour);
+  color: var(--theme-colour-colour);
+  width: var(--size);
+  height: var(--size);
+}
+
+.Zoom:focus,
+.Zoom:hover {
+  background-color: var(--theme-background-colour-constrast);
+}

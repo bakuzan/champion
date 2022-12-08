@@ -1,6 +1,8 @@
 import React from 'react';
 import { ReactZoomPanPinchRef } from 'react-zoom-pan-pinch';
 
+import './ZoomTools.css';
+
 export default function ZoomTools({
   zoomIn,
   zoomOut,

@@ -7,7 +7,7 @@ import ErrorMessages from 'components/ErrorMessages';
 
 export default function InformationPanel() {
   const context = React.useContext(AppContext);
-  const { errorMessages, information, dispatch } = context;
+  const { errorMessages, dirty, information, dispatch } = context;
 
   function updateInformation(values: Partial<BracketInformation>) {
     dispatch({
@@ -55,6 +55,7 @@ export default function InformationPanel() {
         <button
           type="button"
           className="PrimaryButton"
+          disabled={!dirty}
           onClick={() => context.save()}
         >
           Save Bracket

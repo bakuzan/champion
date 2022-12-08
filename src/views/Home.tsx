@@ -1,15 +1,55 @@
 import * as React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import { BracketInformation } from 'types/BracketInformation';
+import { BracketLink } from 'types/BracketInformation';
+
+import './Home.css';
+
+interface BracketListSectionProps {
+  title: string;
+  list: BracketLink[];
+  onClick: (itemId: number) => void;
+}
+
+function BracketListSection(props: BracketListSectionProps) {
+  const items = props.list;
+  const hasItems = items.length > 0;
+
+  return (
+    <section className="BracketListSection">
+      <header className="BracketListSection__Header">
+        <h2 className="BracketListSection__Title">{props.title}</h2>
+      </header>
+      <ul className="BracketListSection__Items">
+        {hasItems ? (
+          items.map((x) => (
+            <li key={x.id} className="BracketLinkItem">
+              <button
+                type="button"
+                className="BracketLink"
+                onClick={() => props.onClick(x.id)}
+              >
+                <div className="BracketLink__Text">{x.name}</div>
+                <div className="BracketDescription">{x.description}</div>
+              </button>
+            </li>
+          ))
+        ) : (
+          <li key="NO_ITEMS" className="BracketLinkItem">
+            No items to display.
+          </li>
+        )}
+      </ul>
+    </section>
+  );
+}
 
 export default function HomePage() {
-  const [tournaments, setTournaments] = React.useState([]);
-  const [bracketTemplates, setBracketTemplates] = React.useState<
-    BracketInformation[]
-  >([]);
-
   const navigate = useNavigate();
+  const [tournaments, setTournaments] = React.useState([]);
+  const [bracketTemplates, setBracketTemplates] = React.useState<BracketLink[]>(
+    []
+  );
 
   React.useEffect(() => {
     setBracketTemplates(window.Champion.getBracketTemplates());
@@ -28,20 +68,16 @@ export default function HomePage() {
         </button>
       </div>
       <div className="App__Landing">
-        <section className="BracketList">
-          <h2 className="BracketList__Title">Bracket Templates</h2>
-          <ul className="BracketList__Items">
-            {bracketTemplates.map((x) => (
-              <li key={x.id} className="BracketListItem">
-                <NavLink to={`/template/${x.id}`}>{x.name}</NavLink>
-              </li>
-            ))}
-          </ul>
-        </section>
-        <section className="BracketList">
-          <h2 className="BracketList__Title">Tournaments</h2>
-          <ul className="BracketList__Items"></ul>
-        </section>
+        <BracketListSection
+          title="Bracket Templates"
+          list={bracketTemplates}
+          onClick={(itemId) => navigate(`/template/${itemId}`)}
+        />
+        <BracketListSection
+          title="Tournaments"
+          list={tournaments}
+          onClick={(itemId) => navigate(`/tournament/${itemId}`)}
+        />
       </div>
     </main>
   );

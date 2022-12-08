@@ -5,6 +5,7 @@ import { BracketInformation } from 'types/BracketInformation';
 import { BracketParticipant } from 'types/BracketParticipant';
 
 export interface AppContextProps {
+  dirty: boolean;
   information: BracketInformation;
   participants: BracketParticipant[];
   errorMessages: Map<string, string>;
