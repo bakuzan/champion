@@ -166,11 +166,13 @@ function BracketCreator() {
   }
 
   function startTournament() {
-    window.alert('Not Yet Implemented');
-    // TODO
-    // Create tournament request
-    // If success : Redirect to tournament page
-    // Else       : dispatch errorMessages
+    const response = window.Champion.createTournament(data.information.id);
+
+    if (response.success) {
+      navigate(`/tournament/${response.tournamentId}`);
+    } else {
+      dispatch({ type: 'SET_ERROR', data: response.errorMessages });
+    }
   }
 
   console.log('<BracketCreator> :: ', { data, templateId });

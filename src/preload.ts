@@ -11,5 +11,7 @@ contextBridge.exposeInMainWorld('Champion', {
   getBracketTemplate: (templateId: string | number) =>
     api.getBracketTemplate(templateId),
   saveBracketTemplate: (payload: BracketTemplate) =>
-    api.saveBracketTemplate(payload)
+    api.saveBracketTemplate(payload),
+  createTournament: (bracketTemplateId: number) =>
+    api.createTournament(bracketTemplateId)
 });

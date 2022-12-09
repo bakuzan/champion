@@ -6,3 +6,7 @@ interface BaseResponse {
 export interface SaveBracketTemplateResponse extends BaseResponse {
   bracketTemplateId?: number;
 }
+
+export interface CreateTournamentResponse extends BaseResponse {
+  tournamentId?: number;
+}

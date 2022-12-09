@@ -18,7 +18,7 @@ export default function ZoomTools({
         title="Zoom out"
         onClick={() => zoomOut()}
       >
-        -
+        <span aria-hidden={true}>-</span>
       </button>
       <div className="ZoomLevel">{zoomPercentage}%</div>
       <button
@@ -26,7 +26,7 @@ export default function ZoomTools({
         title="Zoom in"
         onClick={() => zoomIn()}
       >
-        +
+        <span aria-hidden={true}>+</span>
       </button>
 
       <button
@@ -34,7 +34,7 @@ export default function ZoomTools({
         title="Reset"
         onClick={() => resetTransform()}
       >
-        x
+        <span aria-hidden={true}>&#8635;</span>
       </button>
     </div>
   );
