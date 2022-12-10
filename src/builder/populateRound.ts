@@ -3,6 +3,8 @@ import { BracketParticipant } from 'types/BracketParticipant';
 import { BracketRound } from 'types/BracketRound';
 
 import { generateSeed } from './ordering';
+
+import { QualifierRoundName } from 'constants/index';
 import chunk from 'utils/chunk';
 import getRoundName from 'utils/getRoundName';
 
@@ -52,7 +54,7 @@ export function populateQualifiers(
   }
 
   return {
-    name: 'Qualifiers',
+    name: QualifierRoundName,
     matchups
   };
 }

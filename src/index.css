@@ -48,9 +48,13 @@ body {
 
 /* Button styling */
 button {
+  background-color: inherit;
+  color: inherit;
+  border: none;
   font-size: inherit;
   padding: 5px;
 }
+
 button:disabled,
 button:disabled:focus,
 button:disabled:hover,

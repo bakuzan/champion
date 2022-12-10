@@ -2,10 +2,11 @@ import * as React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import BracketInformationComponent from 'components/BracketInformation';
-import Bracket from 'components/Bracket';
+import BracketDisplay from 'components/BracketDisplay';
 import LoadingDisplay from 'components/LoadingDisplay';
 
 import { AppContext } from 'context/index';
+import { buildRounds } from 'builder/index';
 
 import { AppAction } from 'types/AppAction';
 import { BracketInformation } from 'types/BracketInformation';
@@ -175,7 +176,9 @@ function BracketCreator() {
     }
   }
 
+  const bracketRounds = buildRounds(data.participants);
   console.log('<BracketCreator> :: ', { data, templateId });
+
   return (
     <LoadingDisplay isLoading={data.loading}>
       <AppContext.Provider
@@ -199,7 +202,7 @@ function BracketCreator() {
             isCollapsed={isCollapsed}
             onToggleCollapse={() => setIsCollapsed((p) => !p)}
           />
-          <Bracket />
+          <BracketDisplay rounds={bracketRounds} />
         </main>
       </AppContext.Provider>
     </LoadingDisplay>

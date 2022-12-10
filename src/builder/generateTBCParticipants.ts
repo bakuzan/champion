@@ -1,4 +1,6 @@
 import { BracketParticipant } from 'types/BracketParticipant';
+
+import { UnconfirmedParticipantText } from 'constants/index';
 import generateUniqueId from 'utils/generateUniqueId';
 
 export default function generateTBCParticipants(
@@ -6,5 +8,5 @@ export default function generateTBCParticipants(
 ): BracketParticipant[] {
   return Array(count)
     .fill(null)
-    .map(() => ({ key: generateUniqueId(), text: 'TBC' }));
+    .map(() => ({ key: generateUniqueId(), text: UnconfirmedParticipantText }));
 }

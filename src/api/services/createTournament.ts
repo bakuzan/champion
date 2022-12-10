@@ -4,7 +4,16 @@ import { BracketInformation } from 'types/BracketInformation';
 import { BracketParticipant } from 'types/BracketParticipant';
 import { CreateTournamentResponse } from 'types/Responses';
 
+import { buildRounds } from 'builder/index';
+import { isQualifierRound } from 'utils/checks';
+import { BracketMatchup } from 'types/BracketMatchup';
+
 const MINIMUM_REQUIRED_PARTICIPANTS = 4;
+
+const resolveParticipantIds = (match: BracketMatchup) => ({
+  oneId: match.participantOne.id ?? null,
+  twoId: match.participantTwo.id ?? null
+});
 
 export default function createTournament(
   bracketTemplateId: number
@@ -59,8 +68,10 @@ export default function createTournament(
     VALUES (@text, @imageUrl, @seedOrder, @tournamentId)`);
 
   const insertMatchup = db.prepare(`
-    INSERT INTO TournamentMatchup(tournamentId,participantOneId,participantOneScore,participantTwoId,participantTwoScore)
-    VALUES (@tournamentId, @participantOneId, 0, @participantTwoId, 0)`);
+    INSERT INTO TournamentMatchup(tournamentId,roundNumber,roundMatchNumber
+      ,participantOneId,participantOneScore
+      ,participantTwoId,participantTwoScore)
+    VALUES (@tournamentId, @roundNumber, @roundMatchNumber, @participantOneId, 0, @participantTwoId, 0)`);
 
   const createTournament = db.transaction(
     (template: BracketInformation, participants: BracketParticipant[]) => {
@@ -68,15 +79,35 @@ export default function createTournament(
       tournamentId = resultTemplate.lastInsertRowid as number;
 
       for (const part of participants) {
-        insertNewBracketParticipant.run({
+        const resultParticipant = insertNewBracketParticipant.run({
           tournamentId,
           ...part
         });
+
+        part.id = resultParticipant.lastInsertRowid as number;
       }
 
-      // TODO
-      // Generate first round of matches (generate all matches??)
-      // Insert matchups
+      const rounds = buildRounds(participants);
+
+      for (let i = 0; i < rounds.length; i++) {
+        const currentRound = rounds[i];
+        const isQualifier = isQualifierRound(currentRound);
+        const roundNumber = isQualifier ? i : i + 1;
+
+        for (let j = 0; j < currentRound.matchups.length; j++) {
+          const currentMatchup = currentRound.matchups[j];
+          const roundMatchNumber = j + 1;
+          const pIds = resolveParticipantIds(currentMatchup);
+
+          insertMatchup.run({
+            tournamentId,
+            roundNumber,
+            roundMatchNumber,
+            participantOneId: pIds.oneId,
+            participantTwoId: pIds.twoId
+          });
+        }
+      }
     }
   );
 

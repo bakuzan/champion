@@ -1,32 +1,23 @@
 import * as React from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
-import { BracketParticipant } from 'types/BracketParticipant';
 import { BracketRound } from 'types/BracketRound';
 
-import { AppContext } from 'context/index';
-import { buildRounds } from './Builder';
 import ZoomTools from './ZoomTools';
 
 import classNames from 'utils/classNames';
 import getUID from 'utils/getBracketParticipantUID';
+import { isPlaceholder, isQualifierRound } from 'utils/checks';
 
 import './Bracket.css';
 
-const isPlaceholder = (p: BracketParticipant) => p.text === 'TBC';
-const isQualifierRound = (r: BracketRound) => r.name === 'Qualifiers';
+interface BracketDisplayProps {
+  rounds: BracketRound[];
+}
 
-function Bracket() {
-  const context = React.useContext(AppContext);
-  const { participants } = context;
-
-  // TODO
-  // Currently handles the theoretical case, during creating the bracket.
-  // Need to add the part that handles a tournament in progress.
-
-  const bracketRounds = buildRounds(participants);
-  const bracketSize = Math.pow(2, bracketRounds.length);
-  console.log('<Bracket> :: ', bracketRounds);
+function BracketDisplay(props: BracketDisplayProps) {
+  const bracketSize = Math.pow(2, props.rounds.length);
+  console.log('<Bracket> :: ', props.rounds);
 
   return (
     <div className={classNames('Bracket', `Bracket--${bracketSize}`)}>
@@ -41,7 +32,7 @@ function Bracket() {
           <React.Fragment>
             <ZoomTools {...zoomPanPinchProps} />
             <TransformComponent>
-              {bracketRounds.map((br) => {
+              {props.rounds.map((br) => {
                 const isQualifiers = isQualifierRound(br);
                 const roundParticipantCount = isQualifiers
                   ? bracketSize
@@ -93,4 +84,4 @@ function Bracket() {
   );
 }
 
-export default Bracket;
+export default BracketDisplay;

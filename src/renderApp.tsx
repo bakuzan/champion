@@ -4,6 +4,7 @@ import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 
 import BracketCreator from './views/BracketCreator';
 import HomePage from './views/Home';
+import NotFoundPage from 'views/404';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         />
 
         <Route path="/" element={<HomePage />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );
