@@ -3,7 +3,3 @@ export interface BracketInformation {
   name: string;
   description: string;
 }
-
-export interface BracketLink extends BracketInformation {
-  id: number;
-}

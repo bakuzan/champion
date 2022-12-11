@@ -61,7 +61,7 @@ export function Participant(props: ParticipantProps) {
           className="Participant_RemoveButton"
           onClick={() => props.onRemove(getUID(props.data))}
         >
-          <span aria-hidden={true}>&#10060;</span>
+          <span aria-hidden={true}>&#10060;&#xFE0E;</span>
         </button>
       </div>
     </li>

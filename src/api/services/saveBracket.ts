@@ -12,7 +12,7 @@ const addParticipantSeedOrder = (p: BracketParticipant, i: number) => ({
   seedOrder: i
 });
 
-export function saveBracketTemplate(payload: BracketTemplate) {
+export default function saveBracketTemplate(payload: BracketTemplate) {
   let bracketTemplateId: number = payload.id ?? null;
   console.log('API: saveBracketTemplate :: ', payload);
   const response = validateSaveBracketTemplateRequest(payload);

@@ -1,12 +1,14 @@
 import * as React from 'react';
 
-import { BracketLink } from 'types/BracketInformation';
+import { HomePageLink } from 'types/HomePageLink';
+
+import { formatDateTimeForDisplay } from 'utils/date';
 
 import './BracketListSection.css';
 
 interface BracketListSectionProps {
   title: string;
-  list: BracketLink[];
+  list: HomePageLink[];
   onClick: (itemId: number) => void;
 }
 
@@ -30,6 +32,11 @@ export default function BracketListSection(props: BracketListSectionProps) {
               >
                 <div className="BracketLink__Text">{x.name}</div>
                 <div className="BracketDescription">{x.description}</div>
+                {x.createdAt && (
+                  <div className="BracketDate">
+                    {formatDateTimeForDisplay(x.createdAt)}
+                  </div>
+                )}
               </button>
             </li>
           ))

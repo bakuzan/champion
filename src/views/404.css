@@ -1,0 +1,22 @@
+.NotFound {
+  padding: 10px;
+}
+
+.NotFound__Figure blockquote {
+  background-color: #e6e6e6;
+  padding: 1em;
+  margin: 1em 0;
+}
+
+.NotFound__Figure figcaption {
+  margin: 0 0.5em;
+}
+
+.NotFound__Figure,
+.NotFound__Text {
+  margin: 0;
+}
+
+.NotFound .ButtonGroup {
+  margin: 10px 0;
+}

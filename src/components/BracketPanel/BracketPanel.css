@@ -74,6 +74,7 @@
 
 .Participant_RemoveButton {
   background: #fff;
+  color: #000;
   border: none;
   border-radius: 5px;
   font-size: 0.9rem;
@@ -81,4 +82,9 @@
   width: 20px;
   height: 20px;
   cursor: pointer;
+}
+
+.Participant_RemoveButton span {
+  position: relative;
+  top: -2px;
 }

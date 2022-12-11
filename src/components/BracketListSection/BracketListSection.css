@@ -16,6 +16,7 @@
   background: none;
   border: none;
   border: 1px dashed transparent;
+  width: calc(100% - 10px);
 }
 .BracketLink:hover {
   box-shadow: 0 0 2px 0 var(--theme-background-colour);
@@ -23,6 +24,7 @@
 
 .BracketLink__Text {
   display: flex;
+  justify-content: space-between;
   width: fit-content;
   text-align: left;
   border-bottom: 1px solid transparent;
@@ -48,4 +50,8 @@
   margin: 5px 0;
   text-align: left;
   white-space: pre;
+}
+
+.BracketDate {
+  text-align: right;
 }

@@ -1,12 +1,11 @@
 import db from '../database';
 
 import { BracketInformation } from 'types/BracketInformation';
+import { BracketMatchup } from 'types/BracketMatchup';
 import { BracketParticipant } from 'types/BracketParticipant';
 import { CreateTournamentResponse } from 'types/Responses';
 
 import { buildRounds } from 'builder/index';
-import { isQualifierRound } from 'utils/checks';
-import { BracketMatchup } from 'types/BracketMatchup';
 
 const MINIMUM_REQUIRED_PARTICIPANTS = 4;
 
@@ -91,8 +90,7 @@ export default function createTournament(
 
       for (let i = 0; i < rounds.length; i++) {
         const currentRound = rounds[i];
-        const isQualifier = isQualifierRound(currentRound);
-        const roundNumber = isQualifier ? i : i + 1;
+        const roundNumber = i + 1;
 
         for (let j = 0; j < currentRound.matchups.length; j++) {
           const currentMatchup = currentRound.matchups[j];

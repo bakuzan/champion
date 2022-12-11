@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import './404.css';
+
 export default function NotFoundPage() {
   const navigate = useNavigate();
 
@@ -21,10 +23,11 @@ export default function NotFoundPage() {
       </figure>
 
       <div className="ButtonGroup">
-        <button type="button" onClick={() => window.history.back()}>
-          Backtrack to the previous page
-        </button>
-        <button type="button" onClick={() => navigate('/')}>
+        <button
+          type="button"
+          className="PrimaryButton"
+          onClick={() => navigate('/')}
+        >
           Return to the landing page
         </button>
       </div>

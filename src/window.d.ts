@@ -1,5 +1,5 @@
-import { BracketLink } from 'types/BracketInformation';
 import { BracketTemplate } from 'types/BracketTemplate';
+import { HomePageLink } from 'types/HomePageLink';
 import {
   SaveBracketTemplateResponse,
   CreateTournamentResponse
@@ -8,10 +8,11 @@ import {
 export interface ChampionApi {
   ping(): void;
   /* Bracket endpoints */
-  getBracketTemplates(): BracketLink[];
+  getBracketTemplates(): HomePageLink[];
   getBracketTemplate(templateId: string | number): BracketTemplate;
   saveBracketTemplate(payload: BracketTemplate): SaveBracketTemplateResponse;
   /* Tournament endpoints */
+  getTournaments(): HomePageLink[];
   createTournament(bracketTemplateId: number): CreateTournamentResponse;
 }
 

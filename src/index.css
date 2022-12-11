@@ -34,6 +34,10 @@
   --matchup-slot-colour: var(--dark-slate);
 }
 
+html {
+  background-color: var(--anti-flash-white);
+}
+
 body {
   font-size: 16px;
   font-family: 'Lucida Console', 'Consolas', monospace;
