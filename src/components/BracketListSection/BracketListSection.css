@@ -52,6 +52,12 @@
   white-space: pre;
 }
 
-.BracketDate {
+/* Tournament specific styles */
+.TournamentData {
+  display: flex;
+  justify-content: space-between;
+}
+
+.TournamentDate {
   text-align: right;
 }

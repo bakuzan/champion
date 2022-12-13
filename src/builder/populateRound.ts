@@ -6,7 +6,7 @@ import { generateSeed } from './ordering';
 
 import { QualifierRoundName } from 'constants/index';
 import chunk from 'utils/chunk';
-import getRoundName from 'utils/getRoundName';
+import { getRoundNameFromMatchCount } from 'utils/getRoundName';
 
 export function populateRound(
   participants: BracketParticipant[]
@@ -22,7 +22,7 @@ export function populateRound(
   }
 
   return {
-    name: getRoundName(matchups.length),
+    name: getRoundNameFromMatchCount(matchups.length),
     matchups
   };
 }

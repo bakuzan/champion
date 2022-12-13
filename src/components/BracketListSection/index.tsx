@@ -3,6 +3,7 @@ import * as React from 'react';
 import { HomePageLink } from 'types/HomePageLink';
 
 import { formatDateTimeForDisplay } from 'utils/date';
+import { getRoundNameFromRoundNumbers } from 'utils/getRoundName';
 
 import './BracketListSection.css';
 
@@ -33,8 +34,19 @@ export default function BracketListSection(props: BracketListSectionProps) {
                 <div className="BracketLink__Text">{x.name}</div>
                 <div className="BracketDescription">{x.description}</div>
                 {x.createdAt && (
-                  <div className="BracketDate">
-                    {formatDateTimeForDisplay(x.createdAt)}
+                  <div className="TournamentData">
+                    <div className="TournamentStatus">
+                      {x.isComplete
+                        ? 'Complete'
+                        : getRoundNameFromRoundNumbers(
+                            x.finalRoundNumber,
+                            x.currentRoundNumber,
+                            x.participantCount
+                          )}
+                    </div>
+                    <div className="TournamentDate">
+                      {formatDateTimeForDisplay(x.createdAt)}
+                    </div>
                   </div>
                 )}
               </button>

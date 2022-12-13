@@ -31,13 +31,21 @@ complete_tourneys_cte AS
 		 , participantOneScore <> participantTwoScore isComplete
 	  FROM tourney_cte
 	 GROUP BY tournamentId
+),
+tourney_participants_cte AS
+(
+	SELECT tournamentId, COUNT(*) participantCount
+	  FROM TournamentParticipant
+	 GROUP BY tournamentId
 )
 SELECT t.*
+	 , p.participantCount
      , cu.currentRoundNumber
      , co.finalRoundNumber
 	 , co.isComplete
   FROM Tournament t
-  JOIN current_tourney_round_cte cu ON t.id = cu.tournamentId
+  JOIN tourney_participants_cte p	ON t.id = p.tournamentId
+  JOIN current_tourney_round_cte cu	ON t.id = cu.tournamentId
   JOIN complete_tourneys_cte co		ON t.id = co.tournamentId
  ORDER BY createdAt DESC
  
