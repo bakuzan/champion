@@ -1,6 +1,4 @@
 import { BracketParticipant } from './BracketParticipant';
+import { Matchup } from './Matchup';
 
-export interface BracketMatchup {
-  participantOne: BracketParticipant;
-  participantTwo: BracketParticipant;
-}
+export type BracketMatchup = Matchup<BracketParticipant>

@@ -1,13 +1,13 @@
-import { BracketParticipant } from 'types/BracketParticipant';
-import { BracketRound } from 'types/BracketRound';
+import { Participant } from 'types/Participant';
+import { Round } from 'types/Round';
 
 import {
   QualifierRoundName,
   UnconfirmedParticipantText
 } from 'constants/index';
 
-export const isPlaceholder = (p: BracketParticipant) =>
+export const isPlaceholder = <T extends Participant>(p: T) =>
   p.text === UnconfirmedParticipantText;
 
-export const isQualifierRound = (r: BracketRound) =>
+export const isQualifierRound = <T extends Round>(r: T) =>
   r.name === QualifierRoundName;

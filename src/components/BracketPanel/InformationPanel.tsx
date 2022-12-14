@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { BracketInformation } from 'types/BracketInformation';
+import { Information } from 'types/Information';
 
 import { AppContext } from 'context/index';
 import ErrorMessages from 'components/ErrorMessages';
@@ -8,9 +8,9 @@ import ErrorMessages from 'components/ErrorMessages';
 export default function InformationPanel() {
   const context = React.useContext(AppContext);
   const { errorMessages, dirty, information, dispatch } = context;
-  const isSavedTemplate = !!information.id;
+  const isSavedTemplate = !!information.id && !!context.startTournament;
 
-  function updateInformation(values: Partial<BracketInformation>) {
+  function updateInformation(values: Partial<Information>) {
     dispatch({
       type: 'UPDATE_INFORMATION',
       data: { ...information, ...values }

@@ -1,5 +1,3 @@
-import { BracketParticipant } from 'types/BracketParticipant';
-
-const getUID = (data: BracketParticipant) => data.id ?? data.key;
+const getUID = (data: { id?: number; key?: string }) => data.id ?? data.key;
 
 export default getUID;

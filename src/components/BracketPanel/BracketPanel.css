@@ -21,6 +21,7 @@
 /* Participants Panel */
 .ParticipantsPanel {
   height: calc(100% - 1.25em);
+  width: 100%;
 }
 
 .ParticipantsList {

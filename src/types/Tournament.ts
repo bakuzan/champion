@@ -1,3 +1,7 @@
+import { Matchup } from './Matchup';
+import { Participant } from './Participant';
+import { Round } from './Round';
+
 export interface Tournament {
   id: number;
   name: string;
@@ -5,19 +9,26 @@ export interface Tournament {
   createdAt: string;
 }
 
-export interface TournamentParticipant {
+export interface TournamentParticipant extends Participant {
   id: number;
-  text: string;
-  imageUrl?: string;
   seedOrder: number;
   tournamentId: number;
 }
 
 export interface TournamentMatchup {
   tournamentId: number;
-  // matchCode:string; // TODO How do we know which round something is in if we don't have the code ?
+  roundNumber: number;
+  roundMatchNumber: number;
   participantOneId?: number;
   participantOneScore: number;
   participantTwoId?: number;
   participantTwoScore: number;
+}
+
+export interface TournamentRoundMatchup
+  extends TournamentMatchup,
+    Matchup<TournamentParticipant> {}
+
+export interface TournamentRound extends Round {
+  matchups: TournamentRoundMatchup[];
 }

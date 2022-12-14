@@ -1,5 +1,5 @@
-export interface BracketInformation {
+import { Information } from './Information';
+
+export interface BracketInformation extends Information {
   id?: number;
-  name: string;
-  description: string;
 }

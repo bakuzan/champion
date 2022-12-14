@@ -1,17 +1,17 @@
 import * as React from 'react';
 
 import { AppAction } from 'types/AppAction';
-import { BracketInformation } from 'types/BracketInformation';
-import { BracketParticipant } from 'types/BracketParticipant';
+import { Information } from 'types/Information';
+import { ParticipantPlus } from 'types/Participant';
 
 export interface AppContextProps {
   dirty: boolean;
-  information: BracketInformation;
-  participants: BracketParticipant[];
+  information: Information & { id?: number };
+  participants: ParticipantPlus[];
   errorMessages: Map<string, string>;
   dispatch: React.Dispatch<AppAction>;
   save: () => void;
-  startTournament: () => void;
+  startTournament?: () => void;
 }
 
 export const AppContext = React.createContext<AppContextProps>(null);

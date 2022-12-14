@@ -2,6 +2,7 @@ import * as React from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 import { BracketRound } from 'types/BracketRound';
+import { TournamentRound } from 'types/Tournament';
 
 import ZoomTools from './ZoomTools';
 
@@ -12,7 +13,7 @@ import { isPlaceholder, isQualifierRound } from 'utils/checks';
 import './Bracket.css';
 
 interface BracketDisplayProps {
-  rounds: BracketRound[];
+  rounds: BracketRound[] | TournamentRound[];
 }
 
 function BracketDisplay(props: BracketDisplayProps) {

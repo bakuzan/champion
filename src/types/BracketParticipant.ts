@@ -1,8 +1,8 @@
-export interface BracketParticipant {
+import { Participant } from './Participant';
+
+export interface BracketParticipant extends Participant {
   id?: number;
   key: string;
-  text: string;
-  imageUrl?: string;
   seedOrder?: number;
   bracketTemplateId?: number;
 }

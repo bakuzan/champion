@@ -1,22 +1,25 @@
 import * as React from 'react';
 
-import { BracketParticipant } from 'types/BracketParticipant';
+import { ParticipantPlus } from 'types/Participant';
 
 import getUID from 'utils/getBracketParticipantUID';
 
-interface ParticipantProps {
-  data: BracketParticipant;
+interface ParticipantProps<T extends ParticipantPlus> {
+  data: T;
   index: number;
-  onChange: (data: BracketParticipant) => void;
+  isReadOnly: boolean;
+  onChange: (data: T) => void;
   onRemove: (uid: number | string) => void;
 }
 
-export function Participant(props: ParticipantProps) {
+export function ParticipantItem<T extends ParticipantPlus>(
+  props: ParticipantProps<T>
+) {
   const num = props.index + 1;
 
   return (
     <li className="Participant">
-      <div className="Participant_Handle"></div>
+      {!props.isReadOnly && <div className="Participant_Handle"></div>}
       <div className="Participant_Number">{num}</div>
       <div className="Participant_Controls">
         <div className="Participant_Control Control">
@@ -28,6 +31,7 @@ export function Participant(props: ParticipantProps) {
             placeholder="Participant"
             required
             value={props.data.text ?? ''}
+            readOnly={props.isReadOnly}
             onChange={(event) =>
               props.onChange({
                 ...props.data,
@@ -44,6 +48,7 @@ export function Participant(props: ParticipantProps) {
             name="imageUrl"
             placeholder="Image Url"
             value={props.data.imageUrl ?? ''}
+            readOnly={props.isReadOnly}
             onChange={(event) => {
               const imageUrl = event.currentTarget.value;
               props.onChange({
@@ -54,16 +59,18 @@ export function Participant(props: ParticipantProps) {
           />
         </div>
       </div>
-      <div className="Participant_Remove">
-        <button
-          type="button"
-          title="Remove participant"
-          className="Participant_RemoveButton"
-          onClick={() => props.onRemove(getUID(props.data))}
-        >
-          <span aria-hidden={true}>&#10060;&#xFE0E;</span>
-        </button>
-      </div>
+      {!props.isReadOnly && (
+        <div className="Participant_Remove">
+          <button
+            type="button"
+            title="Remove participant"
+            className="Participant_RemoveButton"
+            onClick={() => props.onRemove(getUID(props.data))}
+          >
+            <span aria-hidden={true}>&#10060;&#xFE0E;</span>
+          </button>
+        </div>
+      )}
     </li>
   );
 }

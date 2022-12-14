@@ -1,0 +1,15 @@
+.Tournament {
+  display: grid;
+  grid-template-areas: 'sidebar core core core core';
+  height: 100vh; /* -webkit-fill-available; */
+}
+
+.Tournament--BracketFill {
+  grid-template-areas: unset;
+  display: flex;
+}
+
+.Tournament--BracketFill .Bracket {
+  display: flex;
+  flex: 1;
+}

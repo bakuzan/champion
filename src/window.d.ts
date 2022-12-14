@@ -4,6 +4,7 @@ import {
   SaveBracketTemplateResponse,
   CreateTournamentResponse
 } from 'types/Responses';
+import { SingleEliminationTournament } from 'types/SingleEliminationTournament';
 
 export interface ChampionApi {
   ping(): void;
@@ -13,6 +14,7 @@ export interface ChampionApi {
   saveBracketTemplate(payload: BracketTemplate): SaveBracketTemplateResponse;
   /* Tournament endpoints */
   getTournaments(): HomePageLink[];
+  getTournament(tourneyId: string | number): SingleEliminationTournament;
   createTournament(bracketTemplateId: number): CreateTournamentResponse;
 }
 

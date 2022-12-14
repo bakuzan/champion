@@ -5,6 +5,7 @@ import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import BracketCreator from './views/BracketCreator';
 import HomePage from './views/Home';
 import NotFoundPage from 'views/404';
+import Tournament from 'views/Tournament';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           element={<BracketCreator />}
         />
 
+        <Route path="/tournament/:tournamentId" element={<Tournament />} />
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
