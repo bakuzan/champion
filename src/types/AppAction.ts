@@ -1,7 +1,7 @@
 import { Information } from './Information';
 
 import { BracketTemplate } from './BracketTemplate';
-import { ParticipantPlus } from './Participant';
+import { BracketParticipant } from './BracketParticipant';
 
 export type AppActionType =
   | 'LOAD_DATA'
@@ -14,7 +14,7 @@ export type AppActionType =
 export type AppAction =
   | { type: 'LOAD_DATA'; data: BracketTemplate }
   | { type: 'UPDATE_INFORMATION'; data: Information }
-  | { type: 'ADD_PARTICIPANT'; data: ParticipantPlus }
-  | { type: 'UPDATE_PARTICIPANT'; data: ParticipantPlus }
+  | { type: 'ADD_PARTICIPANT'; data: BracketParticipant }
+  | { type: 'UPDATE_PARTICIPANT'; data: BracketParticipant }
   | { type: 'REMOVE_PARTICIPANT'; uid: number | string }
   | { type: 'SET_ERROR'; data: Map<string, string> };

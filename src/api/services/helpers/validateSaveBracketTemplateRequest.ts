@@ -1,9 +1,9 @@
 import { BracketTemplate } from 'types/BracketTemplate';
 import { SaveBracketTemplateResponse } from 'types/Responses';
 
-const isNullOrEmpty = (s: string) => !s || !s.trim();
+import { isNullOrEmpty } from './common';
 
-export function validateSaveBracketTemplateRequest(
+export default function validateSaveBracketTemplateRequest(
   payload: BracketTemplate
 ): SaveBracketTemplateResponse {
   const errorMessages = new Map<string, string>([]);

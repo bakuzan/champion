@@ -2,7 +2,8 @@ import { BracketTemplate } from 'types/BracketTemplate';
 import { HomePageLink } from 'types/HomePageLink';
 import {
   SaveBracketTemplateResponse,
-  CreateTournamentResponse
+  CreateTournamentResponse,
+  SaveTournamentResponse
 } from 'types/Responses';
 import { SingleEliminationTournament } from 'types/SingleEliminationTournament';
 
@@ -16,6 +17,7 @@ export interface ChampionApi {
   getTournaments(): HomePageLink[];
   getTournament(tourneyId: string | number): SingleEliminationTournament;
   createTournament(bracketTemplateId: number): CreateTournamentResponse;
+  saveTournament(payload: Tournament): SaveTournamentResponse;
 }
 
 declare global {

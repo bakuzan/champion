@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import {
   Tournament,
@@ -80,6 +80,7 @@ function Tournament() {
   const [isCollapsed, setIsCollapsed] = React.useState(false);
   const [data, dispatch] = React.useReducer(reducer, DEFAULT_STATE);
 
+  const navigate = useNavigate();
   const { key: locationKey } = useLocation(); // will be different for each navigate!
   const { tournamentId } = useParams<{ tournamentId: string }>();
 
@@ -91,7 +92,13 @@ function Tournament() {
   }, [tournamentId, locationKey]);
 
   function save() {
-    console.log('Save Tournament not implemented yet!');
+    const response = window.Champion.saveTournament(data.information);
+
+    if (response.success) {
+      navigate(`/tournament/${response.tournamentId}`);
+    } else {
+      dispatch({ type: 'SET_ERROR', data: response.errorMessages });
+    }
   }
 
   const bracketRounds = data.rounds;

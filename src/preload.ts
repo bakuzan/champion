@@ -3,6 +3,7 @@ import { contextBridge } from 'electron';
 import * as api from './api';
 
 import { BracketTemplate } from 'types/BracketTemplate';
+import { Tournament } from 'types/Tournament';
 
 // Create the api to expose to the renderer
 contextBridge.exposeInMainWorld('Champion', {
@@ -17,5 +18,6 @@ contextBridge.exposeInMainWorld('Champion', {
   getTournaments: () => api.getTournaments(),
   getTournament: (tourneyId: string | number) => api.getTournament(tourneyId),
   createTournament: (bracketTemplateId: number) =>
-    api.createTournament(bracketTemplateId)
+    api.createTournament(bracketTemplateId),
+  saveTournament: (payload: Tournament) => api.saveTournament(payload)
 });

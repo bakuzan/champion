@@ -4,8 +4,7 @@ import { BracketParticipant } from 'types/BracketParticipant';
 import { BracketTemplate } from 'types/BracketTemplate';
 
 import filterFalsey from 'utils/filterFalsey';
-
-import { validateSaveBracketTemplateRequest } from './helpers/validate';
+import validateSaveBracketTemplateRequest from './helpers/validateSaveBracketTemplateRequest';
 
 const addParticipantSeedOrder = (p: BracketParticipant, i: number) => ({
   ...p,

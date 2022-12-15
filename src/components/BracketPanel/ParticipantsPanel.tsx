@@ -1,12 +1,14 @@
 import * as React from 'react';
 
+import { BracketParticipant } from 'types/BracketParticipant';
+
 import { AppContext } from 'context/index';
 
 import generateUniqueId from 'utils/generateUniqueId';
 import getUID from 'utils/getBracketParticipantUID';
+import { isTournamentParticipant } from 'utils/guards';
 
 import { ParticipantItem } from './Participant';
-import { isTournamentParticipant } from 'utils/guards';
 
 export default function ParticipantsPanel() {
   const context = React.useContext(AppContext);
@@ -45,7 +47,9 @@ export default function ParticipantsPanel() {
             data={p}
             index={i}
             isReadOnly={!isBracketParticipant}
-            onChange={(data) => dispatch({ type: 'UPDATE_PARTICIPANT', data })}
+            onChange={(data: BracketParticipant) =>
+              dispatch({ type: 'UPDATE_PARTICIPANT', data })
+            }
             onRemove={(uid) => dispatch({ type: 'REMOVE_PARTICIPANT', uid })}
           />
         ))}
