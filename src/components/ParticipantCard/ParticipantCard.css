@@ -1,11 +1,27 @@
 .ParticipantCard {
+  padding: 5px;
+  margin: 5px 0;
 }
 
-.ParticipantCard__Info {
+.ParticipantCard img {
+  margin: 5px auto;
+}
+
+.ParticipantCard__Block {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  margin: 5px 0 10px 0;
 }
 
 .ParticipantCard__Seed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--theme-background-colour);
+  color: var(--theme-colour-colour);
+  margin-right: 4px;
 }
 
 .ParticipantCard__Name {
+  margin: 2px 0;
 }

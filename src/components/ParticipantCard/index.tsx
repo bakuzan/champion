@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { TournamentParticipant } from 'types/Tournament';
+import getOrdinalSuffix from 'utils/getOrdinalSuffix';
 
 import './ParticipantCard.css';
 
@@ -13,17 +14,24 @@ interface ParticipantDisplayProps {
 export default function ParticipantCard(props: ParticipantDisplayProps) {
   const uid = props.participant.id;
   const image = props.participant.imageUrl; // TODO make a fallback image!
-  const controlName = `score_${uid}`;
   // TODO onError need for image...
+  const controlName = `score_${uid}`;
+  const seedOrder = props.participant.seedOrder + 1;
+  const seedOrderWithOrd = getOrdinalSuffix(seedOrder);
 
   return (
     <div className="ParticipantCard">
-      <img src={image} alt={props.participant.text} onError={null} />
+      {image && <img src={image} alt={props.participant.text} onError={null} />}
       <div className="ParticipantCard__Info">
-        <div className="ParticipantCard__Seed">
-          {props.participant.seedOrder}
+        <div className="ParticipantCard__Block">
+          <div
+            className="ParticipantCard__Seed"
+            title={`${seedOrderWithOrd} Seed`}
+          >
+            <span aria-hidden={true}>{seedOrder}</span>
+          </div>
+          <div className="ParticipantCard__Name">{props.participant.text}</div>
         </div>
-        <div className="ParticipantCard__Name">{props.participant.text}</div>
         <div className="Control">
           <label htmlFor={controlName}>Score</label>
           <input

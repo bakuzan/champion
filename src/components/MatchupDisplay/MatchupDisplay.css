@@ -1,14 +1,29 @@
 .MatchupDisplay {
+  grid-area: core;
 }
 
 .MatchupDisplay__Close {
+  position: absolute;
+  top: 0.83em;
+  right: 5px;
 }
 
-.MatchDisplay__Cancel {
+.MatchDisplay__Cancel:focus span,
+.MatchDisplay__Cancel:hover span {
+  color: var(--theme-background-colour);
 }
 
 .MatchupDisplay__Header {
+  margin: 0 5px;
 }
 
 .MatchupDisplay__Content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  width: 100%;
+}
+
+.MatchDisplayButtonGroup > * {
+  margin: 0 5px;
 }

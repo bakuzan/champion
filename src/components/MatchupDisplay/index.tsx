@@ -3,6 +3,7 @@ import * as React from 'react';
 import { TournamentRoundMatchup } from 'types/Tournament';
 
 import ParticipantCard from 'components/ParticipantCard';
+import getOrdinalSuffix from 'utils/getOrdinalSuffix';
 
 import './MatchupDisplay.css';
 
@@ -14,11 +15,14 @@ export default function MatchupDisplay(props: MatchupDisplayProps) {
   const { match } = props;
   const [scoreOne, setScoreOne] = React.useState(match.participantOneScore);
   const [scoreTwo, setScoreTwo] = React.useState(match.participantTwoScore);
+  const canPostResults = scoreOne !== scoreTwo;
 
   const pOne = match.participantOne;
+  const pOneSeed = getOrdinalSuffix(pOne.seedOrder + 1);
   const pTwo = match.participantTwo;
-  const matchTitle = ``;
-  const matchDescription = ``;
+  const pTwoSeed = getOrdinalSuffix(pTwo.seedOrder + 1);
+  const matchTitle = `${pOne.text} vs ${pTwo.text}`;
+  const matchDescription = `${pOneSeed} seed faces the ${pTwoSeed} seed`;
 
   function onCloseDisplay() {
     console.log('CLOSE DISPLAY not implement yet!');
@@ -56,7 +60,7 @@ export default function MatchupDisplay(props: MatchupDisplayProps) {
           score={scoreTwo}
           onScoreChange={(v) => setScoreTwo(v)}
         />
-        <div className="ButtonGroup">
+        <div className="ButtonGroup MatchDisplayButtonGroup">
           <button
             type="button"
             className="RegularButton"
@@ -67,6 +71,7 @@ export default function MatchupDisplay(props: MatchupDisplayProps) {
           <button
             type="button"
             className="PrimaryButton"
+            disabled={!canPostResults}
             onClick={onPostResults}
           >
             Post Results
