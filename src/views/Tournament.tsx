@@ -1,70 +1,20 @@
 import * as React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
-import {
-  Tournament,
-  TournamentMatchup,
-  TournamentParticipant,
-  TournamentRound
-} from 'types/Tournament';
-import { SingleEliminationTournament } from 'types/SingleEliminationTournament';
-import { AppAction } from 'types/AppAction';
+import { Tournament, TournamentRoundMatchup } from 'types/Tournament';
 
 import BracketInformationComponent from 'components/BracketInformation';
 import BracketDisplay from 'components/BracketDisplay';
 import LoadingDisplay from 'components/LoadingDisplay';
+import MatchupDisplay from 'components/MatchupDisplay';
 
 import { AppContext } from 'context/index';
+
+import reducer, { TournamentState } from 'reducers/tournament';
 
 import classNames from 'utils/classNames';
 
 import './Tournament.css';
-
-type TournamentAction = {
-  type: 'LOAD_TOURNAMENT';
-  data: SingleEliminationTournament;
-};
-
-interface TournamentState {
-  dirty: boolean;
-  loading: boolean;
-  information: Tournament;
-  participants: TournamentParticipant[];
-  matchups: TournamentMatchup[];
-  rounds: TournamentRound[];
-  errorMessages: Map<string, string>;
-}
-
-function reducer(state: TournamentState, action: AppAction | TournamentAction) {
-  switch (action.type) {
-    case 'LOAD_TOURNAMENT': {
-      const { participants, matchups, rounds, ...information } = action.data;
-      return {
-        ...state,
-        dirty: false,
-        loading: false,
-        information,
-        participants,
-        matchups,
-        rounds,
-        errorMessages: new Map<string, string>([])
-      };
-    }
-    case 'UPDATE_INFORMATION':
-      return {
-        ...state,
-        dirty: true,
-        information: { ...state.information, ...action.data }
-      };
-    case 'SET_ERROR':
-      return {
-        ...state,
-        errorMessages: action.data
-      };
-    default:
-      return { ...state };
-  }
-}
 
 const DEFAULT_STATE: TournamentState = {
   dirty: false,
@@ -73,7 +23,8 @@ const DEFAULT_STATE: TournamentState = {
   information: null,
   participants: [],
   matchups: [],
-  rounds: []
+  rounds: [],
+  selectedMatch: null
 };
 
 function Tournament() {
@@ -99,6 +50,10 @@ function Tournament() {
     } else {
       dispatch({ type: 'SET_ERROR', data: response.errorMessages });
     }
+  }
+
+  function onMatchSelect(data: TournamentRoundMatchup) {
+    dispatch({ type: 'SET_SELECTED_MATCH', data });
   }
 
   const bracketRounds = data.rounds;
@@ -130,7 +85,14 @@ function Tournament() {
             isCollapsed={isCollapsed}
             onToggleCollapse={() => setIsCollapsed((p) => !p)}
           />
-          <BracketDisplay rounds={bracketRounds} />
+          {data.selectedMatch ? (
+            <MatchupDisplay match={data.selectedMatch} />
+          ) : (
+            <BracketDisplay
+              rounds={bracketRounds}
+              onMatchSelect={onMatchSelect}
+            />
+          )}
         </main>
       </AppContext.Provider>
     </LoadingDisplay>

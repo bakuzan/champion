@@ -1,7 +1,8 @@
 import { Information } from './Information';
-
 import { BracketTemplate } from './BracketTemplate';
 import { BracketParticipant } from './BracketParticipant';
+import { SingleEliminationTournament } from './SingleEliminationTournament';
+import { TournamentRoundMatchup } from './Tournament';
 
 export type AppActionType =
   | 'LOAD_DATA'
@@ -18,3 +19,12 @@ export type AppAction =
   | { type: 'UPDATE_PARTICIPANT'; data: BracketParticipant }
   | { type: 'REMOVE_PARTICIPANT'; uid: number | string }
   | { type: 'SET_ERROR'; data: Map<string, string> };
+
+export type TournamentActionType = 'LOAD_TOURNAMENT' | 'SET_SELECTED_MATCH';
+
+export type TournamentAction =
+  | {
+      type: 'LOAD_TOURNAMENT';
+      data: SingleEliminationTournament;
+    }
+  | { type: 'SET_SELECTED_MATCH'; data: TournamentRoundMatchup | null };

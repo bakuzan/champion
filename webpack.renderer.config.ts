@@ -22,6 +22,7 @@ export const rendererConfig: Configuration = {
       constants: path.resolve(__dirname, './src/constants'),
       context: path.resolve(__dirname, './src/context'),
       hooks: path.resolve(__dirname, './src/hooks'),
+      reducers: path.resolve(__dirname, './src/reducers'),
       types: path.resolve(__dirname, './src/types'),
       utils: path.resolve(__dirname, './src/utils'),
       views: path.resolve(__dirname, './src/views')

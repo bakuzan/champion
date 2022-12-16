@@ -20,6 +20,7 @@
       "constants/*": ["./src/constants/*"],
       "context/*": ["./src/context/*"],
       "hooks/*": ["./src/hooks/*"],
+      "reducers/*": ["./src/reducers/*"],
       "types/*": ["./src/types/*"],
       "utils/*": ["./src/utils/*"],
       "views/*": ["./src/views/*"]

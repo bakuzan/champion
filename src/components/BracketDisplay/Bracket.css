@@ -71,7 +71,6 @@
   border-left-width: 0;
   box-sizing: border-box;
   margin-bottom: 100px;
-  cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
@@ -89,6 +88,9 @@
 
 .Matchup--Hidden {
   visibility: hidden;
+}
+.Matchup--Tournament {
+  cursor: pointer;
 }
 
 .Bracket--64 .Round--64 .Matchup,
