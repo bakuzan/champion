@@ -6,6 +6,7 @@ import {
   SaveTournamentResponse
 } from 'types/Responses';
 import { SingleEliminationTournament } from 'types/SingleEliminationTournament';
+import { TournamentRoundMatchup } from 'types/Tournament';
 
 export interface ChampionApi {
   ping(): void;
@@ -18,6 +19,10 @@ export interface ChampionApi {
   getTournament(tourneyId: string | number): SingleEliminationTournament;
   createTournament(bracketTemplateId: number): CreateTournamentResponse;
   saveTournament(payload: Tournament): SaveTournamentResponse;
+  /* Tournament Match endpoints */
+  saveTournamentMatchResult(
+    match: TournamentRoundMatchup
+  ): SaveTournamentResponse;
 }
 
 declare global {

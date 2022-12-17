@@ -15,6 +15,7 @@
     "paths": {
       "*": ["node_modules/*"],
       "api/*": ["./src/api/*"],
+      "assets": ["./src/assets/*"],
       "builder/*": ["./src/builder/*"],
       "components/*": ["./src/components/*"],
       "constants/*": ["./src/constants/*"],

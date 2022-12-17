@@ -17,6 +17,7 @@ export const rendererConfig: Configuration = {
   resolve: {
     alias: {
       api: path.resolve(__dirname, './src/api'),
+      assets: path.resolve(__dirname, './src/assets'),
       builder: path.resolve(__dirname, './src/builder'),
       components: path.resolve(__dirname, './src/components'),
       constants: path.resolve(__dirname, './src/constants'),

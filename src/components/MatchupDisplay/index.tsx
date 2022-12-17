@@ -9,13 +9,19 @@ import './MatchupDisplay.css';
 
 interface MatchupDisplayProps {
   match: TournamentRoundMatchup;
+  onCloseDisplay: () => void;
+  onPostResults: (match: TournamentRoundMatchup) => void;
 }
 
 export default function MatchupDisplay(props: MatchupDisplayProps) {
   const { match } = props;
+
   const [scoreOne, setScoreOne] = React.useState(match.participantOneScore);
   const [scoreTwo, setScoreTwo] = React.useState(match.participantTwoScore);
-  const canPostResults = scoreOne !== scoreTwo;
+
+  const isComplete =
+    match.participantOneScore !== 0 || match.participantTwoScore !== 0;
+  const canPostResults = !isComplete && scoreOne !== scoreTwo;
 
   const pOne = match.participantOne;
   const pOneSeed = getOrdinalSuffix(pOne.seedOrder + 1);
@@ -23,14 +29,6 @@ export default function MatchupDisplay(props: MatchupDisplayProps) {
   const pTwoSeed = getOrdinalSuffix(pTwo.seedOrder + 1);
   const matchTitle = `${pOne.text} vs ${pTwo.text}`;
   const matchDescription = `${pOneSeed} seed faces the ${pTwoSeed} seed`;
-
-  function onCloseDisplay() {
-    console.log('CLOSE DISPLAY not implement yet!');
-  }
-
-  function onPostResults() {
-    console.log('POST RESULTS not implement yet!');
-  }
 
   console.log('<MatchupDisplay> ', props);
   return (
@@ -40,7 +38,7 @@ export default function MatchupDisplay(props: MatchupDisplayProps) {
           type="button"
           title="Close Matchup Display"
           className="MatchDisplay__Cancel"
-          onClick={onCloseDisplay}
+          onClick={props.onCloseDisplay}
         >
           <span aria-hidden={true}>&#10060;&#xFE0E;</span>
         </button>
@@ -52,11 +50,13 @@ export default function MatchupDisplay(props: MatchupDisplayProps) {
       <div className="MatchupDisplay__Content">
         <ParticipantCard
           participant={pOne}
+          readOnly={isComplete}
           score={scoreOne}
           onScoreChange={(v) => setScoreOne(v)}
         />
         <ParticipantCard
           participant={pTwo}
+          readOnly={isComplete}
           score={scoreTwo}
           onScoreChange={(v) => setScoreTwo(v)}
         />
@@ -64,18 +64,26 @@ export default function MatchupDisplay(props: MatchupDisplayProps) {
           <button
             type="button"
             className="RegularButton"
-            onClick={onCloseDisplay}
+            onClick={props.onCloseDisplay}
           >
             Cancel
           </button>
-          <button
-            type="button"
-            className="PrimaryButton"
-            disabled={!canPostResults}
-            onClick={onPostResults}
-          >
-            Post Results
-          </button>
+          {!isComplete && (
+            <button
+              type="button"
+              className="PrimaryButton"
+              disabled={!canPostResults}
+              onClick={() =>
+                props.onPostResults({
+                  ...match,
+                  participantOneScore: scoreOne,
+                  participantTwoScore: scoreTwo
+                })
+              }
+            >
+              Post Results
+            </button>
+          )}
         </div>
       </div>
     </section>

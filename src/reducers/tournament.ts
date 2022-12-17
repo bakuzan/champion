@@ -33,6 +33,7 @@ export default function reducer(
         participants,
         matchups,
         rounds,
+        selectedMatch: null,
         errorMessages: new Map<string, string>([])
       };
     }

@@ -52,8 +52,14 @@ function Tournament() {
     }
   }
 
-  function onMatchSelect(data: TournamentRoundMatchup) {
-    dispatch({ type: 'SET_SELECTED_MATCH', data });
+  function onPostMatchResult(match: TournamentRoundMatchup) {
+    const response = window.Champion.saveTournamentMatchResult(match);
+
+    if (response.success) {
+      navigate(`/tournament/${response.tournamentId}`);
+    } else {
+      dispatch({ type: 'SET_ERROR', data: response.errorMessages });
+    }
   }
 
   const bracketRounds = data.rounds;
@@ -86,11 +92,19 @@ function Tournament() {
             onToggleCollapse={() => setIsCollapsed((p) => !p)}
           />
           {data.selectedMatch ? (
-            <MatchupDisplay match={data.selectedMatch} />
+            <MatchupDisplay
+              match={data.selectedMatch}
+              onPostResults={onPostMatchResult}
+              onCloseDisplay={() =>
+                dispatch({ type: 'SET_SELECTED_MATCH', data: null })
+              }
+            />
           ) : (
             <BracketDisplay
               rounds={bracketRounds}
-              onMatchSelect={onMatchSelect}
+              onMatchSelect={(data) =>
+                dispatch({ type: 'SET_SELECTED_MATCH', data })
+              }
             />
           )}
         </main>

@@ -7,6 +7,7 @@ import './ParticipantCard.css';
 
 interface ParticipantDisplayProps {
   participant: TournamentParticipant;
+  readOnly: boolean;
   score: number;
   onScoreChange: (score: number) => void;
 }
@@ -21,7 +22,14 @@ export default function ParticipantCard(props: ParticipantDisplayProps) {
 
   return (
     <div className="ParticipantCard">
-      {image && <img src={image} alt={props.participant.text} onError={null} />}
+      {image && (
+        <img
+          className="ParticipantCard__Image"
+          src={image}
+          alt={props.participant.text}
+          onError={null}
+        />
+      )}
       <div className="ParticipantCard__Info">
         <div className="ParticipantCard__Block">
           <div
@@ -41,6 +49,7 @@ export default function ParticipantCard(props: ParticipantDisplayProps) {
             min={0}
             required
             placeholder="Enter participant score"
+            readOnly={props.readOnly}
             value={props.score}
             onChange={(event) => {
               const v = event.currentTarget.value;

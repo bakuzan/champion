@@ -1,6 +1,7 @@
 import * as React from 'react';
 
 import { HomePageLink } from 'types/HomePageLink';
+import classNames from 'utils/classNames';
 
 import { formatDateTimeForDisplay } from 'utils/date';
 import { getRoundNameFromRoundNumbers } from 'utils/getRoundName';
@@ -28,7 +29,10 @@ export default function BracketListSection(props: BracketListSectionProps) {
             <li key={x.id} className="BracketLinkItem">
               <button
                 type="button"
-                className="BracketLink"
+                className={classNames(
+                  'BracketLink',
+                  x.isComplete && 'BracketLink--Complete'
+                )}
                 onClick={() => props.onClick(x.id)}
               >
                 <div className="BracketLink__Text">{x.name}</div>

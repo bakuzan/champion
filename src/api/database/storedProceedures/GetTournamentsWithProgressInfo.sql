@@ -16,7 +16,7 @@ WITH tourney_cte AS
 current_tourney_round_cte AS
 (
 	SELECT tournamentId
-	     , MAX(roundNumber) currentRoundNumber
+	     , MIN(roundNumber) currentRoundNumber
 	  FROM tourney_cte
 	 WHERE participantOneId IS NOT NULL
 	   AND participantTwoId IS NOT NULL
@@ -40,12 +40,12 @@ tourney_participants_cte AS
 )
 SELECT t.*
 	 , p.participantCount
-     , cu.currentRoundNumber
+     , ifnull(cu.currentRoundNumber, co.finalRoundNumber) currentRoundNumber
      , co.finalRoundNumber
 	 , co.isComplete
   FROM Tournament t
-  JOIN tourney_participants_cte p	ON t.id = p.tournamentId
-  JOIN current_tourney_round_cte cu	ON t.id = cu.tournamentId
-  JOIN complete_tourneys_cte co		ON t.id = co.tournamentId
+  JOIN tourney_participants_cte p			ON t.id = p.tournamentId
+  LEFT JOIN current_tourney_round_cte cu	ON t.id = cu.tournamentId
+  JOIN complete_tourneys_cte co				ON t.id = co.tournamentId
  ORDER BY createdAt DESC
  

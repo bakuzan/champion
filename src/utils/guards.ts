@@ -8,6 +8,7 @@ import {
 export function isTournamentParticipant(
   participant: ParticipantPlus
 ): participant is TournamentParticipant {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return !!(participant as any).tournamentId;
 }
 

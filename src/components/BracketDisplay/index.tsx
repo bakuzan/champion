@@ -2,7 +2,6 @@ import * as React from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 import { BracketRound } from 'types/BracketRound';
-import { BracketMatchup } from 'types/BracketMatchup';
 import { TournamentRound, TournamentRoundMatchup } from 'types/Tournament';
 
 import ZoomTools from './ZoomTools';
@@ -10,49 +9,21 @@ import ZoomTools from './ZoomTools';
 import classNames from 'utils/classNames';
 import getUID from 'utils/getBracketParticipantUID';
 import { isPlaceholder, isQualifierRound } from 'utils/checks';
-import { isBracketMatchup } from 'utils/guards';
 
+import { getTournamentWinner, getMatchProps } from './utils';
+
+// eslint-disable-next-line import/no-unresolved
+import crownImage from 'assets/crown_tyrian_purple.png';
 import './Bracket.css';
-import { createClickEquivalentHandler } from 'utils/accessibility';
 
 interface BracketDisplayProps {
   rounds: BracketRound[] | TournamentRound[];
   onMatchSelect?: (match: TournamentRoundMatchup) => void;
 }
 
-function getMatchProps(
-  match: TournamentRoundMatchup | BracketMatchup,
-  onMatchSelect: (match: TournamentRoundMatchup) => void
-) {
-  if (isBracketMatchup(match)) {
-    return {};
-  }
-
-  if (
-    isPlaceholder(match.participantOne) ||
-    isPlaceholder(match.participantTwo)
-  ) {
-    return {};
-  }
-
-  // We have to reassign because typescript isn't smart enough
-  // to realise the type assertion inside the function!
-  const tournamentMatchup = match;
-
-  function onClick() {
-    onMatchSelect(tournamentMatchup);
-  }
-
-  return {
-    role: 'button',
-    tabIndex: 0,
-    onClick,
-    onKeyDown: createClickEquivalentHandler(onClick)
-  };
-}
-
 function BracketDisplay(props: BracketDisplayProps) {
   const bracketSize = Math.pow(2, props.rounds.length);
+  const winner = getTournamentWinner(props.rounds);
   console.log('<Bracket> :: ', props.rounds);
 
   return (
@@ -86,6 +57,7 @@ function BracketDisplay(props: BracketDisplayProps) {
                     {br.matchups.map((mu) => {
                       const pOne = mu.participantOne;
                       const pTwo = mu.participantTwo;
+
                       const matchKey = `${getUID(pOne)}_${getUID(pTwo)}`;
                       const hasNoParticipants =
                         isPlaceholder(pOne) && isPlaceholder(pTwo);
@@ -117,6 +89,16 @@ function BracketDisplay(props: BracketDisplayProps) {
                   </div>
                 );
               })}
+              {winner && (
+                <div className="TournamentWinner">
+                  <img
+                    className="TournamentCrownImage"
+                    src={crownImage}
+                    alt="Crown"
+                  />
+                  <div className="TournamentWinner__Text">{winner.text}</div>
+                </div>
+              )}
             </TransformComponent>
           </React.Fragment>
         )}

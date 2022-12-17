@@ -3,7 +3,7 @@ import { contextBridge } from 'electron';
 import * as api from './api';
 
 import { BracketTemplate } from 'types/BracketTemplate';
-import { Tournament } from 'types/Tournament';
+import { Tournament, TournamentRoundMatchup } from 'types/Tournament';
 
 // Create the api to expose to the renderer
 contextBridge.exposeInMainWorld('Champion', {
@@ -19,5 +19,8 @@ contextBridge.exposeInMainWorld('Champion', {
   getTournament: (tourneyId: string | number) => api.getTournament(tourneyId),
   createTournament: (bracketTemplateId: number) =>
     api.createTournament(bracketTemplateId),
-  saveTournament: (payload: Tournament) => api.saveTournament(payload)
+  saveTournament: (payload: Tournament) => api.saveTournament(payload),
+  /* Tournament Match endpoints */
+  saveTournamentMatchResult: (match: TournamentRoundMatchup) =>
+    api.saveTournamentMatchResult(match)
 });
