@@ -70,7 +70,9 @@ const DEFAULT_STATE: AppState = {
       text: 'Tenth',
       imageUrl: null
     }
-  ].slice(0, 7) // DEV DATA
+  ]
+    .map((x, i) => ({ ...x, seedOrder: i }))
+    .slice(0, 7) // DEV DATA
 };
 
 function BracketCreator() {

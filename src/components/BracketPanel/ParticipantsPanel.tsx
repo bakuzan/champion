@@ -13,7 +13,10 @@ import { ParticipantItem } from './Participant';
 export default function ParticipantsPanel() {
   const context = React.useContext(AppContext);
   const { participants, dispatch } = context;
-  const isBracketParticipant = !isTournamentParticipant(participants[0]);
+
+  const firstParticipant = participants[0];
+  const isBracketParticipant =
+    !firstParticipant || !isTournamentParticipant(firstParticipant);
 
   return (
     <div className="ParticipantsPanel">

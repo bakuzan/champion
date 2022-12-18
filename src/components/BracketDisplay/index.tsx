@@ -22,7 +22,12 @@ interface BracketDisplayProps {
 }
 
 function BracketDisplay(props: BracketDisplayProps) {
-  const bracketSize = Math.pow(2, props.rounds.length);
+  const roundCount = props.rounds.length;
+  if (!roundCount) {
+    return null;
+  }
+
+  const bracketSize = Math.pow(2, roundCount);
   const winner = getTournamentWinner(props.rounds);
   console.log('<Bracket> :: ', props.rounds);
 
@@ -58,9 +63,19 @@ function BracketDisplay(props: BracketDisplayProps) {
                       const pOne = mu.participantOne;
                       const pTwo = mu.participantTwo;
 
+                      const pOneIsPlaceholder = isPlaceholder(pOne);
+                      const pTwoIsPlaceholder = isPlaceholder(pTwo);
+
+                      const pOneSeed = pOneIsPlaceholder
+                        ? ''
+                        : pOne.seedOrder + 1;
+                      const pTwoSeed = pTwoIsPlaceholder
+                        ? ''
+                        : pTwo.seedOrder + 1;
+
                       const matchKey = `${getUID(pOne)}_${getUID(pTwo)}`;
                       const hasNoParticipants =
-                        isPlaceholder(pOne) && isPlaceholder(pTwo);
+                        pOneIsPlaceholder && pTwoIsPlaceholder;
 
                       const matchProps = getMatchProps(mu, props.onMatchSelect);
                       const isClickable = 'role' in matchProps;
@@ -78,10 +93,20 @@ function BracketDisplay(props: BracketDisplayProps) {
                           )}
                         >
                           <div className="Matchup_Slot Matchup_Slot--Top">
-                            {pOne.text}
+                            <div className="MatchupParticipantSeed">
+                              {pOneSeed}
+                            </div>
+                            <div className="MatchupParticipantName">
+                              {pOne.text}
+                            </div>
                           </div>
                           <div className="Matchup_Slot Matchup_Slot--Bot">
-                            {pTwo.text}
+                            <div className="MatchupParticipantSeed">
+                              {pTwoSeed}
+                            </div>
+                            <div className="MatchupParticipantName">
+                              {pTwo.text}
+                            </div>
                           </div>
                         </div>
                       );

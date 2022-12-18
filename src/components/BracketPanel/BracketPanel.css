@@ -18,6 +18,11 @@
   flex: 1;
 }
 
+.BracketDescriptionControl {
+  resize: vertical;
+  width: calc(100% - 8px);
+}
+
 /* Participants Panel */
 .ParticipantsPanel {
   height: calc(100% - 1.25em);

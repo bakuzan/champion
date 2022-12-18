@@ -142,6 +142,8 @@
   font-size: 18px;
   width: 100%;
   padding: 0 0 0 2px;
+  display: grid;
+  grid-template-columns: 25px 1fr;
 }
 
 .Matchup_Slot--Top {
@@ -160,6 +162,16 @@
   top: -32px;
   height: 30px;
   background: var(--bracket--background--colour);
+}
+
+.MatchupParticipantSeed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--theme-background-colour);
+  color: var(--theme-colour-colour);
+  padding: 0 2px;
+  margin-right: 4px;
 }
 
 /* Crown for winner */

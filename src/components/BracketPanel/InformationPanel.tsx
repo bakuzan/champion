@@ -45,6 +45,7 @@ export default function InformationPanel() {
         <label htmlFor="bracketDescription">Bracket Description</label>
         <textarea
           id="bracketDescription"
+          className="BracketDescriptionControl"
           name="description"
           placeholder="Bracket Description"
           value={information.description ?? ''}

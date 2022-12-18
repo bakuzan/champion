@@ -3,6 +3,7 @@
   position: relative;
   display: flex;
   height: 100vh;
+  min-width: 350px;
   background-color: var(--bracket-information-background-colour);
   color: var(--bracket-information-colour);
   z-index: 1;

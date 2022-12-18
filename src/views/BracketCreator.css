@@ -1,6 +1,7 @@
 .BracketCreator {
   display: grid;
-  grid-template-areas: 'sidebar core core core core';
+  grid-template-areas: 'sidebar core core core';
+  grid-template-columns: repeat(4, 1fr);
   height: 100vh; /* -webkit-fill-available; */
 }
 

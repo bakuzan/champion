@@ -35,7 +35,10 @@ export default function reducer(state: AppState, action: AppAction) {
       return {
         ...state,
         dirty: true,
-        participants: [...state.participants, action.data]
+        participants: [
+          ...state.participants,
+          { ...action.data, seedOrder: state.participants.length }
+        ]
       };
     case 'UPDATE_PARTICIPANT':
       return {

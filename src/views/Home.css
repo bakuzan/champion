@@ -1,6 +1,9 @@
 /* App Page */
 .App {
-  padding: 10px;
+  --padding: 10px;
+  padding: var(--padding);
+  max-height: calc(100% - var(--padding) * 2);
+  overflow: auto;
 }
 
 .App__Landing {
