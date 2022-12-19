@@ -7,7 +7,6 @@ import { TournamentRound, TournamentRoundMatchup } from 'types/Tournament';
 import ZoomTools from './ZoomTools';
 
 import classNames from 'utils/classNames';
-import getUID from 'utils/getBracketParticipantUID';
 import { isPlaceholder, isQualifierRound } from 'utils/checks';
 
 import { getTournamentWinner, getMatchProps } from './utils';
@@ -73,7 +72,7 @@ function BracketDisplay(props: BracketDisplayProps) {
                         ? ''
                         : pTwo.seedOrder + 1;
 
-                      const matchKey = `${getUID(pOne)}_${getUID(pTwo)}`;
+                      const matchKey = `${pOne.id}_${pTwo.id}`;
                       const hasNoParticipants =
                         pOneIsPlaceholder && pTwoIsPlaceholder;
 

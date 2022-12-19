@@ -2,24 +2,23 @@ import * as React from 'react';
 
 import { ParticipantPlus } from 'types/Participant';
 
-import getUID from 'utils/getBracketParticipantUID';
-
-interface ParticipantProps<T extends ParticipantPlus> {
+export interface ParticipantProps<T extends ParticipantPlus> {
   data: T;
   index: number;
-  isReadOnly: boolean;
-  onChange: (data: T) => void;
-  onRemove: (uid: number | string) => void;
+  onChange?: (data: T) => void;
+  onRemove?: (uid: number | string) => void;
 }
 
 export function ParticipantItem<T extends ParticipantPlus>(
   props: ParticipantProps<T>
 ) {
-  const num = props.index + 1;
-
+  const { data, index, onChange, onRemove } = props;
+  const isReadOnly = !onChange || !onRemove;
+  const num = index + 1;
+  console.log({ onChange, onRemove, isReadOnly, data });
   return (
     <li className="Participant">
-      {!props.isReadOnly && <div className="Participant_Handle"></div>}
+      {!isReadOnly && <div className="Participant_Handle"></div>}
       <div className="Participant_Number">{num}</div>
       <div className="Participant_Controls">
         <div className="Participant_Control Control">
@@ -30,11 +29,11 @@ export function ParticipantItem<T extends ParticipantPlus>(
             name="text"
             placeholder="Participant"
             required
-            value={props.data.text ?? ''}
-            readOnly={props.isReadOnly}
+            value={data.text ?? ''}
+            readOnly={isReadOnly}
             onChange={(event) =>
-              props.onChange({
-                ...props.data,
+              onChange({
+                ...data,
                 text: event.currentTarget.value
               })
             }
@@ -47,25 +46,25 @@ export function ParticipantItem<T extends ParticipantPlus>(
             type="url"
             name="imageUrl"
             placeholder="Image Url"
-            value={props.data.imageUrl ?? ''}
-            readOnly={props.isReadOnly}
+            value={data.imageUrl ?? ''}
+            readOnly={isReadOnly}
             onChange={(event) => {
               const imageUrl = event.currentTarget.value;
-              props.onChange({
-                ...props.data,
+              onChange({
+                ...data,
                 imageUrl: imageUrl && imageUrl.trim() ? imageUrl.trim() : null
               });
             }}
           />
         </div>
       </div>
-      {!props.isReadOnly && (
+      {!isReadOnly && (
         <div className="Participant_Remove">
           <button
             type="button"
             title="Remove participant"
             className="Participant_RemoveButton"
-            onClick={() => props.onRemove(getUID(props.data))}
+            onClick={() => onRemove(data.id)}
           >
             <span aria-hidden={true}>&#10060;&#xFE0E;</span>
           </button>

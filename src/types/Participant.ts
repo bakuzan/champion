@@ -3,4 +3,7 @@ export interface Participant {
   imageUrl?: string;
 }
 
-export type ParticipantPlus = Participant & { id?: number; key?: string };
+export type ParticipantPlus = Participant & {
+  id?: string | number;
+  key?: string;
+};

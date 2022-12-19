@@ -9,9 +9,12 @@ import { buildRounds } from 'builder/index';
 
 const MINIMUM_REQUIRED_PARTICIPANTS = 4;
 
+const ifStringReturnNullInstead = (bp: BracketParticipant) =>
+  typeof bp.id === 'string' ? null : bp.id;
+
 const resolveParticipantIds = (match: BracketMatchup) => ({
-  oneId: match.participantOne.id ?? null,
-  twoId: match.participantTwo.id ?? null
+  oneId: ifStringReturnNullInstead(match.participantOne),
+  twoId: ifStringReturnNullInstead(match.participantTwo)
 });
 
 export default function createTournament(

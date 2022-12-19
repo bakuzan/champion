@@ -16,7 +16,7 @@ export function getTBCTournamentParticipant(
 }
 
 function getNewTBCParticipant() {
-  return { key: generateUniqueId(), text: UnconfirmedParticipantText };
+  return { id: generateUniqueId(), text: UnconfirmedParticipantText };
 }
 
 export default function generateTBCParticipants(

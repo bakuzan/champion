@@ -62,8 +62,8 @@ export default function saveBracketTemplate(payload: BracketTemplate) {
 
       // Update existing/Create new
       for (const part of participants) {
-        // Update if has id, else insert
-        if (part.id) {
+        // Update if has number id, else insert
+        if (typeof part.id === 'number') {
           updateExistingBracketParticipant.run(part);
         } else {
           insertNewBracketParticipant.run({

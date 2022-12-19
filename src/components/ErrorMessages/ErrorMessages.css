@@ -4,10 +4,6 @@
   margin: 20px 0;
 }
 
-.Messages__Text {
-  white-space: pre;
-}
-
 .Messages__Text::marker {
   color: var(--danger-colour, #f00);
 }

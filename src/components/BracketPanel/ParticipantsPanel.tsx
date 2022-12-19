@@ -1,12 +1,16 @@
 import * as React from 'react';
+import { ReactSortable } from 'react-sortablejs';
 
 import { BracketParticipant } from 'types/BracketParticipant';
 
 import { AppContext } from 'context/index';
 
 import generateUniqueId from 'utils/generateUniqueId';
-import getUID from 'utils/getBracketParticipantUID';
-import { isTournamentParticipant } from 'utils/guards';
+
+import {
+  isBracketParticipantList,
+  isTournamentParticipant
+} from 'utils/guards';
 
 import { ParticipantItem } from './Participant';
 
@@ -31,7 +35,7 @@ export default function ParticipantsPanel() {
               dispatch({
                 type: 'ADD_PARTICIPANT',
                 data: {
-                  key: generateUniqueId(),
+                  id: generateUniqueId(),
                   text: '',
                   imageUrl: null
                 }
@@ -43,20 +47,33 @@ export default function ParticipantsPanel() {
         </div>
       )}
 
-      <ul className="ParticipantsList">
-        {participants.map((p, i) => (
-          <ParticipantItem
-            key={getUID(p)}
-            data={p}
-            index={i}
-            isReadOnly={!isBracketParticipant}
-            onChange={(data: BracketParticipant) =>
-              dispatch({ type: 'UPDATE_PARTICIPANT', data })
-            }
-            onRemove={(uid) => dispatch({ type: 'REMOVE_PARTICIPANT', uid })}
-          />
-        ))}
-      </ul>
+      {isBracketParticipantList(participants) ? (
+        <ReactSortable
+          tag="ul"
+          className="ParticipantsList"
+          handle=".Participant_Handle"
+          list={participants}
+          setList={(data) => dispatch({ type: 'UPDATE_PARTICIPANTS', data })}
+        >
+          {participants.map((p, i) => (
+            <ParticipantItem
+              key={p.id}
+              data={p}
+              index={i}
+              onChange={(data: BracketParticipant) =>
+                dispatch({ type: 'UPDATE_PARTICIPANT', data })
+              }
+              onRemove={(uid) => dispatch({ type: 'REMOVE_PARTICIPANT', uid })}
+            />
+          ))}
+        </ReactSortable>
+      ) : (
+        <ul className="ParticipantsList">
+          {participants.map((p, i) => (
+            <ParticipantItem key={p.id} data={p} index={i} />
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

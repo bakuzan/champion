@@ -2,14 +2,16 @@ import { AppAction } from 'types/AppAction';
 import { BracketInformation } from 'types/BracketInformation';
 import { BracketParticipant } from 'types/BracketParticipant';
 
-import getUID from 'utils/getBracketParticipantUID';
-
 export interface AppState {
   dirty: boolean;
   loading: boolean;
   information: BracketInformation;
   participants: BracketParticipant[];
   errorMessages: Map<string, string>;
+}
+
+function setSeedOrder(x: BracketParticipant, i: number) {
+  return { ...x, seedOrder: i };
 }
 
 export default function reducer(state: AppState, action: AppAction) {
@@ -45,14 +47,22 @@ export default function reducer(state: AppState, action: AppAction) {
         ...state,
         dirty: true,
         participants: state.participants.map((x) =>
-          getUID(x) !== getUID(action.data) ? x : action.data
+          x.id !== action.data.id ? x : action.data
         )
+      };
+    case 'UPDATE_PARTICIPANTS':
+      return {
+        ...state,
+        dirty: true,
+        participants: action.data.map(setSeedOrder)
       };
     case 'REMOVE_PARTICIPANT':
       return {
         ...state,
         dirty: true,
-        participants: state.participants.filter((x) => getUID(x) !== action.uid)
+        participants: state.participants
+          .filter((x) => x.id !== action.uid)
+          .map(setSeedOrder)
       };
     case 'SET_ERROR':
       return {
