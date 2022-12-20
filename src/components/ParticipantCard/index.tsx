@@ -24,12 +24,14 @@ export default function ParticipantCard(props: ParticipantDisplayProps) {
   return (
     <div className="ParticipantCard">
       {image && (
-        <img
-          className="ParticipantCard__Image"
-          src={image}
-          alt={participant.text}
-          onError={null}
-        />
+        <div className="ParticipantCard__Image">
+          <img
+            className="ParticipantCardImage"
+            src={image}
+            alt={participant.text}
+            onError={null}
+          />
+        </div>
       )}
       <div className="ParticipantCard__Info">
         <div className="ParticipantCard__Block">

@@ -5,18 +5,24 @@ import { BracketTemplate } from 'types/BracketTemplate';
 
 import filterFalsey from 'utils/filterFalsey';
 import validateSaveBracketTemplateRequest from './helpers/validateSaveBracketTemplateRequest';
+import imageToBase64 from './helpers/imageToBase64';
 
 const addParticipantSeedOrder = (p: BracketParticipant, i: number) => ({
   ...p,
   seedOrder: i
 });
 
-export default function saveBracketTemplate(payload: BracketTemplate) {
+export default async function saveBracketTemplate(payload: BracketTemplate) {
   let bracketTemplateId: number = payload.id ?? null;
 
   const response = validateSaveBracketTemplateRequest(payload);
   if (!response.success) {
     return response;
+  }
+
+  // Process images before saving the items...
+  for (const participant of payload.participants) {
+    participant.image = await imageToBase64(participant.image);
   }
 
   const insertNewBracketParticipant = db.prepare(`

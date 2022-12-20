@@ -13,7 +13,9 @@ export interface ChampionApi {
   /* Bracket endpoints */
   getBracketTemplates(): HomePageLink[];
   getBracketTemplate(templateId: string | number): BracketTemplate;
-  saveBracketTemplate(payload: BracketTemplate): SaveBracketTemplateResponse;
+  saveBracketTemplate(
+    payload: BracketTemplate
+  ): Promise<SaveBracketTemplateResponse>;
   /* Tournament endpoints */
   getTournaments(): HomePageLink[];
   getTournament(tourneyId: string | number): SingleEliminationTournament;

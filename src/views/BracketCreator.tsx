@@ -95,8 +95,8 @@ function BracketCreator() {
     });
   }, [templateId, locationKey]);
 
-  function save() {
-    const response = window.Champion.saveBracketTemplate({
+  async function save() {
+    const response = await window.Champion.saveBracketTemplate({
       ...data.information,
       participants: data.participants
     });
