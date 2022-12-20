@@ -31,7 +31,7 @@
 
 .ParticipantsList {
   list-style-type: none;
-  padding: 0 4px;
+  padding: 0;
   max-height: calc(100% - 88px);
   overflow: auto;
   overflow-x: hidden;

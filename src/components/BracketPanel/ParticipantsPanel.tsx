@@ -37,7 +37,7 @@ export default function ParticipantsPanel() {
                 data: {
                   id: generateUniqueId(),
                   text: '',
-                  imageUrl: null
+                  image: null
                 }
               })
             }

@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS BracketParticipant(
     "id"                INTEGER      NOT NULL UNIQUE, 
     "text"              VARCHAR      NOT NULL, 
-    "imageUrl"          VARCHAR      NULL,
+    "image"             VARCHAR      NULL,
     "seedOrder"         INTEGER      NOT NULL,
     "bracketTemplateId" INTEGER      NOT NULL,
     PRIMARY KEY("id" AUTOINCREMENT),

@@ -13,11 +13,12 @@ interface ParticipantDisplayProps {
 }
 
 export default function ParticipantCard(props: ParticipantDisplayProps) {
-  const uid = props.participant.id;
-  const image = props.participant.imageUrl; // TODO make a fallback image!
+  const { participant } = props;
+  const uid = participant.id;
+  const image = participant.image; // TODO make a fallback image!
   // TODO onError need for image...
   const controlName = `score_${uid}`;
-  const seedOrder = props.participant.seedOrder + 1;
+  const seedOrder = participant.seedOrder + 1;
   const seedOrderWithOrd = getOrdinalSuffix(seedOrder);
 
   return (
@@ -26,7 +27,7 @@ export default function ParticipantCard(props: ParticipantDisplayProps) {
         <img
           className="ParticipantCard__Image"
           src={image}
-          alt={props.participant.text}
+          alt={participant.text}
           onError={null}
         />
       )}
@@ -38,7 +39,7 @@ export default function ParticipantCard(props: ParticipantDisplayProps) {
           >
             <span aria-hidden={true}>{seedOrder}</span>
           </div>
-          <div className="ParticipantCard__Name">{props.participant.text}</div>
+          <div className="ParticipantCard__Name">{participant.text}</div>
         </div>
         <div className="Control">
           <label htmlFor={controlName}>Score</label>

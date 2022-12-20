@@ -1,6 +1,6 @@
 export interface Participant {
   text: string;
-  imageUrl?: string;
+  image?: string;
 }
 
 export type ParticipantPlus = Participant & {

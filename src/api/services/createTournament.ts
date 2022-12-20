@@ -66,8 +66,8 @@ export default function createTournament(
     VALUES (@name, @description)`);
 
   const insertNewBracketParticipant = db.prepare(`
-    INSERT INTO TournamentParticipant(text,imageUrl,seedOrder,tournamentId) 
-    VALUES (@text, @imageUrl, @seedOrder, @tournamentId)`);
+    INSERT INTO TournamentParticipant(text,image,seedOrder,tournamentId) 
+    VALUES (@text, @image, @seedOrder, @tournamentId)`);
 
   const insertMatchup = db.prepare(`
     INSERT INTO TournamentMatchup(tournamentId,roundNumber,roundMatchNumber

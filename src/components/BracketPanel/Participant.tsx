@@ -15,7 +15,7 @@ export function ParticipantItem<T extends ParticipantPlus>(
   const { data, index, onChange, onRemove } = props;
   const isReadOnly = !onChange || !onRemove;
   const num = index + 1;
-  console.log({ onChange, onRemove, isReadOnly, data });
+
   return (
     <li className="Participant">
       {!isReadOnly && <div className="Participant_Handle"></div>}
@@ -43,16 +43,16 @@ export function ParticipantItem<T extends ParticipantPlus>(
           <label htmlFor="participant">Image Url</label>
           <input
             id="image"
-            type="url"
-            name="imageUrl"
+            type="text"
+            name="image"
             placeholder="Image Url"
-            value={data.imageUrl ?? ''}
+            value={data.image ?? ''}
             readOnly={isReadOnly}
             onChange={(event) => {
-              const imageUrl = event.currentTarget.value;
+              const image = event.currentTarget.value;
               onChange({
                 ...data,
-                imageUrl: imageUrl && imageUrl.trim() ? imageUrl.trim() : null
+                image: image && image.trim() ? image.trim() : null
               });
             }}
           />

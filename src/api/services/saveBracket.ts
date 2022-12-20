@@ -13,15 +13,15 @@ const addParticipantSeedOrder = (p: BracketParticipant, i: number) => ({
 
 export default function saveBracketTemplate(payload: BracketTemplate) {
   let bracketTemplateId: number = payload.id ?? null;
-  console.log('API: saveBracketTemplate :: ', payload);
+
   const response = validateSaveBracketTemplateRequest(payload);
   if (!response.success) {
     return response;
   }
 
   const insertNewBracketParticipant = db.prepare(`
-      INSERT INTO BracketParticipant(text,imageUrl,seedOrder,bracketTemplateId) 
-      VALUES (@text, @imageUrl, @seedOrder, @bracketTemplateId)`);
+      INSERT INTO BracketParticipant(text,image,seedOrder,bracketTemplateId) 
+      VALUES (@text, @image, @seedOrder, @bracketTemplateId)`);
 
   if (payload.id) {
     // Update existing template
@@ -33,7 +33,7 @@ export default function saveBracketTemplate(payload: BracketTemplate) {
     const updateExistingBracketParticipant = db.prepare(`
         UPDATE BracketParticipant
            SET text = @text
-             , imageUrl = @imageUrl
+             , image = @image
              , seedOrder = @seedOrder 
          WHERE id = @id`);
 
