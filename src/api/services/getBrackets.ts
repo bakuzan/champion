@@ -6,7 +6,7 @@ import { BracketTemplate } from 'types/BracketTemplate';
 
 export function getBracketTemplates() {
   const bracketTemplates: BracketInformation[] = db
-    .prepare(`SELECT * FROM BracketTemplate ORDER BY name`)
+    .prepare(`SELECT * FROM BracketTemplate WHERE isDeleted = 0 ORDER BY name`)
     .all();
 
   return bracketTemplates;

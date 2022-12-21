@@ -11,6 +11,13 @@
   align-items: center;
 }
 
+.ButtonGroup--Split {
+  justify-content: space-between;
+}
+.ButtonGroup--Right {
+  justify-content: flex-end;
+}
+
 /* Information Panel */
 .InformationPanel {
   display: flex;

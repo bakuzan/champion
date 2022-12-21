@@ -8,6 +8,8 @@
   --theme-background-colour-constrast: #960359;
   --theme-colour-colour: #fff;
   --danger-colour: #f52626;
+  --danger-colour-contrast: #db0a0a;
+  --danger-colour-colour: #fff;
 
   --regular-button-background-colour-constrast: #ddd;
 
@@ -89,4 +91,15 @@ button:not([disabled]) {
 .PrimaryButton:focus,
 .PrimaryButton:hover {
   background-color: var(--theme-background-colour-constrast);
+}
+
+.DangerButton {
+  background-color: var(--danger-colour);
+  color: var(--danger-colour-colour);
+  border: none;
+}
+
+.DangerButton:focus,
+.DangerButton:hover {
+  background-color: var(--danger-colour-contrast);
 }

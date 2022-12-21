@@ -4,12 +4,15 @@ import { Information } from 'types/Information';
 
 import { AppContext } from 'context/index';
 import ErrorMessages from 'components/ErrorMessages';
+import classNames from 'utils/classNames';
 
 export default function InformationPanel() {
   const context = React.useContext(AppContext);
   const { errorMessages, dirty, information, dispatch } = context;
+
   const isBracket = !!context.startTournament;
   const isSavedTemplate = !!information.id && isBracket;
+  const canDelete = !!information.id;
 
   function updateInformation(values: Partial<Information>) {
     dispatch({
@@ -65,8 +68,14 @@ export default function InformationPanel() {
         </button>
       </div>
       <ErrorMessages style={{ flex: 1 }} messages={errorMessages} />
-      {isSavedTemplate && (
-        <div className="ButtonGroup">
+
+      <div
+        className={classNames(
+          'ButtonGroup',
+          isSavedTemplate ? 'ButtonGroup--Split' : 'ButtonGroup--Right'
+        )}
+      >
+        {isSavedTemplate && (
           <button
             type="button"
             className="PrimaryButton"
@@ -75,8 +84,17 @@ export default function InformationPanel() {
           >
             Start a Tournament
           </button>
-        </div>
-      )}
+        )}
+        {canDelete && (
+          <button
+            type="button"
+            className="DangerButton"
+            onClick={() => context.delete()}
+          >
+            Delete {isBracket ? 'Bracket' : 'Tournament'}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

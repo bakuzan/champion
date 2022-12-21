@@ -14,12 +14,16 @@ contextBridge.exposeInMainWorld('Champion', {
     api.getBracketTemplate(templateId),
   saveBracketTemplate: (payload: BracketTemplate) =>
     api.saveBracketTemplate(payload),
+  deleteBracketTemplate: (templateId: string | number) =>
+    api.deleteBracketTemplate(templateId),
   /* Tournaments */
   getTournaments: () => api.getTournaments(),
   getTournament: (tourneyId: string | number) => api.getTournament(tourneyId),
   createTournament: (bracketTemplateId: number) =>
     api.createTournament(bracketTemplateId),
   saveTournament: (payload: Tournament) => api.saveTournament(payload),
+  deleteTournament: (tourneyId: string | number) =>
+    api.deleteTournament(tourneyId),
   /* Tournament Match endpoints */
   saveTournamentMatchResult: (match: TournamentRoundMatchup) =>
     api.saveTournamentMatchResult(match)

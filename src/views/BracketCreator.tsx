@@ -108,6 +108,16 @@ function BracketCreator() {
     }
   }
 
+  function deleteBracketTemplate() {
+    const response = window.Champion.deleteBracketTemplate(templateId);
+
+    if (response.success) {
+      navigate(`/`);
+    } else {
+      dispatch({ type: 'SET_ERROR', data: response.errorMessages });
+    }
+  }
+
   function startTournament() {
     const response = window.Champion.createTournament(data.information.id);
 
@@ -131,6 +141,7 @@ function BracketCreator() {
           errorMessages: data.errorMessages,
           dispatch,
           save,
+          delete: deleteBracketTemplate,
           startTournament
         }}
       >

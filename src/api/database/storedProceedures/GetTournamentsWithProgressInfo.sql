@@ -47,5 +47,6 @@ SELECT t.*
   JOIN tourney_participants_cte p			ON t.id = p.tournamentId
   LEFT JOIN current_tourney_round_cte cu	ON t.id = cu.tournamentId
   JOIN complete_tourneys_cte co				ON t.id = co.tournamentId
+ WHERE t.isDeleted = 0
  ORDER BY createdAt DESC
  

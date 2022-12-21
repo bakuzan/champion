@@ -12,6 +12,7 @@ export interface AppContextProps {
   errorMessages: Map<string, string>;
   dispatch: React.Dispatch<AppAction>;
   save: () => void;
+  delete: () => void;
   startTournament?: () => void;
 }
 

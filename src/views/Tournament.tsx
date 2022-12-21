@@ -52,6 +52,16 @@ function Tournament() {
     }
   }
 
+  function deleteTournament() {
+    const response = window.Champion.deleteTournament(tournamentId);
+
+    if (response.success) {
+      navigate(`/`);
+    } else {
+      dispatch({ type: 'SET_ERROR', data: response.errorMessages });
+    }
+  }
+
   function onPostMatchResult(match: TournamentRoundMatchup) {
     const response = window.Champion.saveTournamentMatchResult(match);
 
@@ -78,7 +88,8 @@ function Tournament() {
           participants: data.participants,
           errorMessages: data.errorMessages,
           dispatch,
-          save
+          save,
+          delete: deleteTournament
         }}
       >
         <main

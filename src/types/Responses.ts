@@ -8,6 +8,8 @@ export interface SaveBracketTemplateResponse extends BaseResponse {
   bracketTemplateId?: number;
 }
 
+export type DeleteBracketTemplateResponse = BaseResponse
+
 /* Tournament things */
 export interface CreateTournamentResponse extends BaseResponse {
   tournamentId?: number;
@@ -16,3 +18,5 @@ export interface CreateTournamentResponse extends BaseResponse {
 export interface SaveTournamentResponse extends BaseResponse {
   tournamentId: number;
 }
+
+export type DeleteTournamentResponse = BaseResponse
