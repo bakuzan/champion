@@ -11,12 +11,18 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 // Load config
 dotenv.config();
 
+process.env.DATABASE_PATH = app.isPackaged
+  ? path.join(app.getPath('userData'), 'champion.db')
+  : process.env.DATABASE_PATH;
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
 const createWindow = (): void => {
+  const isDevelopment = !app.isPackaged;
+
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     height: 600,
@@ -30,9 +36,12 @@ const createWindow = (): void => {
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  mainWindow.setMenuBarVisibility(isDevelopment);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  if (isDevelopment) {
+    mainWindow.webContents.openDevTools();
+  }
 };
 
 // This method will be called when Electron has finished

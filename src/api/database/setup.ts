@@ -1,7 +1,11 @@
 import path from 'path';
 import fs from 'fs';
 
-const targetFolder = 'src/api/database/scripts';
+import isDevelopment from './isDevelopment';
+
+const targetFolder = isDevelopment()
+  ? 'src/api/database/scripts'
+  : path.join(__dirname, 'scripts');
 
 export function readSQLFiles() {
   try {

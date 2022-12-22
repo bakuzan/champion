@@ -1,3 +1,4 @@
+import fs from 'fs';
 import path from 'path';
 import type { ForgeConfig } from '@electron-forge/shared-types';
 import { MakerSquirrel } from '@electron-forge/maker-squirrel';
@@ -45,7 +46,31 @@ const config: ForgeConfig = {
         ]
       }
     })
-  ]
+  ],
+  hooks: {
+    packageAfterCopy: async (
+      config,
+      buildPath,
+      electronVersion,
+      platform,
+      arch
+    ) => {
+      const srcs = [
+        {
+          src: 'src/api/database/scripts',
+          dest: path.join(buildPath, '.webpack/renderer/main_window', 'scripts')
+        },
+        {
+          src: 'src/api/database/storedProceedures',
+          dest: path.join(buildPath, '.webpack/renderer/main_window')
+        }
+      ];
+
+      for (let item of srcs) {
+        fs.cpSync(item.src, item.dest, { recursive: true });
+      }
+    }
+  }
 };
 
 export default config;

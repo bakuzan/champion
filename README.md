@@ -8,6 +8,11 @@ Desktop application to create single elimination brackets.
 1. `npm install`
 1. `npm run start`
 
+## Build
+
+1. `npm run package` _(Output: /out)_
+1. `npm run make` _(Output: /out/make)_
+
 ## Useful Links
 
 - [Electron](https://www.electronjs.org/docs/latest/)

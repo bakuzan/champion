@@ -1,10 +1,14 @@
 import path from 'path';
 import fs from 'fs';
 
+import isDevelopment from '../isDevelopment';
+
 type ChampionStoredProceedure = 'GetTournamentsWithProgressInfo';
 
 const proceedures = {} as Record<ChampionStoredProceedure, string>;
-const targetFolder = path.resolve('src/api/database/storedProceedures');
+const targetFolder = isDevelopment()
+  ? path.resolve('src/api/database/storedProceedures')
+  : path.join(__dirname, './');
 
 function readSQLFiles() {
   try {

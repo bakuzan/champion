@@ -1,6 +1,5 @@
 // eslint-disable-next-line import/no-named-as-default
 import Database from 'better-sqlite3';
-
 import setupExecution from './setup';
 
 const db = new Database(process.env.DATABASE_PATH, {});
