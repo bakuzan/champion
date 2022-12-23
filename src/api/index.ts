@@ -11,3 +11,7 @@ export { default as deleteTournament } from './services/deleteTournament';
 
 /* Tournament Match */
 export { default as saveTournamentMatchResult } from './services/saveTournamentMatch';
+
+/* Settings */
+export * from './services/getSettings';
+export { default as saveSettings } from './services/saveSettings';

@@ -6,6 +6,7 @@ import BracketCreator from './views/BracketCreator';
 import HomePage from './views/Home';
 import NotFoundPage from 'views/404';
 import Tournament from 'views/Tournament';
+import AppSettings from 'views/AppSettings';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         />
 
         <Route path="/tournament/:tournamentId" element={<Tournament />} />
+        <Route path="/settings" element={<AppSettings />} />
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

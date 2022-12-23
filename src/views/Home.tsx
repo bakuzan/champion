@@ -29,6 +29,14 @@ export default function HomePage() {
         >
           Create new bracket
         </button>
+        <button
+          type="button"
+          className="RegularButton"
+          title="Application settings"
+          onClick={() => navigate('/settings')}
+        >
+          <span aria-hidden={true}>&#x2638;&#xFE0E;</span>
+        </button>
       </div>
       <div className="App__Landing">
         <BracketListSection

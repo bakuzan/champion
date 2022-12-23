@@ -6,6 +6,11 @@
   overflow: auto;
 }
 
+.App__Actions {
+  display: flex;
+  justify-content: space-between;
+}
+
 .App__Landing {
   display: grid;
   grid-template-columns: 1fr 1fr;

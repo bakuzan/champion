@@ -1,3 +1,5 @@
+import { AppSetting } from './AppSetting';
+
 interface BaseResponse {
   success: boolean;
   errorMessages: Map<string, string>;
@@ -8,7 +10,7 @@ export interface SaveBracketTemplateResponse extends BaseResponse {
   bracketTemplateId?: number;
 }
 
-export type DeleteBracketTemplateResponse = BaseResponse
+export type DeleteBracketTemplateResponse = BaseResponse;
 
 /* Tournament things */
 export interface CreateTournamentResponse extends BaseResponse {
@@ -19,4 +21,7 @@ export interface SaveTournamentResponse extends BaseResponse {
   tournamentId: number;
 }
 
-export type DeleteTournamentResponse = BaseResponse
+export type DeleteTournamentResponse = BaseResponse;
+
+/* AppSettings things */
+export type SaveSettingsResponse = BaseResponse

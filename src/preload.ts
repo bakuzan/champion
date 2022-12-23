@@ -26,5 +26,8 @@ contextBridge.exposeInMainWorld('Champion', {
     api.deleteTournament(tourneyId),
   /* Tournament Match endpoints */
   saveTournamentMatchResult: (match: TournamentRoundMatchup) =>
-    api.saveTournamentMatchResult(match)
+    api.saveTournamentMatchResult(match),
+  /* AppSettings endpoints */
+  getSettings: () => api.getSettings(),
+  saveSettings: (payload: Map<string, any>) => api.saveSettings(payload)
 });

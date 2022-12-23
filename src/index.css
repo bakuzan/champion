@@ -54,6 +54,18 @@ body {
   height: 100%;
 }
 
+/* Control */
+.Control {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  margin-bottom: 8px;
+}
+
+.Control__Checkbox {
+  cursor: pointer;
+}
+
 /* Button styling */
 button {
   background-color: inherit;

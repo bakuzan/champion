@@ -1,0 +1,17 @@
+.AppSettings {
+  padding: 10px;
+}
+
+.AppSettings__Header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.AppSettings__Options {
+  max-width: 300px;
+}
+
+.AppSettings__Options .Control {
+  margin: 5px 0 15px 0;
+}

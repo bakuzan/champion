@@ -1,3 +1,4 @@
+import { AppSettingsMap } from 'types/AppSetting';
 import { BracketTemplate } from 'types/BracketTemplate';
 import { HomePageLink } from 'types/HomePageLink';
 import {
@@ -5,7 +6,8 @@ import {
   CreateTournamentResponse,
   SaveTournamentResponse,
   DeleteTournamentResponse,
-  DeleteBracketTemplateResponse
+  DeleteBracketTemplateResponse,
+  SaveSettingsResponse
 } from 'types/Responses';
 import { SingleEliminationTournament } from 'types/SingleEliminationTournament';
 import { TournamentRoundMatchup } from 'types/Tournament';
@@ -31,6 +33,9 @@ export interface ChampionApi {
   saveTournamentMatchResult(
     match: TournamentRoundMatchup
   ): SaveTournamentResponse;
+  /* AppSettings endpoints */
+  getSettings(): AppSettingsMap;
+  saveSettings(payload: Map<string, any>): SaveSettingsResponse;
 }
 
 declare global {

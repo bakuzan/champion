@@ -3,7 +3,9 @@ import { BracketTemplate } from './BracketTemplate';
 import { BracketParticipant } from './BracketParticipant';
 import { SingleEliminationTournament } from './SingleEliminationTournament';
 import { TournamentRoundMatchup } from './Tournament';
+import { AppSettingsMap, AppSettingValue } from './AppSetting';
 
+/* BracketCreator */
 export type AppActionType =
   | 'LOAD_DATA'
   | 'UPDATE_INFORMATION'
@@ -22,6 +24,7 @@ export type AppAction =
   | { type: 'REMOVE_PARTICIPANT'; uid: number | string }
   | { type: 'SET_ERROR'; data: Map<string, string> };
 
+/* Tournament */
 export type TournamentActionType = 'LOAD_TOURNAMENT' | 'SET_SELECTED_MATCH';
 
 export type TournamentAction =
@@ -30,3 +33,14 @@ export type TournamentAction =
       data: SingleEliminationTournament;
     }
   | { type: 'SET_SELECTED_MATCH'; data: TournamentRoundMatchup | null };
+
+/* AppSettings */
+export type AppSettingsActionType =
+  | 'LOAD_DATA'
+  | 'UPDATE_SETTINGS'
+  | 'SET_ERROR';
+
+export type AppSettingsAction =
+  | { type: 'LOAD_DATA'; data: AppSettingsMap }
+  | { type: 'UPDATE_SETTINGS'; data: { key: string; value: AppSettingValue } }
+  | { type: 'SET_ERROR'; data: Map<string, string> };

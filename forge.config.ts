@@ -66,7 +66,7 @@ const config: ForgeConfig = {
         }
       ];
 
-      for (let item of srcs) {
+      for (const item of srcs) {
         fs.cpSync(item.src, item.dest, { recursive: true });
       }
     }
