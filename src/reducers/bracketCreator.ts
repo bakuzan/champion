@@ -1,10 +1,12 @@
 import { AppAction } from 'types/AppAction';
+import { AppSettingsMap } from 'types/AppSetting';
 import { BracketInformation } from 'types/BracketInformation';
 import { BracketParticipant } from 'types/BracketParticipant';
 
 export interface AppState {
   dirty: boolean;
   loading: boolean;
+  settings: AppSettingsMap;
   information: BracketInformation;
   participants: BracketParticipant[];
   errorMessages: Map<string, string>;
@@ -16,6 +18,11 @@ function setSeedOrder(x: BracketParticipant, i: number) {
 
 export default function reducer(state: AppState, action: AppAction) {
   switch (action.type) {
+    case 'LOAD_SETTINGS':
+      return {
+        ...state,
+        settings: action.data
+      };
     case 'LOAD_DATA': {
       const { participants, ...information } = action.data;
       return {

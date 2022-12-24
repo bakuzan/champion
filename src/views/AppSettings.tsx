@@ -2,9 +2,15 @@ import * as React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { AppSettingsAction } from 'types/AppAction';
-import { AppSettingsMap, AppSettingValue } from 'types/AppSetting';
+import {
+  AppSettingKey,
+  AppSettingsMap,
+  AppSettingValue
+} from 'types/AppSetting';
 
 import LoadingDisplay from 'components/LoadingDisplay';
+
+import { getShowSeedOrder, getWinnerCrownColour } from 'utils/settings';
 
 import './AppSettings.css';
 
@@ -40,7 +46,7 @@ function reducer(state: AppSettingsState, action: AppSettingsAction) {
 
 const DEFAULT_STATE: AppSettingsState = {
   loading: true,
-  settings: new Map<string, AppSettingValue>([]),
+  settings: new Map<AppSettingKey, AppSettingValue>([]),
   errorMessages: new Map<string, string>([])
 };
 
@@ -90,7 +96,7 @@ export default function AppSettings() {
                 type="checkbox"
                 id="showSeedOrder"
                 name="showSeedOrder"
-                checked={(settings.get('showSeedOrder') as boolean) ?? false}
+                checked={getShowSeedOrder(settings)}
                 onChange={(event) =>
                   dispatch({
                     type: 'UPDATE_SETTINGS',
@@ -109,7 +115,7 @@ export default function AppSettings() {
             <select
               id="winnerCrownColour"
               name="winnerCrownColour"
-              value={(settings.get('winnerCrownColour') as string) ?? ''}
+              value={getWinnerCrownColour(settings)}
               onChange={(event) =>
                 dispatch({
                   type: 'UPDATE_SETTINGS',

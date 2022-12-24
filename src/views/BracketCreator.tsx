@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
+import { AppSettingKey, AppSettingValue } from 'types/AppSetting';
+
 import BracketInformationComponent from 'components/BracketInformation';
 import BracketDisplay from 'components/BracketDisplay';
 import LoadingDisplay from 'components/LoadingDisplay';
@@ -17,7 +19,8 @@ import './BracketCreator.css';
 const DEFAULT_STATE: AppState = {
   dirty: false,
   loading: true,
-  errorMessages: new Map<string, string>(),
+  settings: new Map<AppSettingKey, AppSettingValue>([]),
+  errorMessages: new Map<string, string>([]),
   information: { name: '', description: '' },
   participants: [
     {
@@ -85,6 +88,11 @@ function BracketCreator() {
 
   React.useEffect(() => {
     dispatch({
+      type: 'LOAD_SETTINGS',
+      data: window.Champion.getSettings()
+    });
+
+    dispatch({
       type: 'LOAD_DATA',
       data: templateId // If id: Fetch data, else: set empty
         ? window.Champion.getBracketTemplate(templateId)
@@ -136,6 +144,7 @@ function BracketCreator() {
       <AppContext.Provider
         value={{
           dirty: data.dirty,
+          settings: data.settings,
           information: data.information,
           participants: data.participants,
           errorMessages: data.errorMessages,

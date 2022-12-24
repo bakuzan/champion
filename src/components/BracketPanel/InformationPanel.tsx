@@ -67,6 +67,7 @@ export default function InformationPanel() {
           Save {isBracket ? 'Bracket' : 'Tournament'}
         </button>
       </div>
+
       <ErrorMessages style={{ flex: 1 }} messages={errorMessages} />
 
       <div

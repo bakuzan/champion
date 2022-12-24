@@ -2,8 +2,12 @@ import * as React from 'react';
 
 import { TournamentRoundMatchup } from 'types/Tournament';
 
+import { AppContext } from 'context/index';
+
 import ParticipantCard from 'components/ParticipantCard';
+
 import getOrdinalSuffix from 'utils/getOrdinalSuffix';
+import { getShowSeedOrder } from 'utils/settings';
 
 import './MatchupDisplay.css';
 
@@ -14,6 +18,7 @@ interface MatchupDisplayProps {
 }
 
 export default function MatchupDisplay(props: MatchupDisplayProps) {
+  const { settings } = React.useContext(AppContext);
   const { match } = props;
 
   const [scoreOne, setScoreOne] = React.useState(match.participantOneScore);
@@ -27,8 +32,10 @@ export default function MatchupDisplay(props: MatchupDisplayProps) {
   const pOneSeed = getOrdinalSuffix(pOne.seedOrder + 1);
   const pTwo = match.participantTwo;
   const pTwoSeed = getOrdinalSuffix(pTwo.seedOrder + 1);
+
   const matchTitle = `${pOne.text} vs ${pTwo.text}`;
   const matchDescription = `${pOneSeed} seed faces the ${pTwoSeed} seed`;
+  const showSeedOrder = getShowSeedOrder(settings);
 
   console.log('<MatchupDisplay> ', props);
   return (
@@ -45,7 +52,7 @@ export default function MatchupDisplay(props: MatchupDisplayProps) {
       </div>
       <header className="MatchupDisplay__Header">
         <h2>{matchTitle}</h2>
-        <p>{matchDescription}</p>
+        {showSeedOrder && <p>{matchDescription}</p>}
       </header>
       <div className="MatchupDisplay__Content">
         <ParticipantCard

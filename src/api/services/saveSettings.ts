@@ -1,10 +1,10 @@
 import db from '../database';
 
-import { AppSetting } from 'types/AppSetting';
+import { AppSetting, AppSettingsMap } from 'types/AppSetting';
 
 import validateSaveSettingsRequest from './helpers/validateSaveSettingsRequest';
 
-export default function saveSettings(payload: Map<string, any>) {
+export default function saveSettings(payload: AppSettingsMap) {
   const [response, settings] = validateSaveSettingsRequest(payload);
   if (!response.success) {
     return response;

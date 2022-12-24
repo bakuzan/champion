@@ -1,7 +1,11 @@
 import * as React from 'react';
 
 import { TournamentParticipant } from 'types/Tournament';
+
+import { AppContext } from 'context/index';
+
 import getOrdinalSuffix from 'utils/getOrdinalSuffix';
+import { getShowSeedOrder } from 'utils/settings';
 
 import './ParticipantCard.css';
 
@@ -13,13 +17,15 @@ interface ParticipantDisplayProps {
 }
 
 export default function ParticipantCard(props: ParticipantDisplayProps) {
+  const { settings } = React.useContext(AppContext);
   const { participant } = props;
   const uid = participant.id;
-  const image = participant.image; // TODO make a fallback image!
-  // TODO onError need for image...
+  const image = participant.image; // TODO make a fallback image? onError need for image...
+
   const controlName = `score_${uid}`;
   const seedOrder = participant.seedOrder + 1;
   const seedOrderWithOrd = getOrdinalSuffix(seedOrder);
+  const showSeedOrder = getShowSeedOrder(settings);
 
   return (
     <div className="ParticipantCard">
@@ -35,12 +41,14 @@ export default function ParticipantCard(props: ParticipantDisplayProps) {
       )}
       <div className="ParticipantCard__Info">
         <div className="ParticipantCard__Block">
-          <div
-            className="ParticipantCard__Seed"
-            title={`${seedOrderWithOrd} Seed`}
-          >
-            <span aria-hidden={true}>{seedOrder}</span>
-          </div>
+          {showSeedOrder && (
+            <div
+              className="ParticipantCard__Seed"
+              title={`${seedOrderWithOrd} Seed`}
+            >
+              <span aria-hidden={true}>{seedOrder}</span>
+            </div>
+          )}
           <div className="ParticipantCard__Name">{participant.text}</div>
         </div>
         <div className="Control">

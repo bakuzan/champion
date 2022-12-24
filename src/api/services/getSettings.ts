@@ -1,4 +1,9 @@
-import { AppSetting, AppSettingsMap, AppSettingValue } from 'types/AppSetting';
+import {
+  AppSetting,
+  AppSettingKey,
+  AppSettingsMap,
+  AppSettingValue
+} from 'types/AppSetting';
 import db from '../database';
 
 function parseBool(value: string) {
@@ -22,10 +27,9 @@ function convertAppSettingValue(value: string) {
 
 export function getSettings(): AppSettingsMap {
   const settings: AppSetting[] = db.prepare(`SELECT * FROM AppSetting`).all();
-  const mappedSettings: [string, AppSettingValue][] = settings.map((x) => [
-    x.key,
-    convertAppSettingValue(x.value)
-  ]);
+  const mappedSettings: [AppSettingKey, AppSettingValue][] = settings.map(
+    (x) => [x.key, convertAppSettingValue(x.value)]
+  );
 
   return new Map(mappedSettings);
 }

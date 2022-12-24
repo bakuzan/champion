@@ -4,15 +4,16 @@ import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 import { BracketRound } from 'types/BracketRound';
 import { TournamentRound, TournamentRoundMatchup } from 'types/Tournament';
 
+import { AppContext } from 'context/index';
+
 import ZoomTools from './ZoomTools';
 
 import classNames from 'utils/classNames';
 import { isPlaceholder, isQualifierRound } from 'utils/checks';
-
 import { getTournamentWinner, getMatchProps } from './utils';
+import { getShowSeedOrder, getWinnerCrownColour } from 'utils/settings';
+import getCrownImage from 'utils/getCrownImage';
 
-// eslint-disable-next-line import/no-unresolved
-import crownImage from 'assets/crown_tyrian_purple.png';
 import './Bracket.css';
 
 interface BracketDisplayProps {
@@ -21,13 +22,16 @@ interface BracketDisplayProps {
 }
 
 function BracketDisplay(props: BracketDisplayProps) {
+  const { settings } = React.useContext(AppContext);
   const roundCount = props.rounds.length;
+
   if (!roundCount) {
     return null;
   }
 
   const bracketSize = Math.pow(2, roundCount);
   const winner = getTournamentWinner(props.rounds);
+  const showSeedOrder = getShowSeedOrder(settings);
   console.log('<Bracket> :: ', props.rounds);
 
   return (
@@ -92,17 +96,21 @@ function BracketDisplay(props: BracketDisplayProps) {
                           )}
                         >
                           <div className="Matchup_Slot Matchup_Slot--Top">
-                            <div className="MatchupParticipantSeed">
-                              {pOneSeed}
-                            </div>
+                            {showSeedOrder && (
+                              <div className="MatchupParticipantSeed">
+                                {pOneSeed}
+                              </div>
+                            )}
                             <div className="MatchupParticipantName">
                               {pOne.text}
                             </div>
                           </div>
                           <div className="Matchup_Slot Matchup_Slot--Bot">
-                            <div className="MatchupParticipantSeed">
-                              {pTwoSeed}
-                            </div>
+                            {showSeedOrder && (
+                              <div className="MatchupParticipantSeed">
+                                {pTwoSeed}
+                              </div>
+                            )}
                             <div className="MatchupParticipantName">
                               {pTwo.text}
                             </div>
@@ -117,7 +125,7 @@ function BracketDisplay(props: BracketDisplayProps) {
                 <div className="TournamentWinner">
                   <img
                     className="TournamentCrownImage"
-                    src={crownImage}
+                    src={getCrownImage(getWinnerCrownColour(settings))}
                     alt="Crown"
                   />
                   <div className="TournamentWinner__Text">{winner.text}</div>

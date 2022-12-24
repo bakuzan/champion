@@ -1,4 +1,5 @@
 import { AppAction, TournamentAction } from 'types/AppAction';
+import { AppSettingsMap } from 'types/AppSetting';
 import {
   Tournament,
   TournamentMatchup,
@@ -10,6 +11,7 @@ import {
 export interface TournamentState {
   dirty: boolean;
   loading: boolean;
+  settings: AppSettingsMap;
   information: Tournament;
   participants: TournamentParticipant[];
   matchups: TournamentMatchup[];
@@ -23,6 +25,11 @@ export default function reducer(
   action: AppAction | TournamentAction
 ) {
   switch (action.type) {
+    case 'LOAD_SETTINGS':
+      return {
+        ...state,
+        settings: action.data
+      };
     case 'LOAD_TOURNAMENT': {
       const { participants, matchups, rounds, ...information } = action.data;
       return {

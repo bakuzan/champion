@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { Tournament, TournamentRoundMatchup } from 'types/Tournament';
+import { AppSettingKey, AppSettingValue } from 'types/AppSetting';
 
 import BracketInformationComponent from 'components/BracketInformation';
 import BracketDisplay from 'components/BracketDisplay';
@@ -19,7 +20,8 @@ import './Tournament.css';
 const DEFAULT_STATE: TournamentState = {
   dirty: false,
   loading: true,
-  errorMessages: new Map<string, string>(),
+  settings: new Map<AppSettingKey, AppSettingValue>([]),
+  errorMessages: new Map<string, string>([]),
   information: null,
   participants: [],
   matchups: [],
@@ -36,6 +38,11 @@ function Tournament() {
   const { tournamentId } = useParams<{ tournamentId: string }>();
 
   React.useEffect(() => {
+    dispatch({
+      type: 'LOAD_SETTINGS',
+      data: window.Champion.getSettings()
+    });
+
     dispatch({
       type: 'LOAD_TOURNAMENT',
       data: window.Champion.getTournament(tournamentId)
@@ -84,6 +91,7 @@ function Tournament() {
       <AppContext.Provider
         value={{
           dirty: data.dirty,
+          settings: data.settings,
           information: data.information,
           participants: data.participants,
           errorMessages: data.errorMessages,
