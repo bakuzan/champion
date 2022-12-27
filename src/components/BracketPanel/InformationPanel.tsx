@@ -3,12 +3,15 @@ import * as React from 'react';
 import { Information } from 'types/Information';
 
 import { AppContext } from 'context/index';
+
 import ErrorMessages from 'components/ErrorMessages';
+import LoadingDisplay from 'components/LoadingDisplay';
+
 import classNames from 'utils/classNames';
 
 export default function InformationPanel() {
   const context = React.useContext(AppContext);
-  const { errorMessages, dirty, information, dispatch } = context;
+  const { errorMessages, dirty, saving, information, dispatch } = context;
 
   const isBracket = !!context.startTournament;
   const isSavedTemplate = !!information.id && isBracket;
@@ -58,14 +61,16 @@ export default function InformationPanel() {
         />
       </div>
       <div className="ButtonGroup">
-        <button
-          type="button"
-          className="PrimaryButton"
-          disabled={!dirty}
-          onClick={() => context.save()}
-        >
-          Save {isBracket ? 'Bracket' : 'Tournament'}
-        </button>
+        <LoadingDisplay isLoading={saving}>
+          <button
+            type="button"
+            className="PrimaryButton"
+            disabled={!dirty}
+            onClick={() => context.save()}
+          >
+            Save {isBracket ? 'Bracket' : 'Tournament'}
+          </button>
+        </LoadingDisplay>
       </div>
 
       <ErrorMessages style={{ flex: 1 }} messages={errorMessages} />

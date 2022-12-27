@@ -14,6 +14,7 @@ export type AppActionType =
   | 'UPDATE_PARTICIPANT'
   | 'UPDATE_PARTICIPANTS'
   | 'REMOVE_PARTICIPANT'
+  | 'SAVING'
   | 'SET_ERROR';
 
 export type AppAction =
@@ -24,6 +25,7 @@ export type AppAction =
   | { type: 'UPDATE_PARTICIPANT'; data: BracketParticipant }
   | { type: 'UPDATE_PARTICIPANTS'; data: BracketParticipant[] }
   | { type: 'REMOVE_PARTICIPANT'; uid: number | string }
+  | { type: 'SAVING' }
   | { type: 'SET_ERROR'; data: Map<string, string> };
 
 /* Tournament */

@@ -8,6 +8,7 @@ import { TournamentParticipant } from 'types/Tournament';
 
 export interface AppContextProps {
   dirty: boolean;
+  saving: boolean;
   settings: AppSettingsMap;
   information: Information & { id?: number };
   participants: BracketParticipant[] | TournamentParticipant[];

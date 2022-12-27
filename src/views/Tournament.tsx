@@ -91,6 +91,7 @@ function Tournament() {
       <AppContext.Provider
         value={{
           dirty: data.dirty,
+          saving: false, // There isn't any long saving process here, update if needed
           settings: data.settings,
           information: data.information,
           participants: data.participants,

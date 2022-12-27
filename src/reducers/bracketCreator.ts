@@ -6,6 +6,7 @@ import { BracketParticipant } from 'types/BracketParticipant';
 export interface AppState {
   dirty: boolean;
   loading: boolean;
+  saving: boolean;
   settings: AppSettingsMap;
   information: BracketInformation;
   participants: BracketParticipant[];
@@ -29,6 +30,7 @@ export default function reducer(state: AppState, action: AppAction) {
         ...state,
         dirty: false,
         loading: false,
+        saving: false,
         information,
         participants,
         errorMessages: new Map<string, string>([])
@@ -71,9 +73,12 @@ export default function reducer(state: AppState, action: AppAction) {
           .filter((x) => x.id !== action.uid)
           .map(setSeedOrder)
       };
+    case 'SAVING':
+      return { ...state, saving: true };
     case 'SET_ERROR':
       return {
         ...state,
+        saving: false,
         errorMessages: action.data
       };
     default:

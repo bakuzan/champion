@@ -17,7 +17,7 @@ export default function LoadingDisplay({
   const orbs = Array(3).fill(null);
 
   // We only want to show the loading display if we are actually taking a while.
-  useTimeout(() => setShowOrbs((p) => !p), 1500);
+  useTimeout(() => setShowOrbs((p) => !p), isLoading, 1000);
 
   if (isLoading && showOrbs) {
     return (

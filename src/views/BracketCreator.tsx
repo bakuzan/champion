@@ -15,10 +15,12 @@ import reducer, { AppState } from 'reducers/bracketCreator';
 import classNames from 'utils/classNames';
 
 import './BracketCreator.css';
+import { SaveBracketTemplateResponse } from 'types/Responses';
 
 const DEFAULT_STATE: AppState = {
   dirty: false,
   loading: true,
+  saving: false,
   settings: new Map<AppSettingKey, AppSettingValue>([]),
   errorMessages: new Map<string, string>([]),
   information: { name: '', description: '' },
@@ -104,6 +106,7 @@ function BracketCreator() {
   }, [templateId, locationKey]);
 
   async function save() {
+    dispatch({ type: 'SAVING' });
     const response = await window.Champion.saveBracketTemplate({
       ...data.information,
       participants: data.participants
@@ -144,6 +147,7 @@ function BracketCreator() {
       <AppContext.Provider
         value={{
           dirty: data.dirty,
+          saving: data.saving,
           settings: data.settings,
           information: data.information,
           participants: data.participants,
