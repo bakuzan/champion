@@ -1,20 +1,23 @@
 import * as React from 'react';
 
 import { HomePageLink } from 'types/HomePageLink';
-import classNames from 'utils/classNames';
 
+import classNames from 'utils/classNames';
 import { formatDateTimeForDisplay } from 'utils/date';
 import { getRoundNameFromRoundNumbers } from 'utils/getRoundName';
+import { isTournamentHomePageLink } from 'utils/guards';
 
 import './BracketListSection.css';
 
-interface BracketListSectionProps {
+interface BracketListSectionProps<T extends HomePageLink> {
   title: string;
-  list: HomePageLink[];
+  list: T[];
   onClick: (itemId: number) => void;
 }
 
-export default function BracketListSection(props: BracketListSectionProps) {
+export default function BracketListSection<T extends HomePageLink>(
+  props: BracketListSectionProps<T>
+) {
   const items = props.list;
   const hasItems = items.length > 0;
 
@@ -31,13 +34,15 @@ export default function BracketListSection(props: BracketListSectionProps) {
                 type="button"
                 className={classNames(
                   'BracketLink',
-                  x.isComplete && 'BracketLink--Complete'
+                  isTournamentHomePageLink(x) &&
+                    x.isComplete &&
+                    'BracketLink--Complete'
                 )}
                 onClick={() => props.onClick(x.id)}
               >
                 <div className="BracketLink__Text">{x.name}</div>
                 <div className="BracketDescription">{x.description}</div>
-                {x.createdAt && (
+                {isTournamentHomePageLink(x) && (
                   <div className="TournamentData">
                     <div className="TournamentStatus">
                       {x.isComplete

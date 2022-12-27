@@ -2,8 +2,12 @@ export interface HomePageLink {
   id: number;
   name: string;
   description: string;
-  /* Values only on tournament object */
   createdAt?: string;
+}
+
+export type BracketTemplateHomePageLink = HomePageLink
+
+export interface TournamentHomePageLink extends HomePageLink {
   participantCount?: number;
   currentRoundNumber?: number;
   finalRoundNumber?: number;

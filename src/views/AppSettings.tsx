@@ -68,7 +68,7 @@ export default function AppSettings() {
     const response = window.Champion.saveSettings(settings);
 
     if (response.success) {
-      navigate(`/settings`);
+      navigate(`/`);
     } else {
       dispatch({ type: 'SET_ERROR', data: response.errorMessages });
     }

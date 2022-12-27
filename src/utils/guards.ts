@@ -1,11 +1,13 @@
 import { BracketMatchup } from 'types/BracketMatchup';
 import { BracketParticipant } from 'types/BracketParticipant';
+import { HomePageLink, TournamentHomePageLink } from 'types/HomePageLink';
 import { ParticipantPlus } from 'types/Participant';
 import {
   TournamentParticipant,
   TournamentRoundMatchup
 } from 'types/Tournament';
 
+/* BracketParticipant */
 export function isBracketParticipant(
   participant: ParticipantPlus
 ): participant is BracketParticipant {
@@ -21,6 +23,7 @@ export function isBracketParticipantList(
   return isBracketParticipant(p);
 }
 
+/* TournamentParticipant */
 export function isTournamentParticipant(
   participant: ParticipantPlus
 ): participant is TournamentParticipant {
@@ -28,8 +31,16 @@ export function isTournamentParticipant(
   return 'tournamentId' in participant;
 }
 
+/* BracketMatchup */
 export function isBracketMatchup(
   match: TournamentRoundMatchup | BracketMatchup
 ): match is BracketMatchup {
   return !('tournamentId' in match);
+}
+
+/* HomePageLink */
+export function isTournamentHomePageLink(
+  homePageLink: HomePageLink
+): homePageLink is TournamentHomePageLink {
+  return 'isComplete' in homePageLink;
 }
