@@ -2,6 +2,7 @@ import { contextBridge } from 'electron';
 
 import * as api from './api';
 
+import { AppSettingsMap } from 'types/AppSetting';
 import { BracketTemplate } from 'types/BracketTemplate';
 import { Tournament, TournamentRoundMatchup } from 'types/Tournament';
 
@@ -29,5 +30,5 @@ contextBridge.exposeInMainWorld('Champion', {
     api.saveTournamentMatchResult(match),
   /* AppSettings endpoints */
   getSettings: () => api.getSettings(),
-  saveSettings: (payload: Map<string, any>) => api.saveSettings(payload)
+  saveSettings: (payload: AppSettingsMap) => api.saveSettings(payload)
 });

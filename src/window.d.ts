@@ -35,7 +35,7 @@ export interface ChampionApi {
   ): SaveTournamentResponse;
   /* AppSettings endpoints */
   getSettings(): AppSettingsMap;
-  saveSettings(payload: Map<string, any>): SaveSettingsResponse;
+  saveSettings(payload: AppSettingsMap): SaveSettingsResponse;
 }
 
 declare global {
