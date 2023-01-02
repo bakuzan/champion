@@ -8,19 +8,34 @@ import classNames from 'utils/classNames';
 
 import './BracketInformation.css';
 
-const DEFAULT_ACTIVE_OPTION = BracketInformationOptions.Information;
+export const DEFAULT_ACTIVE_OPTION = BracketInformationOptions.Information;
 
 interface BracketInformationProps {
+  activeValue?: BracketInformationOptions;
   isCollapsed: boolean;
+  onSelectOption?: React.Dispatch<
+    React.SetStateAction<BracketInformationOptions>
+  >;
   onToggleCollapse: () => void;
 }
 
 function BracketInformation({
+  activeValue,
   isCollapsed,
+  onSelectOption,
   onToggleCollapse
 }: BracketInformationProps) {
   const [activeOption, setActiveOption] = React.useState(DEFAULT_ACTIVE_OPTION);
   const navigate = useNavigate();
+
+  const currentActiveOptionValue = activeValue ?? activeOption;
+  function handleActiveOption(optionValue: BracketInformationOptions) {
+    if (activeValue && onSelectOption) {
+      onSelectOption(optionValue);
+    } else {
+      setActiveOption(optionValue);
+    }
+  }
 
   return (
     <div
@@ -32,7 +47,7 @@ function BracketInformation({
       <div className="BracketInformation_Options">
         <BracketOption
           title="Home"
-          activeOption={activeOption}
+          activeOption={currentActiveOptionValue}
           optionValue={BracketInformationOptions.Home}
           onClick={() => navigate('/')}
         >
@@ -40,17 +55,17 @@ function BracketInformation({
         </BracketOption>
         <BracketOption
           title="Information"
-          activeOption={activeOption}
+          activeOption={currentActiveOptionValue}
           optionValue={BracketInformationOptions.Information}
-          onClick={setActiveOption}
+          onClick={handleActiveOption}
         >
           I
         </BracketOption>
         <BracketOption
           title="Participants"
-          activeOption={activeOption}
+          activeOption={currentActiveOptionValue}
           optionValue={BracketInformationOptions.Participants}
-          onClick={setActiveOption}
+          onClick={handleActiveOption}
         >
           P
         </BracketOption>
@@ -65,7 +80,7 @@ function BracketInformation({
         </button>
       </div>
       <div className="BracketInformation_View">
-        <BracketPanel activeOption={activeOption} />
+        <BracketPanel activeOption={currentActiveOptionValue} />
       </div>
     </div>
   );

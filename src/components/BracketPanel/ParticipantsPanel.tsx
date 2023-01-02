@@ -5,8 +5,10 @@ import { BracketParticipant } from 'types/BracketParticipant';
 
 import { AppContext } from 'context/index';
 
-import generateUniqueId from 'utils/generateUniqueId';
+import { usePrevious } from 'hooks/usePrevious';
 
+import generateUniqueId from 'utils/generateUniqueId';
+import scrollToAndFocusParticipantControl from 'utils/scrollToAndFocusParticipantControl';
 import {
   isBracketParticipantList,
   isTournamentParticipant
@@ -19,8 +21,23 @@ export default function ParticipantsPanel() {
   const { participants, dispatch } = context;
 
   const firstParticipant = participants[0];
+  const allowSorting = isBracketParticipantList(participants);
   const isBracketParticipant =
     !firstParticipant || !isTournamentParticipant(firstParticipant);
+
+  const participantsLength = participants.length;
+  const prevParticipantsLength = usePrevious(participantsLength);
+
+  React.useEffect(() => {
+    // If a new participant has been added, scroll and focus it
+    if (
+      participantsLength &&
+      prevParticipantsLength &&
+      participantsLength > prevParticipantsLength
+    ) {
+      scrollToAndFocusParticipantControl(participantsLength - 1);
+    }
+  }, [participantsLength, prevParticipantsLength]);
 
   return (
     <div className="ParticipantsPanel">
@@ -47,7 +64,7 @@ export default function ParticipantsPanel() {
         </div>
       )}
 
-      {isBracketParticipantList(participants) ? (
+      {allowSorting ? (
         <ReactSortable
           tag="ul"
           className="ParticipantsList"

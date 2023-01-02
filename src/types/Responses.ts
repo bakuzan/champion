@@ -1,5 +1,3 @@
-import { AppSetting } from './AppSetting';
-
 interface BaseResponse {
   success: boolean;
   errorMessages: Map<string, string>;
@@ -24,4 +22,4 @@ export interface SaveTournamentResponse extends BaseResponse {
 export type DeleteTournamentResponse = BaseResponse;
 
 /* AppSettings things */
-export type SaveSettingsResponse = BaseResponse
+export type SaveSettingsResponse = BaseResponse;

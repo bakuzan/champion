@@ -49,11 +49,11 @@ const config: ForgeConfig = {
   ],
   hooks: {
     packageAfterCopy: async (
-      config,
+      _config,
       buildPath,
-      electronVersion,
-      platform,
-      arch
+      _electronVersion,
+      _platform,
+      _arch
     ) => {
       const srcs = [
         {

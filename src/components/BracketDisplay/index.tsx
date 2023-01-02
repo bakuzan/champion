@@ -2,6 +2,7 @@ import * as React from 'react';
 import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch';
 
 import { BracketRound } from 'types/BracketRound';
+import { BracketParticipant } from 'types/BracketParticipant';
 import { TournamentRound, TournamentRoundMatchup } from 'types/Tournament';
 
 import { AppContext } from 'context/index';
@@ -10,7 +11,7 @@ import ZoomTools from './ZoomTools';
 
 import classNames from 'utils/classNames';
 import { isPlaceholder, isQualifierRound } from 'utils/checks';
-import { getTournamentWinner, getMatchProps } from './utils';
+import { getTournamentWinner, getMatchProps, getSlotProps } from './utils';
 import { getShowSeedOrder, getWinnerCrownColour } from 'utils/settings';
 import getCrownImage from 'utils/getCrownImage';
 
@@ -18,6 +19,7 @@ import './Bracket.css';
 
 interface BracketDisplayProps {
   rounds: BracketRound[] | TournamentRound[];
+  onSlotClick?: (participant: BracketParticipant) => void;
   onMatchSelect?: (match: TournamentRoundMatchup) => void;
 }
 
@@ -81,7 +83,8 @@ function BracketDisplay(props: BracketDisplayProps) {
                         pOneIsPlaceholder && pTwoIsPlaceholder;
 
                       const matchProps = getMatchProps(mu, props.onMatchSelect);
-                      const isClickable = 'role' in matchProps;
+                      const slotProps = getSlotProps(mu, props.onSlotClick);
+                      const isClickableMatch = 'role' in matchProps;
 
                       return (
                         <div
@@ -89,13 +92,16 @@ function BracketDisplay(props: BracketDisplayProps) {
                           {...matchProps}
                           className={classNames(
                             'Matchup',
-                            isClickable && 'Matchup--Tournament',
+                            isClickableMatch && 'Matchup--Tournament',
                             isQualifiers &&
                               hasNoParticipants &&
                               'Matchup--Hidden'
                           )}
                         >
-                          <div className="Matchup_Slot Matchup_Slot--Top">
+                          <div
+                            className="Matchup_Slot Matchup_Slot--Top"
+                            {...slotProps.pOne}
+                          >
                             {showSeedOrder && (
                               <div className="MatchupParticipantSeed">
                                 {pOneSeed}
@@ -105,7 +111,10 @@ function BracketDisplay(props: BracketDisplayProps) {
                               {pOne.text}
                             </div>
                           </div>
-                          <div className="Matchup_Slot Matchup_Slot--Bot">
+                          <div
+                            className="Matchup_Slot Matchup_Slot--Bot"
+                            {...slotProps.pTwo}
+                          >
                             {showSeedOrder && (
                               <div className="MatchupParticipantSeed">
                                 {pTwoSeed}

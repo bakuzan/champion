@@ -2,8 +2,12 @@ import * as React from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { AppSettingKey, AppSettingValue } from 'types/AppSetting';
+import { BracketParticipant } from 'types/BracketParticipant';
 
-import BracketInformationComponent from 'components/BracketInformation';
+import { BracketInformationOptions } from 'components/BracketInformation/BracketInformationOptions';
+import BracketInformationComponent, {
+  DEFAULT_ACTIVE_OPTION
+} from 'components/BracketInformation';
 import BracketDisplay from 'components/BracketDisplay';
 import LoadingDisplay from 'components/LoadingDisplay';
 
@@ -13,9 +17,9 @@ import { buildRounds } from 'builder/index';
 import reducer, { AppState } from 'reducers/bracketCreator';
 
 import classNames from 'utils/classNames';
+import scrollToAndFocusParticipantControl from 'utils/scrollToAndFocusParticipantControl';
 
 import './BracketCreator.css';
-import { SaveBracketTemplateResponse } from 'types/Responses';
 
 const DEFAULT_STATE: AppState = {
   dirty: false,
@@ -82,6 +86,7 @@ const DEFAULT_STATE: AppState = {
 
 function BracketCreator() {
   const [isCollapsed, setIsCollapsed] = React.useState(false);
+  const [activeOption, setActiveOption] = React.useState(DEFAULT_ACTIVE_OPTION);
   const [data, dispatch] = React.useReducer(reducer, DEFAULT_STATE);
 
   const navigate = useNavigate();
@@ -139,6 +144,15 @@ function BracketCreator() {
     }
   }
 
+  function handleClickBracketSlot(participant: BracketParticipant) {
+    const num = participant.seedOrder;
+    if (activeOption !== BracketInformationOptions.Participants) {
+      setActiveOption(BracketInformationOptions.Participants);
+    }
+
+    scrollToAndFocusParticipantControl(num);
+  }
+
   const bracketRounds = buildRounds(data.participants);
   console.log('<BracketCreator> :: ', { data, templateId });
 
@@ -165,10 +179,15 @@ function BracketCreator() {
           )}
         >
           <BracketInformationComponent
+            activeValue={activeOption}
             isCollapsed={isCollapsed}
+            onSelectOption={setActiveOption}
             onToggleCollapse={() => setIsCollapsed((p) => !p)}
           />
-          <BracketDisplay rounds={bracketRounds} />
+          <BracketDisplay
+            rounds={bracketRounds}
+            onSlotClick={handleClickBracketSlot}
+          />
         </main>
       </AppContext.Provider>
     </LoadingDisplay>

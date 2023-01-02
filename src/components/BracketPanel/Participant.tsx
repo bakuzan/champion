@@ -14,7 +14,10 @@ export function ParticipantItem<T extends ParticipantPlus>(
 ) {
   const { data, index, onChange, onRemove } = props;
   const isReadOnly = !onChange || !onRemove;
+
   const num = index + 1;
+  const participantId = `participant_${index}`;
+  const imageId = `image_${index}`;
 
   return (
     <li className="Participant">
@@ -22,9 +25,9 @@ export function ParticipantItem<T extends ParticipantPlus>(
       <div className="Participant_Number">{num}</div>
       <div className="Participant_Controls">
         <div className="Participant_Control Control">
-          <label htmlFor="participant">Participant</label>
+          <label htmlFor={participantId}>Participant</label>
           <input
-            id="participant"
+            id={participantId}
             type="text"
             name="text"
             placeholder="Participant"
@@ -40,9 +43,9 @@ export function ParticipantItem<T extends ParticipantPlus>(
           />
         </div>
         <div className="Participant_Control Control">
-          <label htmlFor="participant">Image Url</label>
+          <label htmlFor={imageId}>Image Url</label>
           <input
-            id="image"
+            id={imageId}
             type="text"
             name="image"
             placeholder="Image Url"
