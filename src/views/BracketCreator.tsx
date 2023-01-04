@@ -28,60 +28,7 @@ const DEFAULT_STATE: AppState = {
   settings: new Map<AppSettingKey, AppSettingValue>([]),
   errorMessages: new Map<string, string>([]),
   information: { name: '', description: '' },
-  participants: [
-    {
-      id: '1342be4e-b369-47f0-a46f-07a13c7c8244',
-      text: 'First',
-      image: null
-    },
-    {
-      id: '819326e6-42f8-46d0-b0ea-290510a1e486',
-      text: 'Second',
-      image: null
-    },
-    {
-      id: '344803c7-fe57-4f08-9804-1c962b2aa400',
-      text: 'Third',
-      image: null
-    },
-    {
-      id: 'd5047874-531c-4075-957f-cfbce574e694',
-      text: 'Fourth',
-      image: null
-    },
-    {
-      id: '6225609b-8913-4b3b-92ad-a3ca1ec2f334',
-      text: 'Fifth',
-      image: null
-    },
-    {
-      id: '904a14c4-9d55-423e-bf03-2886961b6868',
-      text: 'Sixth',
-      image: null
-    },
-    {
-      id: '782f4569-3b04-4ea4-9e87-3c38d65fbf4c',
-      text: 'Seventh',
-      image: null
-    },
-    {
-      id: 'a9e33ca6-e576-418e-82de-6138aaeaf638',
-      text: 'Eighth',
-      image: null
-    },
-    {
-      id: '74efeeb1-3e1c-4bc9-97c3-5e119996990e',
-      text: 'Nineth',
-      image: null
-    },
-    {
-      id: '708221b4-d5ce-4168-844f-9602af045911',
-      text: 'Tenth',
-      image: null
-    }
-  ]
-    .map((x, i) => ({ ...x, seedOrder: i }))
-    .slice(0, 7) // DEV DATA
+  participants: []
 };
 
 function BracketCreator() {
