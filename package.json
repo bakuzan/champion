@@ -9,6 +9,7 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
+    "deploy": "npm run publish && npm run make",
     "lint": "eslint --fix --ext .ts,.tsx .",
     "pretty": "prettier --write",
     "prepare": "husky install"

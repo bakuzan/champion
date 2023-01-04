@@ -13,7 +13,9 @@ export function isBracketParticipant(
 ): participant is BracketParticipant {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const p = participant as any;
-  return 'bracketTemplateId' in p || ('id' in p && typeof p.id === 'string');
+  return (
+    !p || 'bracketTemplateId' in p || ('id' in p && typeof p.id === 'string')
+  );
 }
 
 export function isBracketParticipantList(
