@@ -107,7 +107,10 @@ function BracketDisplay(props: BracketDisplayProps) {
                                 {pOneSeed}
                               </div>
                             )}
-                            <div className="MatchupParticipantName">
+                            <div
+                              className="MatchupParticipantName"
+                              title={pOne.text}
+                            >
                               {pOne.text}
                             </div>
                           </div>
@@ -120,7 +123,10 @@ function BracketDisplay(props: BracketDisplayProps) {
                                 {pTwoSeed}
                               </div>
                             )}
-                            <div className="MatchupParticipantName">
+                            <div
+                              className="MatchupParticipantName"
+                              title={pTwo.text}
+                            >
                               {pTwo.text}
                             </div>
                           </div>
