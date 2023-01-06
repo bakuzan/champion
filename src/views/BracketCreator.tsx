@@ -4,10 +4,11 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { AppSettingKey, AppSettingValue } from 'types/AppSetting';
 import { BracketParticipant } from 'types/BracketParticipant';
 
-import { BracketInformationOptions } from 'components/BracketInformation/BracketInformationOptions';
-import BracketInformationComponent, {
+import {
+  BracketInformationOptions,
   DEFAULT_ACTIVE_OPTION
-} from 'components/BracketInformation';
+} from 'components/BracketInformation/BracketInformationOptions';
+import BracketInformationComponent from 'components/BracketInformation';
 import BracketDisplay from 'components/BracketDisplay';
 import LoadingDisplay from 'components/LoadingDisplay';
 

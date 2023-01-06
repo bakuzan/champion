@@ -1,0 +1,45 @@
+.ResultsDisplay {
+  grid-area: core;
+  height: 100vh;
+  overflow: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.Table {
+  table-layout: fixed;
+  border-collapse: separate;
+  min-width: 350px;
+  font-size: 1.5rem;
+}
+
+.Table__Header .Cell > div {
+  padding: 5px;
+  background: var(--theme-background-colour);
+  color: var(--theme-colour-colour);
+}
+
+.Cell {
+  padding: 0;
+  border-spacing: 0px;
+}
+
+.Cell > div {
+  padding: 2px 5px;
+}
+
+.Cell--RightAlign {
+  text-align: right;
+}
+
+.ParticipantInfo {
+  display: flex;
+}
+
+.ParticipantInfo__Name {
+  padding: 0 5px;
+}
+
+.ParticipantInfo__Image {
+  max-height: 100px;
+}

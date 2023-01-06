@@ -14,6 +14,10 @@
   left: 0;
   transform: translateX(-100%);
 }
+.BracketInformation--NoView {
+  min-width: 0;
+  width: var(--bracket-information-options-width);
+}
 
 /* Top-level Layout */
 .BracketInformation_Options {
@@ -29,6 +33,9 @@
   padding: 4px;
   display: flex;
   flex: 1;
+}
+.BracketInformation_View:empty {
+  display: none;
 }
 
 /* Option button stylings */

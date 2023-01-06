@@ -81,6 +81,10 @@ export function getTournamentWinner(
   rounds: BracketRound[] | TournamentRound[]
 ) {
   const finalRound = rounds[rounds.length - 1];
+  if (!finalRound) {
+    return false;
+  }
+
   const finalMatch = finalRound.matchups[0];
   return getWinningParticipant(finalMatch);
 }

@@ -1,5 +1,8 @@
 export enum BracketInformationOptions {
   Home,
   Information,
-  Participants
+  Participants,
+  Results
 }
+
+export const DEFAULT_ACTIVE_OPTION = BracketInformationOptions.Information;

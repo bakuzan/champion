@@ -1,11 +1,15 @@
 .MatchupDisplay {
   grid-area: core;
+  height: 100vh;
+  overflow: auto;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 .MatchupDisplay__Close {
   position: absolute;
   top: 0.83em;
-  right: 5px;
+  right: 20px;
 }
 
 .MatchDisplay__Cancel:focus span,

@@ -4,10 +4,17 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Tournament, TournamentRoundMatchup } from 'types/Tournament';
 import { AppSettingKey, AppSettingValue } from 'types/AppSetting';
 
+import {
+  BracketInformationOptions,
+  DEFAULT_ACTIVE_OPTION
+} from 'components/BracketInformation/BracketInformationOptions';
 import BracketInformationComponent from 'components/BracketInformation';
+
 import BracketDisplay from 'components/BracketDisplay';
+import { getTournamentWinner } from 'components/BracketDisplay/utils';
 import LoadingDisplay from 'components/LoadingDisplay';
 import MatchupDisplay from 'components/MatchupDisplay';
+import ResultsDisplay from 'components/ResultsDisplay';
 
 import { AppContext } from 'context/index';
 
@@ -31,6 +38,7 @@ const DEFAULT_STATE: TournamentState = {
 
 function Tournament() {
   const [isCollapsed, setIsCollapsed] = React.useState(false);
+  const [activeOption, setActiveOption] = React.useState(DEFAULT_ACTIVE_OPTION);
   const [data, dispatch] = React.useReducer(reducer, DEFAULT_STATE);
 
   const navigate = useNavigate();
@@ -80,6 +88,8 @@ function Tournament() {
   }
 
   const bracketRounds = data.rounds;
+  const hasWinner = !!getTournamentWinner(bracketRounds);
+  const isResultsOption = activeOption === BracketInformationOptions.Results;
   console.log('<Tournament> :: ', { data, tournamentId });
 
   if (!data.information) {
@@ -108,10 +118,18 @@ function Tournament() {
           )}
         >
           <BracketInformationComponent
+            isCompleteTournament={hasWinner}
+            activeValue={activeOption}
             isCollapsed={isCollapsed}
+            onSelectOption={setActiveOption}
             onToggleCollapse={() => setIsCollapsed((p) => !p)}
           />
-          {data.selectedMatch ? (
+          {isResultsOption ? (
+            <ResultsDisplay
+              information={data.information}
+              rounds={bracketRounds}
+            />
+          ) : data.selectedMatch ? (
             <MatchupDisplay
               match={data.selectedMatch}
               onPostResults={onPostMatchResult}

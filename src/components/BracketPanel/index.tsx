@@ -17,6 +17,6 @@ export default function BracketPanel({ activeOption }: BracketPanelProps) {
     case BracketInformationOptions.Participants:
       return <ParticipantsPanel />;
     default:
-      return <div></div>; // This should never be reached, empty panel is fine.
+      return null;
   }
 }
