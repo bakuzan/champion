@@ -12,6 +12,7 @@
   --danger-colour-colour: #fff;
 
   --regular-button-background-colour-constrast: #ddd;
+  --regular-button-colour-colour: #000;
 
   --landing-page-header-background-colour: var(--steel-grey);
   --landing-page-header-colour: #fff;
@@ -102,6 +103,7 @@ button:not([disabled]) {
 .RegularButton:focus,
 .RegularButton:hover {
   background-color: var(--regular-button-background-colour-constrast);
+  color: var(--regular-button-colour-colour);
 }
 
 .PrimaryButton {

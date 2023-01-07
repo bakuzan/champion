@@ -14,7 +14,7 @@ export interface AppContextProps {
   participants: BracketParticipant[] | TournamentParticipant[];
   errorMessages: Map<string, string>;
   dispatch: React.Dispatch<AppAction>;
-  save: () => void;
+  save: (saveAsNewCopy?: boolean) => void;
   delete: () => void;
   startTournament?: () => void;
 }

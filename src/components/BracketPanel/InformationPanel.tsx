@@ -60,8 +60,8 @@ export default function InformationPanel() {
           }
         />
       </div>
-      <div className="ButtonGroup">
-        <LoadingDisplay isLoading={saving}>
+      <LoadingDisplay isLoading={saving}>
+        <div className="ButtonGroup ButtonGroup--Split">
           <button
             type="button"
             className="PrimaryButton"
@@ -70,37 +70,47 @@ export default function InformationPanel() {
           >
             Save {isBracket ? 'Bracket' : 'Tournament'}
           </button>
-        </LoadingDisplay>
-      </div>
+          {isSavedTemplate && isBracket && (
+            <button
+              type="button"
+              className="PrimaryButton"
+              disabled={dirty}
+              onClick={() => context.save(true)}
+            >
+              Copy Bracket
+            </button>
+          )}
+        </div>
 
-      <ErrorMessages style={{ flex: 1 }} messages={errorMessages} />
+        <ErrorMessages style={{ flex: 1 }} messages={errorMessages} />
 
-      <div
-        className={classNames(
-          'ButtonGroup',
-          isSavedTemplate ? 'ButtonGroup--Split' : 'ButtonGroup--Right'
-        )}
-      >
-        {isSavedTemplate && (
-          <button
-            type="button"
-            className="PrimaryButton"
-            disabled={dirty}
-            onClick={() => context.startTournament()}
-          >
-            Start a Tournament
-          </button>
-        )}
-        {canDelete && (
-          <button
-            type="button"
-            className="DangerButton"
-            onClick={() => context.delete()}
-          >
-            Delete {isBracket ? 'Bracket' : 'Tournament'}
-          </button>
-        )}
-      </div>
+        <div
+          className={classNames(
+            'ButtonGroup',
+            isSavedTemplate ? 'ButtonGroup--Split' : 'ButtonGroup--Right'
+          )}
+        >
+          {isSavedTemplate && (
+            <button
+              type="button"
+              className="PrimaryButton"
+              disabled={dirty}
+              onClick={() => context.startTournament()}
+            >
+              Start a Tournament
+            </button>
+          )}
+          {canDelete && (
+            <button
+              type="button"
+              className="DangerButton"
+              onClick={() => context.delete()}
+            >
+              Delete {isBracket ? 'Bracket' : 'Tournament'}
+            </button>
+          )}
+        </div>
+      </LoadingDisplay>
     </div>
   );
 }

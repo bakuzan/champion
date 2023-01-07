@@ -19,6 +19,7 @@ import reducer, { AppState } from 'reducers/bracketCreator';
 
 import classNames from 'utils/classNames';
 import scrollToAndFocusParticipantControl from 'utils/scrollToAndFocusParticipantControl';
+import { mapDataToPayload } from 'utils/mappers/bracketTemplate';
 
 import './BracketCreator.css';
 
@@ -58,12 +59,11 @@ function BracketCreator() {
     });
   }, [templateId, locationKey]);
 
-  async function save() {
+  async function save(saveAsNewCopy = false) {
     dispatch({ type: 'SAVING' });
-    const response = await window.Champion.saveBracketTemplate({
-      ...data.information,
-      participants: data.participants
-    });
+    const response = await window.Champion.saveBracketTemplate(
+      mapDataToPayload(data.information, data.participants, saveAsNewCopy)
+    );
 
     if (response.success) {
       navigate(`/template/${response.bracketTemplateId}`);
