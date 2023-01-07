@@ -2,6 +2,8 @@ import * as React from 'react';
 
 import { ParticipantPlus } from 'types/Participant';
 
+import { TextInput } from 'components/Controls';
+
 export interface ParticipantProps<T extends ParticipantPlus> {
   data: T;
   index: number;
@@ -23,43 +25,40 @@ export function ParticipantItem<T extends ParticipantPlus>(
     <li className="Participant">
       {!isReadOnly && <div className="Participant_Handle"></div>}
       <div className="Participant_Number">{num}</div>
+
       <div className="Participant_Controls">
-        <div className="Participant_Control Control">
-          <label htmlFor={participantId}>Participant</label>
-          <input
-            id={participantId}
-            type="text"
-            name="text"
-            placeholder="Participant"
-            required
-            value={data.text ?? ''}
-            readOnly={isReadOnly}
-            onChange={(event) =>
-              onChange({
-                ...data,
-                text: event.currentTarget.value
-              })
-            }
-          />
-        </div>
-        <div className="Participant_Control Control">
-          <label htmlFor={imageId}>Image Url</label>
-          <input
-            id={imageId}
-            type="text"
-            name="image"
-            placeholder="Image Url"
-            value={data.image ?? ''}
-            readOnly={isReadOnly}
-            onChange={(event) => {
-              const image = event.currentTarget.value;
-              onChange({
-                ...data,
-                image: image && image.trim() ? image.trim() : null
-              });
-            }}
-          />
-        </div>
+        <TextInput
+          id={participantId}
+          className="Participant_Control"
+          name="text"
+          label="Participant"
+          placeholder="Participant"
+          required
+          value={data.text ?? ''}
+          readOnly={isReadOnly}
+          onChange={(event) =>
+            onChange({
+              ...data,
+              text: event.currentTarget.value
+            })
+          }
+        />
+        <TextInput
+          id={imageId}
+          className="Participant_Control"
+          name="image"
+          label="Image Url"
+          placeholder="Image Url"
+          value={data.image ?? ''}
+          readOnly={isReadOnly}
+          onChange={(event) => {
+            const image = event.currentTarget.value;
+            onChange({
+              ...data,
+              image: image && image.trim() ? image.trim() : null
+            });
+          }}
+        />
       </div>
       {!isReadOnly && (
         <div className="Participant_Remove">

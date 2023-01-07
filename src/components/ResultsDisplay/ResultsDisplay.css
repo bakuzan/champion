@@ -6,6 +6,34 @@
   box-sizing: border-box;
 }
 
+.ResultsDisplayGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+}
+
+@media (max-width: 1050px) {
+  .ResultsDisplayGrid {
+    grid-template-columns: 1fr;
+  }
+  .ResultsDisplayGrid > * {
+    margin-bottom: 1rem;
+  }
+}
+
+.ResultsDisplay__Actions {
+  max-width: 725px;
+}
+
+.ResultsDisplayQuestion {
+  margin-top: 0.25em;
+}
+
+.RadioGroup {
+  display: flex;
+  margin-bottom: 10px;
+}
+
 .Table {
   table-layout: fixed;
   border-collapse: separate;

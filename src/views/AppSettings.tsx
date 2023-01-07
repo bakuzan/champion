@@ -9,6 +9,7 @@ import {
 } from 'types/AppSetting';
 
 import LoadingDisplay from 'components/LoadingDisplay';
+import { Checkbox } from 'components/Controls';
 
 import { getShowSeedOrder, getWinnerCrownColour } from 'utils/settings';
 
@@ -90,26 +91,21 @@ export default function AppSettings() {
           </div>
         </header>
         <div className="AppSettings__Options">
-          <div className="Control">
-            <label className="Control__Checkbox" htmlFor="showSeedOrder">
-              <input
-                type="checkbox"
-                id="showSeedOrder"
-                name="showSeedOrder"
-                checked={getShowSeedOrder(settings)}
-                onChange={(event) =>
-                  dispatch({
-                    type: 'UPDATE_SETTINGS',
-                    data: {
-                      key: 'showSeedOrder',
-                      value: event.currentTarget.checked
-                    }
-                  })
+          <Checkbox
+            id="showSeedOrder"
+            name="showSeedOrder"
+            label="Show Seed Order"
+            checked={getShowSeedOrder(settings)}
+            onChange={(event) =>
+              dispatch({
+                type: 'UPDATE_SETTINGS',
+                data: {
+                  key: 'showSeedOrder',
+                  value: event.currentTarget.checked
                 }
-              />
-              Show Seed Order
-            </label>
-          </div>
+              })
+            }
+          />
           <div className="Control">
             <label htmlFor="winnerCrownColour">Winner Crown Colour</label>
             <select

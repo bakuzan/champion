@@ -55,28 +55,6 @@ body {
   height: 100%;
 }
 
-/* Control */
-.Control {
-  display: flex;
-  flex-direction: column;
-  min-width: 200px;
-  margin-bottom: 8px;
-}
-
-.Control__Checkbox {
-  display: flex;
-  width: fit-content;
-  align-items: center;
-}
-.Control__Checkbox input[type='checkbox'] {
-  margin-left: 0;
-}
-
-.Control__Checkbox,
-.Control__Checkbox input[type='checkbox']:not(:disabled) {
-  cursor: pointer;
-}
-
 /* Button styling */
 button {
   background-color: inherit;

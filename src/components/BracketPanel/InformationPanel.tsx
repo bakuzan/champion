@@ -6,6 +6,7 @@ import { AppContext } from 'context/index';
 
 import ErrorMessages from 'components/ErrorMessages';
 import LoadingDisplay from 'components/LoadingDisplay';
+import { TextInput } from 'components/Controls';
 
 import classNames from 'utils/classNames';
 
@@ -27,26 +28,23 @@ export default function InformationPanel() {
   return (
     <div className="InformationPanel">
       <h2>Information</h2>
-      <div className="Control">
-        <label htmlFor="bracketName">Bracket Name</label>
-        <input
-          id="bracketName"
-          type="text"
-          name="name"
-          placeholder="Bracket Name"
-          required
-          value={information.name ?? ''}
-          onChange={(event) =>
-            updateInformation({ name: event.currentTarget.value })
-          }
-        />
-      </div>
-      <div className="Control">
+      <TextInput
+        id="bracketName"
+        name="name"
+        label="Bracket Name"
+        placeholder="Bracket Name"
+        required
+        value={information.name ?? ''}
+        onChange={(event) =>
+          updateInformation({ name: event.currentTarget.value })
+        }
+      />
+      {/* <div className="Control">
         <label htmlFor="bracketType">Bracket Type</label>
         <select id="bracketType" name="bracketType" disabled>
           <option value="1">Single Elimination</option>
         </select>
-      </div>
+      </div> */}
       <div className="Control">
         <label htmlFor="bracketDescription">Bracket Description</label>
         <textarea
