@@ -1,10 +1,23 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Tournament, TournamentRound } from 'types/Tournament';
-import { Radio } from 'components/Controls';
 
-import { typeOptions, seedOptions } from './createNewOptions';
+import { Radio } from 'components/Controls';
+import ErrorMessages from 'components/ErrorMessages';
+
+import reducer, { ResultsDisplayState } from 'reducers/resultsDisplay';
+
+import {
+  typeOptions,
+  seedOptions,
+  CreateTypeOption,
+  CreateSeedOrderOption
+} from './createNewOptions';
+
 import { getTournamentResults } from './utils';
+import { mapDataToPayload as mapToBracketTemplate } from 'utils/mappers/bracketTemplate';
+import { isSaveBracketTemplateResponse } from 'utils/guards';
 
 import './ResultsDisplay.css';
 
@@ -13,11 +26,54 @@ interface ResultsDisplayProps {
   rounds: TournamentRound[];
 }
 
+const DEFAULT_STATE: ResultsDisplayState = {
+  saving: false,
+  createType: null,
+  createSeedOrder: null,
+  errorMessages: new Map<string, string>([])
+};
+
 export default function ResultsDisplay(props: ResultsDisplayProps) {
+  const [data, dispatch] = React.useReducer(reducer, DEFAULT_STATE);
+  const navigate = useNavigate();
+
   const { information, rounds } = props;
   const tournamentName = information.name;
   const tournamentDescription = information.description;
   const rankedParticipants = getTournamentResults(rounds);
+
+  const preventCreate =
+    data.createType === null || data.createSeedOrder === null;
+
+  async function handleCreateNew() {
+    dispatch({ type: 'SAVING' });
+
+    const isBracketCreate =
+      data.createType === CreateTypeOption.BracketTemplate;
+    const isResultsOrder =
+      data.createSeedOrder === CreateSeedOrderOption.Results;
+
+    const participants = isResultsOrder
+      ? rankedParticipants.map((x, i) => ({ ...x, seedOrder: i }))
+      : rankedParticipants.sort((a, b) => a.seedOrder - b.seedOrder);
+
+    const response = isBracketCreate
+      ? await window.Champion.saveBracketTemplate(
+          mapToBracketTemplate(information, participants, true)
+        )
+      : window.Champion.createTournamentFromResults(information, participants);
+    console.log(` < RESPONSE > `, response);
+    if (response.success) {
+      navigate(
+        isSaveBracketTemplateResponse(response)
+          ? `/template/${response.bracketTemplateId}`
+          : `/tournament/${response.tournamentId}`
+      );
+    } else {
+      dispatch({ type: 'SET_ERROR', data: response.errorMessages });
+    }
+  }
+
   console.log('<ResultsDisplay> :: ', rankedParticipants, information, rounds);
   return (
     <section className="ResultsDisplay">
@@ -106,8 +162,15 @@ export default function ResultsDisplay(props: ResultsDisplayProps) {
                 <Radio
                   key={option.id}
                   {...option}
-                  checked={false}
-                  onChange={(event) => null} // TODO connect this up
+                  checked={option.value === data.createType}
+                  onChange={(event) => {
+                    const createType = Number(event.currentTarget.value);
+
+                    dispatch({
+                      type: 'UPDATE_OPTION',
+                      data: { createType }
+                    });
+                  }}
                 />
               ))}
             </div>
@@ -116,8 +179,15 @@ export default function ResultsDisplay(props: ResultsDisplayProps) {
                 <Radio
                   key={option.id}
                   {...option}
-                  checked={false}
-                  onChange={(event) => null} // TODO connect this up
+                  checked={option.value === data.createSeedOrder}
+                  onChange={(event) => {
+                    const createSeedOrder = Number(event.currentTarget.value);
+
+                    dispatch({
+                      type: 'UPDATE_OPTION',
+                      data: { createSeedOrder }
+                    });
+                  }}
                 />
               ))}
             </div>
@@ -125,12 +195,14 @@ export default function ResultsDisplay(props: ResultsDisplayProps) {
               <button
                 type="button"
                 className="PrimaryButton"
-                disabled={false} // TODO source this real value
-                onClick={() => null} // TODO call real function
+                disabled={preventCreate}
+                onClick={handleCreateNew}
               >
                 Create
               </button>
             </div>
+
+            <ErrorMessages style={{ flex: 1 }} messages={data.errorMessages} />
           </div>
         </div>
       </div>

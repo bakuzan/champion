@@ -3,6 +3,10 @@ import { BracketParticipant } from 'types/BracketParticipant';
 import { HomePageLink, TournamentHomePageLink } from 'types/HomePageLink';
 import { ParticipantPlus } from 'types/Participant';
 import {
+  CreateTournamentResponse,
+  SaveBracketTemplateResponse
+} from 'types/Responses';
+import {
   TournamentParticipant,
   TournamentRoundMatchup
 } from 'types/Tournament';
@@ -38,6 +42,13 @@ export function isBracketMatchup(
   match: TournamentRoundMatchup | BracketMatchup
 ): match is BracketMatchup {
   return !('tournamentId' in match);
+}
+
+/* SaveBracketTemplateResponse */
+export function isSaveBracketTemplateResponse(
+  response: SaveBracketTemplateResponse | CreateTournamentResponse
+): response is SaveBracketTemplateResponse {
+  return 'bracketTemplateId' in response;
 }
 
 /* HomePageLink */

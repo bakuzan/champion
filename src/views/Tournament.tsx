@@ -46,6 +46,8 @@ function Tournament() {
   const { tournamentId } = useParams<{ tournamentId: string }>();
 
   React.useEffect(() => {
+    setActiveOption(DEFAULT_ACTIVE_OPTION);
+
     dispatch({
       type: 'LOAD_SETTINGS',
       data: window.Champion.getSettings()

@@ -73,8 +73,8 @@ export default async function saveBracketTemplate(payload: BracketTemplate) {
           updateExistingBracketParticipant.run(part);
         } else {
           insertNewBracketParticipant.run({
-            bracketTemplateId,
-            ...part
+            ...part,
+            bracketTemplateId
           });
         }
       }
@@ -94,8 +94,8 @@ export default async function saveBracketTemplate(payload: BracketTemplate) {
 
       for (const part of participants) {
         insertNewBracketParticipant.run({
-          bracketTemplateId,
-          ...part
+          ...part,
+          bracketTemplateId
         });
       }
     });

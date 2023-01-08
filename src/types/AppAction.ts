@@ -4,6 +4,10 @@ import { BracketParticipant } from './BracketParticipant';
 import { SingleEliminationTournament } from './SingleEliminationTournament';
 import { TournamentRoundMatchup } from './Tournament';
 import { AppSettingKey, AppSettingsMap, AppSettingValue } from './AppSetting';
+import {
+  CreateSeedOrderOption,
+  CreateTypeOption
+} from 'components/ResultsDisplay/createNewOptions';
 
 /* BracketCreator */
 export type AppActionType =
@@ -37,6 +41,20 @@ export type TournamentAction =
       data: SingleEliminationTournament;
     }
   | { type: 'SET_SELECTED_MATCH'; data: TournamentRoundMatchup | null };
+
+/* ResultsDisplay */
+export type ResultsDisplayActionType = 'UPDATE_OPTION' | 'SAVING' | 'SET_ERROR';
+
+export type ResultsDisplayAction =
+  | {
+      type: 'UPDATE_OPTION';
+      data: {
+        createType?: CreateTypeOption;
+        createSeedOrder?: CreateSeedOrderOption;
+      };
+    }
+  | { type: 'SAVING' }
+  | { type: 'SET_ERROR'; data: Map<string, string> };
 
 /* AppSettings */
 export type AppSettingsActionType =

@@ -5,16 +5,22 @@
   margin-bottom: 8px;
 }
 
-.Control__Checkbox {
+.Control__Checkbox,
+.Control__Radio {
   display: flex;
   width: fit-content;
   align-items: center;
 }
-.Control__Checkbox input[type='checkbox'] {
+
+.Control__Checkbox input[type='checkbox'],
+.Control__Radio input[type='radio'] {
+  accent-color: var(--theme-background-colour);
   margin-left: 0;
 }
 
 .Control__Checkbox,
-.Control__Checkbox input[type='checkbox']:not(:disabled) {
+.Control__Checkbox input[type='checkbox']:not(:disabled),
+.Control__Radio,
+.Control__Radio input[type='radio']:not(:disabled) {
   cursor: pointer;
 }

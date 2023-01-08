@@ -5,7 +5,7 @@ export { default as deleteBracketTemplate } from './services/deleteBracket';
 
 /* Tournament */
 export * from './services/getTournaments';
-export { default as createTournament } from './services/createTournament';
+export * from './services/createTournament';
 export { default as saveTournament } from './services/saveTournament';
 export { default as deleteTournament } from './services/deleteTournament';
 

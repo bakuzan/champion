@@ -5,6 +5,8 @@ import * as api from './api';
 import { AppSettingsMap } from 'types/AppSetting';
 import { BracketTemplate } from 'types/BracketTemplate';
 import { Tournament, TournamentRoundMatchup } from 'types/Tournament';
+import { BracketInformation } from 'types/BracketInformation';
+import { BracketParticipant } from 'types/BracketParticipant';
 
 // Create the api to expose to the renderer
 contextBridge.exposeInMainWorld('Champion', {
@@ -22,6 +24,10 @@ contextBridge.exposeInMainWorld('Champion', {
   getTournament: (tourneyId: string | number) => api.getTournament(tourneyId),
   createTournament: (bracketTemplateId: number) =>
     api.createTournament(bracketTemplateId),
+  createTournamentFromResults: (
+    bracketTemplate: BracketInformation,
+    bracketParticipants: BracketParticipant[]
+  ) => api.createTournamentFromResults(bracketTemplate, bracketParticipants),
   saveTournament: (payload: Tournament) => api.saveTournament(payload),
   deleteTournament: (tourneyId: string | number) =>
     api.deleteTournament(tourneyId),

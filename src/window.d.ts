@@ -27,6 +27,10 @@ export interface ChampionApi {
   getTournaments(): HomePageLink[];
   getTournament(tourneyId: string | number): SingleEliminationTournament;
   createTournament(bracketTemplateId: number): CreateTournamentResponse;
+  createTournamentFromResults(
+    bracketTemplate: BracketInformation,
+    bracketParticipants: BracketParticipant[]
+  ): CreateTournamentResponse;
   saveTournament(payload: Tournament): SaveTournamentResponse;
   deleteTournament(tournamentId: string | number): DeleteTournamentResponse;
   /* Tournament Match endpoints */
