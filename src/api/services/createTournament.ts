@@ -53,8 +53,12 @@ export function createTournament(
 }
 
 export function createTournamentFromResults(
-  bracketTemplate: BracketInformation,
+  tournament: BracketInformation,
   bracketParticipants: BracketParticipant[]
 ) {
-  return createTournamentFromData(bracketTemplate, bracketParticipants);
+  return createTournamentFromData(
+    tournament,
+    bracketParticipants,
+    tournament.id
+  );
 }

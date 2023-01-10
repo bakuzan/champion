@@ -17,7 +17,8 @@ const resolveParticipantIds = (match: BracketMatchup) => ({
 
 export default function createTournamentFromData(
   bracketTemplate: BracketInformation,
-  bracketParticipants: BracketParticipant[]
+  bracketParticipants: BracketParticipant[],
+  ancestorTournamentId: number = null
 ): CreateTournamentResponse {
   const errorMessages = new Map<string, string>([]);
 
@@ -25,8 +26,8 @@ export default function createTournamentFromData(
    */
   let tournamentId: number = null;
   const insertTournament = db.prepare(`
-    INSERT INTO Tournament(name,description)
-    VALUES (@name, @description)`);
+    INSERT INTO Tournament(name,description,ancestorTournamentId)
+    VALUES (@name, @description,@ancestorTournamentId)`);
 
   const insertNewBracketParticipant = db.prepare(`
     INSERT INTO TournamentParticipant(text,image,seedOrder,tournamentId) 
@@ -40,7 +41,11 @@ export default function createTournamentFromData(
 
   const createTournament = db.transaction(
     (template: BracketInformation, participants: BracketParticipant[]) => {
-      const resultTemplate = insertTournament.run(template);
+      const resultTemplate = insertTournament.run({
+        ...template,
+        ancestorTournamentId
+      });
+
       tournamentId = resultTemplate.lastInsertRowid as number;
 
       for (const part of participants) {

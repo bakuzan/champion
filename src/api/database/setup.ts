@@ -14,15 +14,17 @@ export function readSQLFiles() {
     return filenames
       .filter((x) => x.endsWith('sql'))
       .map((filename) => {
+        const prefix = filename.split('.')[0];
         const content = fs.readFileSync(
           path.join(targetFolder, filename),
           'utf-8'
         );
 
         return {
-          number: Number(filename.split('.')[0]),
+          number: Number(prefix.replace('m_', '')),
           name: filename,
-          script: content.toString()
+          script: content.toString(),
+          migration: prefix.includes('m_')
         };
       });
   } catch (err) {
@@ -32,5 +34,11 @@ export function readSQLFiles() {
 }
 
 export default function setupExecution() {
-  return readSQLFiles().sort((a, b) => a.number - b.number);
+  return readSQLFiles().sort((a, b) => {
+    if (a.migration === b.migration) {
+      return a.number - b.number;
+    } else {
+      return a.migration ? 0 : -1;
+    }
+  });
 }
