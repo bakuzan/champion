@@ -1,7 +1,9 @@
+import { FinalsRoundName } from 'constants/index';
+
 export function getRoundNameFromMatchCount(matchCount: number) {
   switch (matchCount) {
     case 1:
-      return 'Finals';
+      return FinalsRoundName;
     case 2:
       return 'Semi-Finals';
     case 4:
@@ -18,7 +20,7 @@ function getRoundText(
 ) {
   switch (currentRound) {
     case finalRound:
-      return 'Finals';
+      return FinalsRoundName;
     case finalRound - 1:
       return 'Semi-Finals';
     case finalRound - 2:
@@ -35,6 +37,7 @@ export function getRoundNameFromRoundNumbers(
 ) {
   const bracketSize = Math.pow(2, finalRound);
   const isQualifier = participantCount !== bracketSize;
+
   if (currentRound === 1 && isQualifier) {
     const nextText = getRoundText(finalRound, currentRound + 1, bracketSize);
     return `Qualifier for ${nextText}`;

@@ -25,7 +25,7 @@ export function buildRounds(participants: BracketParticipant[]) {
   participantsAfterQualifiers.push(...generateTBCParticipants(remainder));
 
   const orderedPostQualifiers = orderBySeed(participantsAfterQualifiers);
-  rounds.push(populateRound(orderedPostQualifiers));
+  rounds.push(populateRound(orderedPostQualifiers, false));
 
   // Create future rounds based on participant count
   if (orderedPostQualifiers.length > 2) {

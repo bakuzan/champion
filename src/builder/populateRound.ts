@@ -9,7 +9,8 @@ import chunk from 'utils/chunk';
 import { getRoundNameFromMatchCount } from 'utils/getRoundName';
 
 export function populateRound(
-  participants: BracketParticipant[]
+  participants: BracketParticipant[],
+  isFinal: boolean
 ): BracketRound {
   const matchups: BracketMatchup[] = [];
   const pairs = chunk(participants, 2);
@@ -22,7 +23,7 @@ export function populateRound(
   }
 
   return {
-    name: getRoundNameFromMatchCount(matchups.length),
+    name: getRoundNameFromMatchCount(isFinal ? 1 : matchups.length),
     matchups
   };
 }

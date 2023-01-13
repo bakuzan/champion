@@ -55,10 +55,10 @@ export default function saveTournamentMatchResult(
       // nextMatch will be null if the update is for the final match!
       if (nextMatch) {
         const willBeParticipantOne = update.roundMatchNumber % 2 !== 0;
-        const winningParticipant =
+        const [winningParticipant, losingParticipant] =
           update.participantOneScore > update.participantTwoScore
-            ? update.participantOne
-            : update.participantTwo;
+            ? [update.participantOne, update.participantTwo]
+            : [update.participantTwo, update.participantOne];
 
         const updateNextMatchup = willBeParticipantOne
           ? updateNextMatchupParticipantOne
@@ -68,6 +68,32 @@ export default function saveTournamentMatchResult(
           ...nextRoundQueryParams,
           participantId: winningParticipant.id
         });
+
+        /* Do third place playoff round checks/updates */
+        const nextNextRoundFirstMatch = nextRoundMatch.get({
+          tournamentId: update.tournamentId,
+          roundNumber: nextRoundNumber + 1,
+          roundMatchNumber: 1
+        });
+
+        // If next next round does not exist, then next round is the final
+        const isFinalRound = !nextNextRoundFirstMatch;
+
+        if (isFinalRound) {
+          const playoffQueryParams = {
+            ...nextRoundQueryParams,
+            roundMatchNumber: nextRoundQueryParams.roundMatchNumber + 1
+          };
+
+          const playoffMatch = nextRoundMatch.get(playoffQueryParams);
+
+          if (playoffMatch) {
+            updateNextMatchup.run({
+              ...playoffQueryParams,
+              participantId: losingParticipant.id
+            });
+          }
+        }
       }
     }
   );

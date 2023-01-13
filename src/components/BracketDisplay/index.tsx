@@ -10,7 +10,7 @@ import { AppContext } from 'context/index';
 import ZoomTools from './ZoomTools';
 
 import classNames from 'utils/classNames';
-import { isPlaceholder, isQualifierRound } from 'utils/checks';
+import { isPlaceholder, isQualifierRound, isFinalRound } from 'utils/checks';
 import { getTournamentWinner, getMatchProps, getSlotProps } from './utils';
 import { getShowSeedOrder, getWinnerCrownColour } from 'utils/settings';
 import getCrownImage from 'utils/getCrownImage';
@@ -51,8 +51,11 @@ function BracketDisplay(props: BracketDisplayProps) {
             <TransformComponent>
               {props.rounds.map((br) => {
                 const isQualifiers = isQualifierRound(br);
+                const isFinal = isFinalRound(br);
                 const roundParticipantCount = isQualifiers
                   ? bracketSize
+                  : isFinal
+                  ? 2
                   : br.matchups.length * 2;
 
                 return (

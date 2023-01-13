@@ -10,8 +10,11 @@ export default function generateRounds(participantCount: number) {
   let remainingCount = participantCount;
 
   while (building) {
-    const dummyParticipants = generateTBCParticipants(remainingCount);
-    rounds.push(populateRound(dummyParticipants));
+    const hasThirdPlacePlayoff = remainingCount === 2;
+    const roundParticipantCount = hasThirdPlacePlayoff ? 4 : remainingCount;
+
+    const dummyParticipants = generateTBCParticipants(roundParticipantCount);
+    rounds.push(populateRound(dummyParticipants, hasThirdPlacePlayoff));
 
     remainingCount /= 2;
     building = remainingCount !== 1;

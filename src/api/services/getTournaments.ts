@@ -54,13 +54,14 @@ export function getTournament(tourneyId: string | number) {
 
   for (let i = 1; i <= finalRound; i++) {
     const roundMatches = matchups.filter((x) => x.roundNumber === i);
+    const isFinal = i === finalRound;
     const isQualifier =
       i === 1 && roundMatches.some((x) => x.participantOneId === null);
 
     rounds.push({
       name: isQualifier
         ? QualifierRoundName
-        : getRoundNameFromMatchCount(roundMatches.length),
+        : getRoundNameFromMatchCount(isFinal ? 1 : roundMatches.length),
       matchups: roundMatches.map((x) => {
         const uid = x.roundNumber + x.roundMatchNumber;
 

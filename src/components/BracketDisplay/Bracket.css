@@ -132,6 +132,11 @@
   border-bottom: 2px solid var(--matchup-border-colour, #000);
 }
 
+/* Shrink the third place playoff */
+.Round--2 .Matchup:nth-child(3) {
+  height: 200px;
+}
+
 /* Matchup Slot */
 .Matchup_Slot {
   color: var(--matchup-slot-colour);
