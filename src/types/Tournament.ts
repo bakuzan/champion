@@ -7,6 +7,7 @@ export interface Tournament {
   name: string;
   description: string;
   createdAt: string;
+  includePlayoff?: number;
 }
 
 export interface TournamentParticipant extends Participant {

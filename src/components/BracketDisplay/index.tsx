@@ -23,6 +23,7 @@ import getCrownImage from 'utils/getCrownImage';
 import './Bracket.css';
 
 interface BracketDisplayProps {
+  includePlayoff?: number;
   rounds: BracketRound[] | TournamentRound[];
   onSlotClick?: (participant: BracketParticipant) => void;
   onMatchSelect?: (match: TournamentRoundMatchup) => void;
@@ -145,7 +146,12 @@ function BracketDisplay(props: BracketDisplayProps) {
                   </div>
                 );
               })}
-              <div className="TournamentOutcomes">
+              <div
+                className={classNames(
+                  'TournamentOutcomes',
+                  props.includePlayoff && 'TournamentOutcomes--Playoff'
+                )}
+              >
                 {winner && (
                   <div className="TournamentWinner">
                     <img

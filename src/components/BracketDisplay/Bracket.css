@@ -199,12 +199,12 @@
 }
 
 .TournamentWinner {
-  /* -200px for the thirdplace match, -68px for crown spacing */
-  top: calc(50% - 200px - 68px);
-}
-.TournamentWinner:only-child {
   /* -68px for crown spacing */
   top: calc(50% - 68px);
+}
+.TournamentOutcomes--Playoff .TournamentWinner {
+  /* -200px for the thirdplace match, -68px for crown spacing */
+  top: calc(50% - 200px - 68px);
 }
 
 .TournamentThirdPlace {

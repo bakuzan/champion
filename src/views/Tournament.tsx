@@ -141,6 +141,7 @@ function Tournament() {
             />
           ) : (
             <BracketDisplay
+              includePlayoff={data.information.includePlayoff}
               rounds={bracketRounds}
               onMatchSelect={(data) =>
                 dispatch({ type: 'SET_SELECTED_MATCH', data })
