@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classNames from 'utils/classNames';
 
 interface RadioProps
   extends Omit<
@@ -17,7 +18,13 @@ export default function Radio(props: RadioProps) {
 
   return (
     <div className="Control">
-      <label className="Control__Radio" htmlFor={props.id}>
+      <label
+        className={classNames(
+          'Control__Radio',
+          inputProps.disabled && 'Control__Radio--Disabled'
+        )}
+        htmlFor={props.id}
+      >
         <input type="radio" {...inputProps} />
         {label}
       </label>

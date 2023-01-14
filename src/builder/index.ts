@@ -6,7 +6,10 @@ import { populateRound, populateQualifiers } from './populateRound';
 import generateRounds from './generateRounds';
 import generateTBCParticipants from './generateTBCParticipants';
 
-export function buildRounds(participants: BracketParticipant[]) {
+export function buildRounds(
+  participants: BracketParticipant[],
+  includePlayoff?: number
+) {
   const rounds: BracketRound[] = [];
   const participantCount = participants.length;
 
@@ -29,7 +32,9 @@ export function buildRounds(participants: BracketParticipant[]) {
 
   // Create future rounds based on participant count
   if (orderedPostQualifiers.length > 2) {
-    rounds.push(...generateRounds(orderedPostQualifiers.length / 2));
+    rounds.push(
+      ...generateRounds(orderedPostQualifiers.length / 2, includePlayoff)
+    );
   }
 
   // Create qualifier round if the number of participants doesn't fit.

@@ -101,7 +101,10 @@ function BracketCreator() {
     scrollToAndFocusParticipantControl(num);
   }
 
-  const bracketRounds = buildRounds(data.participants);
+  const bracketRounds = buildRounds(
+    data.participants,
+    data.information.includePlayoff
+  );
   console.log('<BracketCreator> :: ', { data, templateId });
 
   return (

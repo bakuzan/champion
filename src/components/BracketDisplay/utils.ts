@@ -88,3 +88,19 @@ export function getTournamentWinner(
   const finalMatch = finalRound.matchups[0];
   return getWinningParticipant(finalMatch);
 }
+
+export function getTournamentThirdPlace(
+  rounds: BracketRound[] | TournamentRound[]
+) {
+  const finalRound = rounds[rounds.length - 1];
+  if (!finalRound) {
+    return false;
+  }
+
+  const playoffMatch = finalRound.matchups[1];
+  if (!playoffMatch) {
+    return false;
+  }
+
+  return getWinningParticipant(playoffMatch);
+}

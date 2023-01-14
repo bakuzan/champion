@@ -6,7 +6,7 @@ import { AppContext } from 'context/index';
 
 import ErrorMessages from 'components/ErrorMessages';
 import LoadingDisplay from 'components/LoadingDisplay';
-import { TextInput } from 'components/Controls';
+import { Checkbox, TextInput } from 'components/Controls';
 
 import classNames from 'utils/classNames';
 
@@ -58,8 +58,23 @@ export default function InformationPanel() {
           }
         />
       </div>
+      <Checkbox
+        id="bracketIncludePlayoff"
+        name="includePlayoff"
+        label="Include Playoff"
+        checked={information.includePlayoff ? true : false}
+        disabled={!isBracket}
+        onChange={(event) =>
+          updateInformation({
+            includePlayoff: event.currentTarget.checked ? 1 : 0
+          })
+        }
+      />
       <LoadingDisplay isLoading={saving}>
-        <div className="ButtonGroup ButtonGroup--Split">
+        <div
+          className="ButtonGroup ButtonGroup--Split"
+          style={{ margin: `5px 0` }}
+        >
           <button
             type="button"
             className="PrimaryButton"

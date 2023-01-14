@@ -11,7 +11,12 @@ import ZoomTools from './ZoomTools';
 
 import classNames from 'utils/classNames';
 import { isPlaceholder, isQualifierRound, isFinalRound } from 'utils/checks';
-import { getTournamentWinner, getMatchProps, getSlotProps } from './utils';
+import {
+  getTournamentWinner,
+  getTournamentThirdPlace,
+  getMatchProps,
+  getSlotProps
+} from './utils';
 import { getShowSeedOrder, getWinnerCrownColour } from 'utils/settings';
 import getCrownImage from 'utils/getCrownImage';
 
@@ -33,6 +38,7 @@ function BracketDisplay(props: BracketDisplayProps) {
 
   const bracketSize = Math.pow(2, roundCount);
   const winner = getTournamentWinner(props.rounds);
+  const thirdPlace = getTournamentThirdPlace(props.rounds);
   const showSeedOrder = getShowSeedOrder(settings);
   console.log('<Bracket> :: ', props.rounds);
 
@@ -139,16 +145,25 @@ function BracketDisplay(props: BracketDisplayProps) {
                   </div>
                 );
               })}
-              {winner && (
-                <div className="TournamentWinner">
-                  <img
-                    className="TournamentCrownImage"
-                    src={getCrownImage(getWinnerCrownColour(settings))}
-                    alt="Crown"
-                  />
-                  <div className="TournamentWinner__Text">{winner.text}</div>
-                </div>
-              )}
+              <div className="TournamentOutcomes">
+                {winner && (
+                  <div className="TournamentWinner">
+                    <img
+                      className="TournamentCrownImage"
+                      src={getCrownImage(getWinnerCrownColour(settings))}
+                      alt="Crown"
+                    />
+                    <div className="TournamentWinner__Text">{winner.text}</div>
+                  </div>
+                )}
+                {thirdPlace && (
+                  <div className="TournamentThirdPlace">
+                    <div className="TournamentThirdPlace__Text">
+                      {thirdPlace.text}
+                    </div>
+                  </div>
+                )}
+              </div>
             </TransformComponent>
           </React.Fragment>
         )}

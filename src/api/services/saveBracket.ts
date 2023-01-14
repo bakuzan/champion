@@ -35,6 +35,7 @@ export default async function saveBracketTemplate(payload: BracketTemplate) {
         UPDATE BracketTemplate
            SET name = @name
              , description = @description 
+             , includePlayoff = @includePlayoff
          WHERE id = @id`);
     const updateExistingBracketParticipant = db.prepare(`
         UPDATE BracketParticipant
@@ -84,8 +85,8 @@ export default async function saveBracketTemplate(payload: BracketTemplate) {
   } else {
     // Create new template
     const insertNewBracketTemplate = db.prepare(`
-        INSERT INTO BracketTemplate(name,description) 
-        VALUES (@name, @description)`);
+        INSERT INTO BracketTemplate(name,description,includePlayoff) 
+        VALUES (@name, @description, @includePlayoff)`);
 
     const createBracketTemplate = db.transaction((input: BracketTemplate) => {
       const resultTemplate = insertNewBracketTemplate.run(input);

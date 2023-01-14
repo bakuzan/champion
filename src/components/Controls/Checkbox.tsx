@@ -1,4 +1,5 @@
 import * as React from 'react';
+import classNames from 'utils/classNames';
 
 interface CheckboxProps
   extends Omit<
@@ -17,7 +18,13 @@ export default function Checkbox(props: CheckboxProps) {
 
   return (
     <div className="Control">
-      <label className="Control__Checkbox" htmlFor={props.id}>
+      <label
+        className={classNames(
+          'Control__Checkbox',
+          inputProps.disabled && 'Control__Checkbox--Disabled'
+        )}
+        htmlFor={props.id}
+      >
         <input type="checkbox" {...inputProps} />
         {label}
       </label>

@@ -11,6 +11,7 @@ export function mapDataToPayload(
     return {
       name: `${information.name} (Copy of Id:${information.id})`,
       description: information.description,
+      includePlayoff: information.includePlayoff,
       participants: participants.map((x) => ({
         id: -1, // This is ignored on create, which New Copy would be.
         text: x.text,

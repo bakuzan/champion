@@ -62,7 +62,7 @@ export default function ResultsDisplay(props: ResultsDisplayProps) {
           mapToBracketTemplate(information, participants, true)
         )
       : window.Champion.createTournamentFromResults(information, participants);
-    console.log(` < RESPONSE > `, response);
+
     if (response.success) {
       navigate(
         isSaveBracketTemplateResponse(response)

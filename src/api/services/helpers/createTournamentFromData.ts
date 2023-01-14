@@ -26,8 +26,8 @@ export default function createTournamentFromData(
    */
   let tournamentId: number = null;
   const insertTournament = db.prepare(`
-    INSERT INTO Tournament(name,description,ancestorTournamentId)
-    VALUES (@name, @description,@ancestorTournamentId)`);
+    INSERT INTO Tournament(name,description,includePlayoff,ancestorTournamentId)
+    VALUES (@name, @description, @includePlayoff, @ancestorTournamentId)`);
 
   const insertNewBracketParticipant = db.prepare(`
     INSERT INTO TournamentParticipant(text,image,seedOrder,tournamentId) 
@@ -57,7 +57,7 @@ export default function createTournamentFromData(
         part.id = resultParticipant.lastInsertRowid as number;
       }
 
-      const rounds = buildRounds(participants);
+      const rounds = buildRounds(participants, template.includePlayoff);
 
       for (let i = 0; i < rounds.length; i++) {
         const currentRound = rounds[i];
